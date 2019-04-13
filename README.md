@@ -1,7 +1,5 @@
-<a href="https://packagist.org/packages/dalholm/laravel-vuetify-spa-admin"><img src="https://poser.pugx.org/dalholm/laravel-vuetify-spa-admin/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/dalholm/laravel-vuetify-spa-admin"><img src="https://poser.pugx.org/dalholm/laravel-vuetify-spa-admin/v/stable.svg" alt="Latest Stable Version"></a>
 
-# LVA Laravel Vuetifyjs Admin SPA 
+# Rich Wholesale 
 
 A simple lightweight admin template based on laravel and vuetifyjs. Simple and clean
 
@@ -52,7 +50,4 @@ npm run hot
 ```bash
 npm run production
 ```
-
-## Changelog
-Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
 
