@@ -6,7 +6,6 @@ const mix = require('laravel-mix')
 mix
   .js('resources/assets/js/app.js', 'public/js')
   .stylus('resources/assets/stylus/app.styl', 'public/css')
-  .sourceMaps()
   .disableNotifications()
   .copyDirectory('resources/assets/img', 'public/img')
 
