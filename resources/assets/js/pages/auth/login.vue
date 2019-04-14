@@ -61,22 +61,27 @@ import Form from 'vform'
 
 export default {
   name: 'login-view',
-  metaInfo () {
+  metaInfo() {
     return { title: this.$t('login') }
   },
-  data: () => ({
-    form: new Form({
-      email: '',
-      password: ''
-    }),
-    eye: true,
-    remember: false,
-    busy: false
-  }),
+  data() {
+    return {
+      form: new Form({
+        email: '',
+        password: ''
+      }),
+      eye: true,
+      remember: false,
+      busy: false
+    }
+  },
 
   methods: {
-    async login () {
-      console.log(this);
+    test() {
+      console.log('test',this);
+      console.log('test',this.busy);
+    },
+    async login() {
       if (await this.formHasErrors()) return;
       this.busy = true
 
@@ -96,9 +101,10 @@ export default {
       // Redirect home.
       this.$router.push({ name: 'home' })
     },
-    created() {
-      console.log('created', this)
-    }
+  },
+  created() {
+    console.log('created', this);
+    this.test()
   }
 }
 </script>
