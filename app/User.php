@@ -10,6 +10,11 @@ class User extends Authenticatable implements JWTSubject
 {
     use Notifiable;
 
+    const ROLE_WHOLESALE_ADMIN = 'ROLE_WHOLESALE_ADMIN';
+    const ROLE_WHOLESALE_USER = 'ROLE_WHOLESALE_ADMIN';
+    const ROLE_COMPANY_USER = 'ROLE_COMPANY_USER';
+    const ROLE_COMPANY_ADMIN = 'ROLE_COMPANY_ADMIN';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -42,5 +47,30 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    public function companies()
+    {
+        return $this->belongsToMany(Company::class);
+    }
+
+    public function orders()
+    {
+        return Order
+            ::select('orders.*')
+            ->join('company_user', 'orders.company_id', '=', 'company_user.company_id')
+            ->join('companies', 'companies.id', '=', 'orders.company_id')
+            ->join('users', 'users.id', '=', 'company_user.user_id')
+            ->where('users.id', $this->id);
+    }
+
+    public function getOrdersAttribute()
+    {
+        return $this->orders()->with('company')->get();
+    }
+
+    public function hasRole($role)
+    {
+        return $this->role == $role;
     }
 }
