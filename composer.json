@@ -63,7 +63,7 @@
             "@php artisan package:discover --ansi"
         ],
         "compile": [
-          "php artisan migrate:fresh --seed",
+          "php artisan migrate",
           "npm install",
           "npm run production"
         ]
