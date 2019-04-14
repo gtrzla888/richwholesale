@@ -66,7 +66,7 @@ class User extends Authenticatable implements JWTSubject
 
     public function getOrdersAttribute()
     {
-        return $this->orders()->with('company')->get();
+        return $this->orders()->with('company')->with('items.product')->get();
     }
 
     public function hasRole($role)

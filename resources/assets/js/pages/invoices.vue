@@ -1,13 +1,13 @@
 <template>
   <v-card>
     <v-card-title class="grey lighten-4">
-      <h3 class="headline mb-0">{{ $t('Orders') }}</h3>
+      <h3 class="headline mb-0">{{ $t('Invoices') }}</h3>
     </v-card-title>
     <v-divider></v-divider>
     <v-card-text>
       <v-data-table
         :headers="headers"
-        :items="orders"
+        :items="invoices"
         class="elevation-1"
       >
         <template v-slot:items="props">
@@ -41,7 +41,7 @@
           { text: 'Statue', value: 'status' },
           { text: 'Order Date', value: 'created_at' }
         ],
-        orders: []
+        invoices: []
       }
     },
     name: 'home-view',
@@ -49,14 +49,14 @@
       return { title: this.$t('Orders') }
     },
     methods: {
-      async loadOrders() {
+      async loadInvoices() {
         const { data } = await axios.get('/api/orders')
-        this.orders = data;
+        this.invoices = data;
         console.log(data);
       }
     },
     created () {
-      this.loadOrders();
+      this.loadInvoices();
     }
   }
 </script>

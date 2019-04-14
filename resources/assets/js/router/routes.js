@@ -5,6 +5,8 @@ export default ({ authGuard, guestGuard }) => [
   ...authGuard([
     { path: '/home', name: 'home', component: require('~/pages/home.vue') },
     { path: '/orders', name: 'orders', component: require('~/pages/orders.vue') },
+    { path: '/quotes', name: 'quotes', component: require('~/pages/quotes.vue') },
+    { path: '/invoices', name: 'invoices', component: require('~/pages/invoices.vue') },
     { path: '/settings',
       component: require('~/pages/settings/index.vue'),
       children: [
