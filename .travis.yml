@@ -1,9 +1,10 @@
+sudo: required
+
 services:
     - docker
 
-sudo: required
-
 before_install:
+    - sudo /etc/init.d/mysql stop
     - cp .env.dusk.local .env
     - docker-compose build
     - docker-compose up -d
