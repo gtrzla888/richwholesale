@@ -58,6 +58,7 @@
 
 <script>
 import Form from 'vform'
+import Vue from 'vue'
 
 export default {
   name: 'login-view',
@@ -71,34 +72,61 @@ export default {
     }),
     eye: true,
     remember: false,
-    busy: false
-  }),
+    busy: false,
+}),
 
   methods: {
-    async login () {
+    login () {
       console.log(this);
-      if (await this.formHasErrors()) return;
-      this.busy = true
 
-      // Submit the form.
-      const { data } = await this.form.post('/api/login')
+      if (this.formHasErrors()) return;
+      this.formHasErrors().then(isFormValid => {
+        if (!isFormValid) {
+          return;
+        } else {
+          this.busy = true;
+          // Submit the form.
+          this.form.post('/api/login').then(res => {
+            const { data } = res;
+            // Save the token.
+            this.$store.dispatch('saveToken', {
+              token: data.token,
+              remember: this.remember
+            })
 
-      // Save the token.
-      this.$store.dispatch('saveToken', {
-        token: data.token,
-        remember: this.remember
-      })
+            // Fetch the user.
+            // await this.$store.dispatch('fetchUser')
+            this.$store.dispatch('fetchUser').then(res => {
+              this.busy = false
+              // Redirect home.
+              this.$router.push({ name: 'home' })
+            });
 
-      // Fetch the user.
-      await this.$store.dispatch('fetchUser')
-      this.busy = false
-
-      // Redirect home.
-      this.$router.push({ name: 'home' })
+          });
+          // const { data } = await this.form.post('/api/login')
+        }
+      });
+      // this.busy = true
+      //
+      // // Submit the form.
+      // const { data } = await this.form.post('/api/login')
+      //
+      // // Save the token.
+      // this.$store.dispatch('saveToken', {
+      //   token: data.token,
+      //   remember: this.remember
+      // })
+      //
+      // // Fetch the user.
+      // await this.$store.dispatch('fetchUser')
+      // this.busy = false
+      //
+      // // Redirect home.
+      // this.$router.push({ name: 'home' })
     },
     created() {
       console.log('created', this)
     }
-  }
+  },
 }
 </script>
