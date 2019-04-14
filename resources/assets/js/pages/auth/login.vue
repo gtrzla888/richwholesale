@@ -103,30 +103,12 @@ export default {
             });
 
           });
-          // const { data } = await this.form.post('/api/login')
         }
       });
-      // this.busy = true
-      //
-      // // Submit the form.
-      // const { data } = await this.form.post('/api/login')
-      //
-      // // Save the token.
-      // this.$store.dispatch('saveToken', {
-      //   token: data.token,
-      //   remember: this.remember
-      // })
-      //
-      // // Fetch the user.
-      // await this.$store.dispatch('fetchUser')
-      // this.busy = false
-      //
-      // // Redirect home.
-      // this.$router.push({ name: 'home' })
     },
     created() {
       console.log('created', this)
     }
-  },
+  }
 }
 </script>

@@ -78,15 +78,17 @@ export default {
     return { title: this.$t('register') }
   },
 
-  data: () => ({
-    form: new Form({
-      name: '',
-      email: '',
-      password: '',
-      password_confirmation: ''
-    }),
-    eye: true
-  }),
+  data() {
+    return {
+      form: new Form({
+        name: '',
+        email: '',
+        password: '',
+        password_confirmation: ''
+      }),
+      eye: true
+    }
+  },
 
   methods: {
     async register () {
