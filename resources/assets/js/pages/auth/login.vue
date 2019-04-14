@@ -58,53 +58,57 @@
 
 <script>
 import Form from 'vform'
+import Vue from 'vue'
 
 export default {
   name: 'login-view',
-  metaInfo() {
+  metaInfo () {
     return { title: this.$t('login') }
   },
-  data() {
-    return {
-      form: new Form({
-        email: '',
-        password: ''
-      }),
-      eye: true,
-      remember: false,
-      busy: false
-    }
-  },
+  data: () => ({
+    form: new Form({
+      email: '',
+      password: ''
+    }),
+    eye: true,
+    remember: false,
+    busy: false,
+}),
 
   methods: {
-    test() {
-      console.log('test',this);
-      console.log('test',this.busy);
+    login () {
+      console.log(this);
+
+      if (this.formHasErrors()) return;
+      this.formHasErrors().then(isFormValid => {
+        if (!isFormValid) {
+          return;
+        } else {
+          this.busy = true;
+          // Submit the form.
+          this.form.post('/api/login').then(res => {
+            const { data } = res;
+            // Save the token.
+            this.$store.dispatch('saveToken', {
+              token: data.token,
+              remember: this.remember
+            })
+
+            // Fetch the user.
+            // await this.$store.dispatch('fetchUser')
+            this.$store.dispatch('fetchUser').then(res => {
+              this.busy = false
+              // Redirect home.
+              this.$router.push({ name: 'home' })
+            });
+
+          });
+        }
+      });
     },
-    async login() {
-      if (await this.formHasErrors()) return;
-      this.busy = true
-
-      // Submit the form.
-      const { data } = await this.form.post('/api/login')
-
-      // Save the token.
-      this.$store.dispatch('saveToken', {
-        token: data.token,
-        remember: this.remember
-      })
-
-      // Fetch the user.
-      await this.$store.dispatch('fetchUser')
-      this.busy = false
-
-      // Redirect home.
-      this.$router.push({ name: 'home' })
-    },
-  },
-  created() {
-    console.log('created', this);
-    this.test()
+    created() {
+      console.log('created', this)
+    }
   }
 }
 </script>
