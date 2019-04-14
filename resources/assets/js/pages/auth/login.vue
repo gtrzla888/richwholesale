@@ -76,7 +76,8 @@ export default {
 
   methods: {
     async login () {
-      if (await this.formHasErrors()) return
+      console.log(this);
+      if (await this.formHasErrors()) return;
       this.busy = true
 
       // Submit the form.
@@ -94,6 +95,9 @@ export default {
 
       // Redirect home.
       this.$router.push({ name: 'home' })
+    },
+    created() {
+      console.log('created', this)
     }
   }
 }

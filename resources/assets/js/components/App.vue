@@ -2,7 +2,7 @@
   <div id="app">
     <v-loading ref="loading"></v-loading>
     <transition name="page" mode="out-in">
-      <component v-if="layout" :is="layout"></component>
+      <component v-if="layout" v-bind:is="layout"></component>
     </transition>
   </div>
 </template>
@@ -11,14 +11,14 @@
 import Loading from './Loading'
 
 // Load layout components dynamically.
-const requireContext = require.context('../layouts', false, /.*\.vue$/)
+const requireContext = require.context('../layouts', true, /.*\.vue$/)
 
 const layouts = requireContext.keys()
   .map(file =>
     [file.replace(/(^.\/)|(\.vue$)/g, ''), requireContext(file)]
   )
   .reduce((components, [name, component]) => {
-    components[name] = component
+    components[name] = component.default
     return components
   }, {})
 
@@ -53,6 +53,7 @@ export default {
      * @param {String} layout
      */
     setLayout (layout) {
+
       if (!layout || !layouts[layout]) {
         layout = this.defaultLayout
       }
