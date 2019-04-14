@@ -1,12 +1,5 @@
-language: php
-
 services:
     - docker
-
-php:
-    - 7.2
-
-dist: trusty
 
 sudo: required
 
