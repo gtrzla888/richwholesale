@@ -8,11 +8,12 @@ before_install:
     - cp .env.dusk.local .env
     - docker-compose build
     - docker-compose up -d
+
+install:
     - docker exec -it richwholesale.local composer install --no-interaction
-    - docker exec -it richwholesale.local php artisan migrate --seed
+    - docker exec -it richwholesale.local php artisan migrate:fresh --seed
     - npm install
     - npm run production
-
 
 script:
     - docker exec -it richwholesale.local vendor/bin/phpunit
