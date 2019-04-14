@@ -8,6 +8,7 @@ before_install:
     - cp .env.dusk.local .env
     - docker-compose build
     - docker-compose up -d
+    - docker ps -a
 
 install:
     - docker exec -it richwholesale.local composer install --no-interaction
