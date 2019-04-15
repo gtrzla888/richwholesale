@@ -63,7 +63,8 @@
             "@php artisan package:discover --ansi"
         ],
         "compile": [
-          "php artisan migrate"
+            "php artisan jwt:secret",
+            "php artisan migrate"
         ]
     },
     "config": {
