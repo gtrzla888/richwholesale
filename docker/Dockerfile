@@ -17,7 +17,6 @@ RUN apt-get update && apt-get install -y \
       wget \
       git-core \
       nodejs \
-      npm \
     && rm -r /var/lib/apt/lists/* \
     && docker-php-ext-configure pdo_mysql --with-pdo-mysql=mysqlnd \
     && docker-php-ext-configure gd \
