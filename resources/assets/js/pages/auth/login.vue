@@ -58,7 +58,7 @@
 
 <script>
 import Form from 'vform'
-import Vue from 'vue'
+import { validateMixin } from '../../plugins/validation';
 
 export default {
   name: 'login-view',
@@ -73,38 +73,29 @@ export default {
     eye: true,
     remember: false,
     busy: false,
-}),
+  }),
 
+  mixins: [validateMixin],
   methods: {
-    login () {
-      console.log(this);
+    async login () {
+      if (await this.formHasErrors()) return;
+      this.busy = true
 
-      if (this.formHasErrors()) return;
-      this.formHasErrors().then(isFormValid => {
-        if (!isFormValid) {
-          return;
-        } else {
-          this.busy = true;
-          // Submit the form.
-          this.form.post('/api/login').then(res => {
-            const { data } = res;
-            // Save the token.
-            this.$store.dispatch('saveToken', {
-              token: data.token,
-              remember: this.remember
-            })
+      // Submit the form.
+      const { data } = await this.form.post('/api/login')
 
-            // Fetch the user.
-            // await this.$store.dispatch('fetchUser')
-            this.$store.dispatch('fetchUser').then(res => {
-              this.busy = false
-              // Redirect home.
-              this.$router.push({ name: 'home' })
-            });
+      // Save the token.
+      this.$store.dispatch('saveToken', {
+        token: data.token,
+        remember: this.remember
+      })
 
-          });
-        }
-      });
+      // Fetch the user.
+      await this.$store.dispatch('fetchUser')
+      this.busy = false
+
+      // Redirect home.
+      this.$router.push({ name: 'home' })
     },
     created() {
       console.log('created', this)
