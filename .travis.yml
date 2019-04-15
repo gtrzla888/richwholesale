@@ -17,14 +17,10 @@ before_install:
     - cp .env.travis .env
     - docker-compose build
     - docker-compose up -d
-    - docker ps -a
-    - docker -v
 
 install:
     - docker exec -it richwholesale.local composer install --no-interaction
-    - ls -la
     - npm install
-    - npm run production
 
 script:
     - docker exec -it richwholesale.local vendor/bin/phpunit
