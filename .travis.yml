@@ -1,7 +1,7 @@
 language: node_js
 
 node_js:
-    - "7"
+    - "10"
 
 sudo: required
 
@@ -21,7 +21,8 @@ before_install:
 
 install:
     - docker exec -it richwholesale.local composer install --no-interaction
-    - docker exec -it richwholesale.local php artisan migrate:fresh --seed
+    - ls -la
+    - php artisan migrate:fresh --seed
     - npm install
     - npm run production
 
