@@ -1,3 +1,8 @@
+language: node_js
+
+node_js:
+    - "7"
+
 sudo: required
 
 services:
@@ -7,7 +12,7 @@ addons:
     apt:
         packages:
             - docker-ce
-        
+
 before_install:
     - cp .env.travis .env
     - docker-compose build
@@ -17,8 +22,8 @@ before_install:
 install:
     - docker exec -it richwholesale.local composer install --no-interaction
     - docker exec -it richwholesale.local php artisan migrate:fresh --seed
-    - docker exec -it richwholesale.local npm install
-    - docker exec -it richwholesale.local npm run production
+    - npm install
+    - npm run production
 
 script:
     - docker exec -it richwholesale.local vendor/bin/phpunit
