@@ -18,11 +18,11 @@ before_install:
     - docker-compose build
     - docker-compose up -d
     - docker ps -a
+    - docker -v
 
 install:
     - docker exec -it richwholesale.local composer install --no-interaction
     - ls -la
-    - php artisan migrate:fresh --seed
     - npm install
     - npm run production
 
