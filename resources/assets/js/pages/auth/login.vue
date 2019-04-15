@@ -58,7 +58,7 @@
 
 <script>
 import Form from 'vform'
-import { validateMixin } from '../../plugins/validation';
+import { validateMixin } from '~/plugins/validation';
 
 export default {
   name: 'login-view',
