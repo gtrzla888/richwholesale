@@ -13,8 +13,8 @@
     "postinstall": "npm run prod"
   },
   "engines": {
-    "node": "6.11.5",
-    "npm": "4.30.0"
+    "node": "10.7.0",
+    "npm": "6.9.0"
   },
   "dependencies": {
     "@babel/runtime": "^7.4.3",
