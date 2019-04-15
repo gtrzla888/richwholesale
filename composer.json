@@ -63,9 +63,7 @@
             "@php artisan package:discover --ansi"
         ],
         "compile": [
-          "php artisan migrate",
-          "npm install",
-          "npm run production"
+          "php artisan migrate"
         ]
     },
     "config": {
