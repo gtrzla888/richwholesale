@@ -1,9 +1,8 @@
 import Vue from 'vue'
 import VeeValidate from 'vee-validate'
-
 Vue.use(VeeValidate, { delay: 250 })
 
-Vue.mixin({
+export const validateMixin = {
   $_veeValidate: {
     validator: 'new'
   },
@@ -16,4 +15,4 @@ Vue.mixin({
       return !valid
     }
   }
-})
+}
