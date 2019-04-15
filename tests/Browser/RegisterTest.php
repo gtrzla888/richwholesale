@@ -9,7 +9,7 @@ use Tests\Browser\Pages\Register;
 
 class RegisterTest extends DuskTestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         parent::setup();
 
