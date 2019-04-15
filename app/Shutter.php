@@ -2,9 +2,8 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 
-class Shutter extends Model implements Product
+class Shutter extends Product
 {
     const TYPE_BASSWOOD_SHUTTER = 'Bassword Shutter';
     const TYPE_PVC_SHUTTER = 'PVC Shutter';
@@ -14,6 +13,5 @@ class Shutter extends Model implements Product
     static $shutterTypes = [self::TYPE_BASSWOOD_SHUTTER, self::TYPE_AU_PVC_SHUTTER, self::TYPE_PVC_SHUTTER, self::TYPE_ALUMINIUM_SHUTTER];
 
     protected $guarded = [];
-
 
 }

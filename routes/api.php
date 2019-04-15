@@ -22,6 +22,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::patch('settings/password', 'Settings\UpdatePassword');
 
     Route::get('orders', 'OrderController@index');
+    Route::post('orders', 'OrderController@store');
 });
 
 Route::group(['middleware' => 'guest:api'], function () {
