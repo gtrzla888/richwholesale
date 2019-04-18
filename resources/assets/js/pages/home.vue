@@ -3,6 +3,7 @@
       <v-flex xs12 sm3 d-flex>
         <v-select
           :items="companies"
+          box
           label="Company Name (Select)"
         ></v-select>
       </v-flex>
@@ -15,7 +16,7 @@
           persistent
           lazy
           full-width
-          width="290px"
+          width="25%"
         >
           <template v-slot:activator="{ on }">
             <v-text-field
@@ -23,6 +24,7 @@
               label="Todays Date (Display) "
               prepend-icon="event"
               readonly
+              box
               v-on="on"
             ></v-text-field>
           </template>
@@ -38,6 +40,7 @@
         <v-text-field
           v-model="poRef"
           :counter="10"
+          box
           :rules="poRefRules"
           label="PO Number or Reference"
           placeholder="PO Number or Reference"
