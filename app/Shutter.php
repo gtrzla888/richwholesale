@@ -3,15 +3,31 @@
 namespace App;
 
 
-class Shutter extends Product
-{
-    const TYPE_BASSWOOD_SHUTTER = 'Bassword Shutter';
-    const TYPE_PVC_SHUTTER = 'PVC Shutter';
-    const TYPE_AU_PVC_SHUTTER = 'AU PVC Shutter';
-    const TYPE_ALUMINIUM_SHUTTER = 'Aluminium Shutter';
+use Illuminate\Database\Eloquent\Model;
 
-    static $shutterTypes = [self::TYPE_BASSWOOD_SHUTTER, self::TYPE_AU_PVC_SHUTTER, self::TYPE_PVC_SHUTTER, self::TYPE_ALUMINIUM_SHUTTER];
+abstract class Shutter extends Product
+{
+    const NAME = 'Shutter';
+
+    protected $table = 'shutters';
 
     protected $guarded = [];
+
+
+    public static function create($attributes): Model
+    {
+        $attributes = $attributes + ['name' => static::NAME];
+
+        return parent::create($attributes);
+    }
+
+    public static function rules()
+    {
+        return [
+            'name' => 'required|max:255',
+            'width' => 'required|integer',
+            'drop' => 'require|integer',
+        ];
+    }
 
 }

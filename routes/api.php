@@ -17,12 +17,16 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('logout', 'Auth\LoginController@logout');
 
     Route::get('user', 'UserController@index');
+    Route::get('user/companies', 'UserController@companies');
 
     Route::patch('settings/profile', 'Settings\UpdateProfile');
     Route::patch('settings/password', 'Settings\UpdatePassword');
 
     Route::get('orders', 'OrderController@index');
     Route::post('orders', 'OrderController@store');
+
+    Route::get('product/cost', 'ProductController@cost');
+
 });
 
 Route::group(['middleware' => 'guest:api'], function () {
@@ -30,4 +34,5 @@ Route::group(['middleware' => 'guest:api'], function () {
     Route::post('register', 'Auth\RegisterController@register');
     Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
     Route::post('password/reset', 'Auth\ResetPasswordController@reset');
+
 });

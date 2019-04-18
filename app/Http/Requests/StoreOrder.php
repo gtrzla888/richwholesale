@@ -29,10 +29,31 @@ class StoreOrder extends FormRequest
             'customer_name' => 'required',
         ];
 
-        foreach($this->request->get('shutters', []) as $key => $shutter)
+        foreach($this->request->get('bassword_shutters', []) as $key => $shutter)
         {
             foreach ($shutter as $attr => $value) {
-                $rules[sprintf('shutters.%s.%s', $key, $attr)] = 'required';
+                $rules[sprintf('bassword_shutters.%s.%s', $key, $attr)] = 'required';
+            }
+        }
+
+        foreach($this->request->get('pvc_shutters', []) as $key => $shutter)
+        {
+            foreach ($shutter as $attr => $value) {
+                $rules[sprintf('pvc_shutters.%s.%s', $key, $attr)] = 'required';
+            }
+        }
+
+        foreach($this->request->get('au_pvc_shutters', []) as $key => $shutter)
+        {
+            foreach ($shutter as $attr => $value) {
+                $rules[sprintf('au_pvc_shutters.%s.%s', $key, $attr)] = 'required';
+            }
+        }
+
+        foreach($this->request->get('aluminium_shutters', []) as $key => $shutter)
+        {
+            foreach ($shutter as $attr => $value) {
+                $rules[sprintf('aluminium_shutters.%s.%s', $key, $attr)] = 'required';
             }
         }
 

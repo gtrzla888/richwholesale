@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 abstract class Product extends Model
 {
+    const NAME = 'Product';
+
     public static $rules = [];
 
     public static function create($attributes): Model
