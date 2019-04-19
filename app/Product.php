@@ -1,15 +1,22 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Lixing
- * Date: 2019-04-14
- * Time: 11:32
- */
 
 namespace App;
 
 
-interface Product
-{
+use Illuminate\Database\Eloquent\Model;
 
+abstract class Product extends Model
+{
+    const NAME = 'Product';
+
+    public static $rules = [];
+
+    public static function create($attributes): Model
+    {
+        $shutter = new static();
+        $shutter->fill($attributes);
+        $shutter->save();
+
+        return $shutter;
+    }
 }
