@@ -2,9 +2,15 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 
-class RollerBlind extends Model implements Product
+class RollerBlind extends Product
 {
+    const NAME = 'Roller Blind';
+
     protected $guarded = [];
+
+    public static $rules = [
+        'name' => 'required',
+
+    ];
 }
