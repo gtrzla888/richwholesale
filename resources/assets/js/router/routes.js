@@ -3,7 +3,7 @@ export default ({ authGuard, guestGuard }) => [
 
   // Authenticated routes.
   ...authGuard([
-    { path: '/home', name: 'home', component: require('~/pages/home.vue').default },
+    { path: '/home', name: 'home', component: require('~/pages/home.vue').default, meta: { permission: 'admin' } },
     { path: '/orders', name: 'orders', component: require('~/pages/orders.vue').default },
     { path: '/quotes', name: 'quotes', component: require('~/pages/quotes.vue').default },
     { path: '/invoices', name: 'invoices', component: require('~/pages/invoices.vue').default },
@@ -18,11 +18,11 @@ export default ({ authGuard, guestGuard }) => [
 
   // Guest routes.
   ...guestGuard([
-    { path: '/login', name: 'login', component: require('~/pages/auth/login.vue').default },
-    { path: '/register', name: 'register', component: require('~/pages/auth/register.vue').default },
-    { path: '/password/reset', name: 'password.request', component: require('~/pages/auth/password/email.vue').default },
-    { path: '/password/reset/:token', name: 'password.reset', component: require('~/pages/auth/password/reset.vue').default }
+    { path: '/login', name: 'login', component: require('~/pages/auth/login.vue').default, meta: { rule: '*' } },
+    { path: '/register', name: 'register', component: require('~/pages/auth/register.vue').default, meta: { rule: '*' } },
+    { path: '/password/reset', name: 'password.request', component: require('~/pages/auth/password/email.vue').default, meta: { rule: '*' } },
+    { path: '/password/reset/:token', name: 'password.reset', component: require('~/pages/auth/password/reset.vue').default, meta: { rule: '*' } }
   ]),
 
-  { path: '*', component: require('~/pages/errors/404.vue').default }
+  { path: '*', name: '404', component: require('~/pages/errors/404.vue').default }
 ]

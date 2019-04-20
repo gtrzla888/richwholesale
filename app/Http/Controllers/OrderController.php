@@ -11,6 +11,7 @@ use App\OrderItem;
 use App\PVCShutter;
 use App\RollerBlind;
 use App\User;
+use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
@@ -20,7 +21,7 @@ class OrderController extends Controller
         /** @var User $user */
         $user = request()->user();
 
-        return response()->json($user->orders);
+        return Order::with('company')->with('items.product')->get();
     }
 
     public function store(StoreOrder $request)
@@ -80,6 +81,15 @@ class OrderController extends Controller
         $order->save();
 
         return $order;
+    }
+
+
+    /**
+     * @param Order $order
+     */
+    public function update(Order $order, Request $request)
+    {
+
     }
 
 }

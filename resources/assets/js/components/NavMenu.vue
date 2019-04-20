@@ -17,31 +17,33 @@
         :key="i"
         :to="item.route"
         avatar
+        v-if="item.permission"
       >
         <v-list-tile-avatar>
           <v-icon light >{{item.icon}}</v-icon>
         </v-list-tile-avatar>
         <v-list-tile-content>
-          <v-list-tile-title v-text="item.title"></v-list-tile-title>
+          <v-list-tile-title v-text="item.title" ></v-list-tile-title>
         </v-list-tile-content>
-      </v-list-tile>
+      </v-list-tile >
     </v-list>
   </div>
 </template>
 
 <script>
-export default {
-  data () {
-    return {
-      name: this.$t('nav_menu_title'),
-      items: [
-        { title: 'Dashboard', icon: 'dashboard', route: { name: 'home' } },
-        { title: 'Orders', icon: 'assignment', route:  {name: 'orders'} },
-        { title: 'Quotes', icon: 'book', route:  {name: 'quotes'} },
-        { title: 'Invoices', icon: 'description', route:  {name: 'invoices'} },
-        { title: 'Account', icon: 'account_box', route: { name: 'settings.profile' } }
-      ]
+  export default {
+    data () {
+      const user = this.$store.getters.authUser;
+      return {
+        name: this.$t('nav_menu_title'),
+        items: [
+          { title: 'Dashboard', icon: 'dashboard', route: { name: 'home' }, permission: user.isWholesaleAdmin | user.isWholesaleUser },
+          { title: 'Orders', icon: 'assignment', route:  {name: 'orders'}, permission: user.isWholesaleAdmin | user.isWholesaleUser },
+          { title: 'Quotes', icon: 'book', route:  {name: 'quotes'}, permission: user.isCompanyAdmin | user.isCompanyUser },
+          { title: 'Invoices', icon: 'description', route:  {name: 'invoices'}, permission: user.isCompanyAdmin | user.isCompanyUser },
+          { title: 'Account', icon: 'account_box', route: { name: 'settings.profile' }, permission: user.isCompanyAdmin | user.isCompanyUser }
+        ]
+      }
     }
   }
-}
 </script>

@@ -16,7 +16,7 @@ abstract class Shutter extends Product
 
     public static function create($attributes): Product
     {
-        $attributes = $attributes + ['name' => static::NAME];
+        $attributes = $attributes + ['type' => static::NAME];
 
         return parent::create($attributes);
     }

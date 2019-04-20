@@ -18,7 +18,12 @@ class User extends JsonResource
         return [
           'id' => $this->id,
           'name' => $this->name,
+          'email' => $this->email,
           'role' => $this->role,
+          'isWholesaleAdmin' => $this->isWholesaleAdmin,
+          'isWholesaleUser' => $this->isWholesaleUser,
+          'isCompanyUser' => $this->isCompanyUser,
+          'isCompanyAdmin' => $this->isCompanyAdmin,
           'companies' => CompanyResource::collection($this->whenLoaded('companies')),
         ];
     }
