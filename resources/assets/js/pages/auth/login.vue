@@ -92,6 +92,7 @@ export default {
 
       // Fetch the user.
       await this.$store.dispatch('fetchUser')
+
       this.busy = false
 
       // Redirect home.
