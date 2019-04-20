@@ -19,4 +19,13 @@ abstract class Product extends Model
 
         return $shutter;
     }
+
+    public static function rules()
+    {
+        return [
+            'name' => 'required|max:255',
+            'width' => 'required|integer',
+            'drop' => 'require|integer',
+        ];
+    }
 }

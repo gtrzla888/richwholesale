@@ -4,7 +4,7 @@
 namespace App\Service;
 
 
-class ProductPrice
+class ShutterPrice
 {
     const MIN_AREA = 0.5;
 
@@ -12,13 +12,13 @@ class ProductPrice
 
     private $pricePerSqm = 0;
 
-    private $fixedPrice = 0;
+    private $addonPrice = 0;
 
     private $criteria = [];
 
     public function __construct($criteria)
     {
-        $config = app('config')->get('price');
+        $config = app('config')->get('shutter');
         $this->criteria = $criteria;
         $this->config = $config[$criteria['product']];
     }
@@ -35,7 +35,7 @@ class ProductPrice
         $this->getPrice('corner');
         $this->getPrice('color');
 
-        return $this->area() * $this->pricePerSqm + $this->fixedPrice;
+        return $this->area() * $this->pricePerSqm + $this->addonPrice;
     }
 
     protected function getPrice($field)
@@ -45,7 +45,7 @@ class ProductPrice
         if ($price['unit'] == 'sqm') {
             $this->pricePerSqm = $price['price'] + $this->pricePerSqm;
         } else {
-            $this->fixedPrice = $price['price'] + $this->fixedPrice;
+            $this->addonPrice = $price['price'] + $this->addonPrice;
         }
     }
 }
