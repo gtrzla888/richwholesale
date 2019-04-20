@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-toolbar flat>
+    <v-toolbar flat color="#748C5D">
       <v-list>
         <v-list-tile>
           <v-list-tile-title class="title">
@@ -17,6 +17,7 @@
         :key="i"
         :to="item.route"
         avatar
+        ripple
       >
         <v-list-tile-avatar>
           <v-icon light >{{item.icon}}</v-icon>
