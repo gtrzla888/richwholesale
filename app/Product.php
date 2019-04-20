@@ -11,13 +11,18 @@ abstract class Product extends Model
 
     public static $rules = [];
 
-    public static function create($attributes): Model
+    /**
+     * @param $attributes
+     *
+     * @return Product
+     */
+    public static function create($attributes): Product
     {
-        $shutter = new static();
-        $shutter->fill($attributes);
-        $shutter->save();
+        $product = new static();
+        $product->fill($attributes);
+        $product->save();
 
-        return $shutter;
+        return $product;
     }
 
     public static function rules()
@@ -28,4 +33,6 @@ abstract class Product extends Model
             'drop' => 'require|integer',
         ];
     }
+
+    abstract function getPrice();
 }

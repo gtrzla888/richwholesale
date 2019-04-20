@@ -3,7 +3,7 @@
 namespace App;
 
 
-use Illuminate\Database\Eloquent\Model;
+use App\Service\ShutterPrice;
 
 abstract class Shutter extends Product
 {
@@ -14,7 +14,7 @@ abstract class Shutter extends Product
     protected $guarded = [];
 
 
-    public static function create($attributes): Model
+    public static function create($attributes): Product
     {
         $attributes = $attributes + ['name' => static::NAME];
 
@@ -28,6 +28,20 @@ abstract class Shutter extends Product
             'width' => 'required|integer',
             'drop' => 'require|integer',
         ];
+    }
+
+    public function getPrice()
+    {
+        $shutterPrice = new ShutterPrice([
+            'product' => static::NAME,
+            'width' => $this->width,
+            'drop' => $this->drop,
+            'shutter_type' => $this->shutter_type,
+            'corner' => $this->corner,
+            'frame' => $this->frame,
+        ]);
+
+        return $shutterPrice->getCost();
     }
 
 }

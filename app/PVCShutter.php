@@ -3,6 +3,7 @@
 namespace App;
 
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Validation\Rule;
 
 class PVCShutter extends Shutter
@@ -69,4 +70,5 @@ class PVCShutter extends Shutter
                 ]
             ];
     }
+
 }
