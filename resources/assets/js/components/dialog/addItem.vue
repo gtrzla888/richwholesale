@@ -12,7 +12,7 @@
     <v-form
       ref="form"
       v-model="valid"
-      lazy-validation="true"
+      :lazy-validation="true"
     >
       <v-card>
         <v-card-title>

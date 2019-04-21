@@ -18,7 +18,7 @@ const productLines = [{
 //    { text: 'Tilt Rod', value: 'tiltRod' },
 //    { text: 'Color', value: 'color' },
 //    { text: 'Frame', value: 'frame' },
-   { text: 'Notes', value: 'notes', sortable: false },
+    { text: 'Notes', value: 'notes', sortable: false },
     { text: 'Actions', value: 'actions', sortable: false }
   ]
 },
@@ -87,8 +87,6 @@ const productLines = [{
 //    { text: 'Frame', value: 'frame' },
    { text: 'Notes', value: 'notes', sortable: false },
     { text: 'Actions', value: 'actions', sortable: false }
-  ],
-  items: [
   ]
 },
 {
@@ -114,7 +112,6 @@ const productLines = [{
     { text: 'Notes', value: 'notes', sortable: false },
     { text: 'Actions', value: 'actions', sortable: false }
   ]
-  
 }]
 
 // state

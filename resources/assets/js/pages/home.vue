@@ -7,9 +7,9 @@
                     :items="companies"
                     item-text="name"
                     item-value="id"
-                    box
+                    outline
                     label="Company Name (Select)"
-                    v-model="order.company_id"
+                    v-model="company_id"
             ></v-select>
         </v-flex>
         <v-spacer></v-spacer>
@@ -27,9 +27,9 @@
                     <v-text-field
                             v-model="todays"
                             label="Todays Date (Display) "
-                            prepend-icon="event"
+                            prepend-inner-icon="event"
                             readonly
-                            box
+                                outline
                             v-on="on"
                     ></v-text-field>
                 </template>
@@ -43,12 +43,11 @@
         <v-spacer></v-spacer>
         <v-flex xs12 sm3 d-flex>
             <v-text-field
-                    v-model="order.po_reference"
+                    v-model="po_reference"
                     :counter="10"
-                    box
+                    outline
                     :rules="poRefRules"
                     label="PO Number or Reference"
-                    placeholder="PO Number or Reference"
                     required
             ></v-text-field>
         </v-flex>
@@ -58,7 +57,6 @@
                     class="mx-3"
                     outline
                     label="Customer Name"
-                    placeholder="Enter your customer name"
                     prepend-inner-icon="people"
             ></v-text-field>
         </v-flex>
@@ -68,9 +66,8 @@
                     name="notes"
                     label="Notes"
                     rows="1"
-                    v-model="order.notes"
+                    v-model="notes"
                     auto-grow
-                    hint="You can put some notes here..."
             ></v-textarea>
         </v-flex>
 
@@ -154,20 +151,9 @@
       modal: false,
       poRefRules: [
         v => !!v || 'PO number is required',
-        v => v.length <= 10 || 'PO number must be less than 10 characters'
       ],
       search: null,
       active: null,
-      order: {
-        company_id: '',
-        po_reference: '',
-        basswood_shutters: [],
-        pvc_shutters: [],
-        av_pvc_shtters: [],
-        aluminium_shutters: [],
-        roller_blinds: [],
-        notes: '',
-      },
       selectedTabKey: '',
       selectedProduct: {},
       selectedProductIndex: null
@@ -199,31 +185,49 @@
           this.order[this.selectedTabKey].splice(index, 1)
       }
     },
-    computed: mapGetters({
-        currentOrder: 'order',
-        companies: 'companies',
-        products: 'products',
-    }),
+    computed: {
+      ...mapGetters(['companies', 'products']),
+      order: {
+        get() {
+          return this.$store.state.order;
+        },
+        set(newOrder) {
+          this.$store.dispatch('saveOrder', { order: newOrder })
+        }
+      },
+      notes: {
+        get () {
+          return this.$store.state.order.notes
+        },
+        set (value) {
+          this.$store.commit('updateMessage', value)
+        }
+      },
+      po_reference: {
+         get () {
+           return this.$store.state.order.po_reference
+        },
+        set (value) {
+          this.$store.dispatch('updatePoReference', value)
+        }
+      },
+      company_id: {
+         get () {
+            return this.$store.state.order.company_id
+        },
+        set (value) {
+          this.$store.dispatch('updateCompanyId', value)
+        }
+      }
+    },
     components: {
       appAddItem: addItemWindow,
       appProductList: productList
-    },
-    watch: {
-        order: {
-          handler(oldOrder, newOrder) {
-            //this.$store.dispatch('saveOrder', newOrder)
-          },
-          deep: true
-        },
-        todays() {
-          console.log('changed')
-        }
     },
     created () {
       // fetch the companies
       this.$store.dispatch('fetchCompanies')
       this.$store.dispatch('fetchProducts')
-      this.$store.dispatch('getOrder')
     }
   }
 </script>
