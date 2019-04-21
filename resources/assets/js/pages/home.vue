@@ -1,5 +1,7 @@
 <template>
+    <v-form ref="form" lazy-validation>
     <v-layout row wrap align-center>
+
         <v-flex xs12 sm3 d-flex>
             <v-select
                     :items="companies"
@@ -7,6 +9,7 @@
                     item-value="id"
                     box
                     label="Company Name (Select)"
+                    v-model="order.company_id"
             ></v-select>
         </v-flex>
         <v-spacer></v-spacer>
@@ -40,7 +43,7 @@
         <v-spacer></v-spacer>
         <v-flex xs12 sm3 d-flex>
             <v-text-field
-                    v-model="poRef"
+                    v-model="order.po_reference"
                     :counter="10"
                     box
                     :rules="poRefRules"
@@ -65,7 +68,7 @@
                     name="notes"
                     label="Notes"
                     rows="1"
-                    v-model="notes"
+                    v-model="order.notes"
                     auto-grow
                     hint="You can put some notes here..."
             ></v-textarea>
@@ -128,12 +131,13 @@
                         v-for="product in products"
                         :key="product.name"
                 >
-                    <app-product-list :headers="product.headers" :shutters="product.shutters"></app-product-list>
+                    <app-product-list :headers="product.headers" :items="order[selectedTabKey]" @edit="onEdit" @remove="onRemove"></app-product-list>
                 </v-tab-item>
             </v-tabs>
         </v-flex>
-        <app-add-item></app-add-item>
+        <app-add-item @clicked="onClickChild" :type="selectedTabKey" :selectedProduct.sync="selectedProduct"></app-add-item>
     </v-layout>
+    </v-form>
 </template>
 
 <script>
@@ -146,10 +150,8 @@
       return { title: this.$t('home') }
     },
     data: () => ({
-      // companies: ['Company A', 'Company B', 'Company C'],
       todays: new Date().toISOString().substr(0, 10),
       modal: false,
-      poRef: 'A00123',
       poRefRules: [
         v => !!v || 'PO number is required',
         v => v.length <= 10 || 'PO number must be less than 10 characters'
@@ -163,28 +165,70 @@
       //   {name: 'Aluminium  Shutters'},
       //   {name: 'Roller Blinder'},
       // ],
-      notes: 'Here is note',
+
+      order: {
+        company_id: '',
+        po_reference: '',
+        basswood_shutters: [],
+        pvc_shutters: [],
+        av_pvc_shtters: [],
+        aluminium_shutters: [],
+        roller_blinds: [],
+        notes: '',
+      },
+      selectedTabKey: '',
+      selectedProduct: {},
     }),
     methods: {
       openAddItemWindow() {
         this.$store.dispatch('updateAddItemDialogStatus', {status: true});
+        this.selectedProduct = {}
       },
-      getProducts() {
+      editItem() {
+          this.$store.dispatch('updateAddItemDialogStatus', {status: true});
+      },
+      getProducts(index) {
+        this.selectedTabKey = this.products[index].key;
+        console.log(this.products[index].key);
+      },
+      onClickChild (product) {
+        this.order[product.type].push(product)
+        this.selectedProduct = {}
+      },
+      onEdit(index) {
+        this.selectedProduct = this.order[this.selectedTabKey][index]
+        this.$store.dispatch('updateAddItemDialogStatus', {status: true});
+      },
+      onRemove(index) {
+          this.order[this.selectedTabKey].splice(index, 1)
       }
     },
-    computed:{
-      ...mapGetters(['companies', 'products'])
-    },
+    computed: mapGetters({
+        currentOrder: 'order',
+        companies: 'companies',
+        products: 'products',
+    }),
     components: {
       appAddItem: addItemWindow,
       appProductList: productList
     },
+    watch: {
+        order: {
+          handler(oldOrder, newOrder) {
+            //this.$store.dispatch('saveOrder', newOrder)
+          },
+          deep: true
+        },
+        todays() {
+          console.log('changed')
+        }
+    },
     created () {
+      console.log('Order', this.order);
       // fetch the companies
       this.$store.dispatch('fetchCompanies')
       this.$store.dispatch('fetchProducts')
-      console.log(this.companies);
-      console.log(this.products);
+      this.$store.dispatch('getOrder')
     }
   }
 </script>

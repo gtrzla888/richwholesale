@@ -21,7 +21,7 @@ export const actions = {
   async fetchCompanies ({ commit }) {
     try {
       const { data } = await axios.get('/api/user/companies')
-      commit(types.FETCH_COMPANIES_SUCCESS, { companies: data.data })
+      commit(types.FETCH_COMPANIES_SUCCESS, { companies: data })
     } catch (e) {
       commit(types.FETCH_COMPANIES_FAILURE)
     }

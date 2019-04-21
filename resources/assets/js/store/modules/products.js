@@ -1,33 +1,36 @@
 import * as types from '../mutation-types'
 
 const productLines = [{
-  'name': 'Basswood Shutters',
+  name: 'Basswood Shutters',
+  key: 'basswood_shutters',
   headers: [
+    { text: 'Name', value: 'name' },
     { text: 'Width(mm)', value: 'width' },
     { text: 'Drop(mm)', value: 'drop' },
     { text: 'Sqm', value: 'sqm' },
-    { text: 'Shutter Type', value: 'type' },
-    { text: 'Panel Layout', value: 'layout' },
-    { text: 'Panel Qty', value: 'qty' },
-    { text: 'In or Out', value: 'io' },
-    { text: 'Mid Rail', value: 'mdr' },
-    { text: 'Mid Rail Height', value: 'mdHeight' },
-    { text: 'Blade Size', value: 'bsize' },
-    { text: 'Tilt Rod', value: 'tiltRod' },
-    { text: 'Color', value: 'color' },
-    { text: 'Frame', value: 'frame' },
-    { text: 'Notes', value: 'notes' },
-    { text: 'Actions', value: '' }
+    { text: 'Shutter Type', value: 'shutter_type' },
+    { text: 'Panel Layout', value: 'panel_layout' },
+    { text: 'Panel Qty', value: 'panel_qty' },
+    { text: 'In or Out', value: 'in_or_out' },
+//    { text: 'Mid Rail', value: 'mdr' },
+//    { text: 'Mid Rail Height', value: 'mdHeight' },
+//    { text: 'Blade Size', value: 'bsize' },
+//    { text: 'Tilt Rod', value: 'tiltRod' },
+//    { text: 'Color', value: 'color' },
+//    { text: 'Frame', value: 'frame' },
+//    { text: 'Notes', value: 'notes' },
+    { text: 'Actions', value: 'actions'}
   ],
-  shutters: [
+  items: [
     {
+      name: '',
       width: 0,
       drop: 0,
       sqm: 0,
-      type: 'standard',
-      layout: 'square',
-      qty: 5,
-      io: '',
+      shutter_type: 'standard',
+      panel_layout: 'square',
+      panel_qty: 5,
+      in_or_out: 'In',
       mdr: '',
       mdHeight: 0,
       bsize: 0,
@@ -39,7 +42,8 @@ const productLines = [{
   ]
 },
 {
-  'name': 'PVC Shutters',
+  name: 'PVC Shutters',
+  key: 'pvc_shutters',
   headers: [
     { text: 'Width(mm)', value: 'width' },
     { text: 'Drop(mm)', value: 'drop' },
@@ -48,36 +52,21 @@ const productLines = [{
     { text: 'Panel Layout', value: 'layout' },
     { text: 'Panel Qty', value: 'qty' },
     { text: 'In or Out', value: 'io' },
-    { text: 'Mid Rail', value: 'mdr' },
-    { text: 'Mid Rail Height', value: 'mdHeight' },
-    { text: 'Blade Size', value: 'bsize' },
-    { text: 'Tilt Rod', value: 'tiltRod' },
-    { text: 'Color', value: 'color' },
-    { text: 'Frame', value: 'frame' },
+//    { text: 'Mid Rail', value: 'mdr' },
+//    { text: 'Mid Rail Height', value: 'mdHeight' },
+//    { text: 'Blade Size', value: 'bsize' },
+//    { text: 'Tilt Rod', value: 'tiltRod' },
+//    { text: 'Color', value: 'color' },
+//    { text: 'Frame', value: 'frame' },
     { text: 'Notes', value: 'notes' },
-    { text: 'Actions', value: '' }
+    { text: 'Actions', value: 'actions' }
   ],
-  shutters: [
-    {
-      width: 0,
-      drop: 0,
-      sqm: 0,
-      type: 'standard',
-      layout: 'square',
-      qty: 5,
-      io: '',
-      mdr: '',
-      mdHeight: 0,
-      bsize: 0,
-      tiltRod: '',
-      color: '',
-      frame: '',
-      notes: ''
-    }
+  items: [
   ]
 },
 {
-  'name': 'AU PVC Shutters',
+  name: 'AU PVC Shutters',
+  key: 'au_pvc_shutters',
   headers: [
     { text: 'Width(mm)', value: 'width' },
     { text: 'Drop(mm)', value: 'drop' },
@@ -86,36 +75,21 @@ const productLines = [{
     { text: 'Panel Layout', value: 'layout' },
     { text: 'Panel Qty', value: 'qty' },
     { text: 'In or Out', value: 'io' },
-    { text: 'Mid Rail', value: 'mdr' },
-    { text: 'Mid Rail Height', value: 'mdHeight' },
-    { text: 'Blade Size', value: 'bsize' },
-    { text: 'Tilt Rod', value: 'tiltRod' },
-    { text: 'Color', value: 'color' },
-    { text: 'Frame', value: 'frame' },
-    { text: 'Notes', value: 'notes' },
-    { text: 'Actions', value: '' }
+//    { text: 'Mid Rail', value: 'mdr' },
+//    { text: 'Mid Rail Height', value: 'mdHeight' },
+//    { text: 'Blade Size', value: 'bsize' },
+//    { text: 'Tilt Rod', value: 'tiltRod' },
+//    { text: 'Color', value: 'color' },
+//    { text: 'Frame', value: 'frame' },
+//    { text: 'Notes', value: 'notes' },
+    { text: 'Actions', value: 'actions' }
   ],
-  shutters: [
-    {
-      width: 0,
-      drop: 0,
-      sqm: 0,
-      type: 'standard',
-      layout: 'square',
-      qty: 5,
-      io: '',
-      mdr: '',
-      mdHeight: 0,
-      bsize: 0,
-      tiltRod: '',
-      color: '',
-      frame: '',
-      notes: ''
-    }
+  items: [
   ]
 },
 {
-  'name': 'Aluminium  Shutters',
+  name: 'Aluminium  Shutters',
+  key: 'aluminium_shutters',
   headers: [
     { text: 'Width(mm)', value: 'width' },
     { text: 'Drop(mm)', value: 'drop' },
@@ -124,70 +98,42 @@ const productLines = [{
     { text: 'Panel Layout', value: 'layout' },
     { text: 'Panel Qty', value: 'qty' },
     { text: 'In or Out', value: 'io' },
-    { text: 'Mid Rail', value: 'mdr' },
-    { text: 'Mid Rail Height', value: 'mdHeight' },
-    { text: 'Blade Size', value: 'bsize' },
-    { text: 'Tilt Rod', value: 'tiltRod' },
-    { text: 'Color', value: 'color' },
-    { text: 'Frame', value: 'frame' },
-    { text: 'Notes', value: 'notes' },
-    { text: 'Actions', value: '' }
+//    { text: 'Mid Rail', value: 'mdr' },
+//    { text: 'Mid Rail Height', value: 'mdHeight' },
+//    { text: 'Blade Size', value: 'bsize' },
+//    { text: 'Tilt Rod', value: 'tiltRod' },
+//    { text: 'Color', value: 'color' },
+//    { text: 'Frame', value: 'frame' },
+//    { text: 'Notes', value: 'notes' },
+    { text: 'Actions', value: 'actions' }
   ],
-  shutters: [
-    {
-      width: 0,
-      drop: 0,
-      sqm: 0,
-      type: 'standard',
-      layout: 'square',
-      qty: 5,
-      io: '',
-      mdr: '',
-      mdHeight: 0,
-      bsize: 0,
-      tiltRod: '',
-      color: '',
-      frame: '',
-      notes: ''
-    }
+  items: [
   ]
 },
 {
-  'name': 'Roller Blinder',
+  name: 'Roller Blinds',
+  key: 'roller_blinds',
   headers: [
     { text: 'Width(mm)', value: 'width' },
     { text: 'Drop(mm)', value: 'drop' },
-    { text: 'Sqm', value: 'sqm' },
-    { text: 'Shutter Type', value: 'type' },
-    { text: 'Panel Layout', value: 'layout' },
-    { text: 'Panel Qty', value: 'qty' },
-    { text: 'In or Out', value: 'io' },
-    { text: 'Mid Rail', value: 'mdr' },
-    { text: 'Mid Rail Height', value: 'mdHeight' },
-    { text: 'Blade Size', value: 'bsize' },
-    { text: 'Tilt Rod', value: 'tiltRod' },
-    { text: 'Color', value: 'color' },
-    { text: 'Frame', value: 'frame' },
-    { text: 'Notes', value: 'notes' },
-    { text: 'Actions', value: '' }
+    { text: 'Type', value: 'type' },
+    { text: 'Fabric', value: 'fabric' },
+    { text: 'Colour', value: 'colour' },
+    { text: 'Control Type', value: 'control_type' },
+    { text: 'Control Side', value: 'control_side' },
+//    { text: 'Chain Length', value: 'chain_length' },
+//    { text: 'Component Colour', value: 'component_colour' },
+//    { text: 'Base Rail', value: 'base_rail' },
+//    { text: 'Roll Direction', value: 'roll_direction' },
+//    { text: 'Motor Type', value: 'motor_type' },
+//    { text: 'Charger', value: 'charger' },
+//    { text: 'Wifi Hub', value: 'wifi_hub' },
+//    { text: 'Remote', value: 'remote' },
+//    { text: 'Bracket Options', value: 'bracket_options' },
+//    { text: 'Notes', value: 'notes' }
+    { text: 'Actions', value: 'actions' }
   ],
-  shutters: [
-    {
-      width: 0,
-      drop: 0,
-      sqm: 0,
-      type: 'standard',
-      layout: 'square',
-      qty: 5,
-      io: '',
-      mdr: '',
-      mdHeight: 0,
-      bsize: 0,
-      tiltRod: '',
-      color: '',
-      frame: '',
-      notes: ''
-    }
+  items: [
   ]
 }]
 

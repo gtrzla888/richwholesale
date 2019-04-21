@@ -1,119 +1,47 @@
 <template>
+  <v-flex style="overflow: auto">
       <v-data-table
       :headers="headers"
-      :items="shutters"
-      :pagination.sync="pagination"
-      select-all
+      :items="items"
+      hide-actions
       item-key="name"
       class="product-list"
     >
-      <template v-slot:headers="props">
-        <tr>
-          <th
-            v-for="header in props.headers"
-            :key="header.text"
-            :class="['column sortable', pagination.descending ? 'desc' : 'asc', header.value === pagination.sortBy ? 'active' : '']"
-            class="flex align-items-start"
-            @click="changeSort(header.value)"
-          >
-            <v-icon small>arrow_upward</v-icon>
-            {{ header.text }}
-          </th>
-        </tr>
-      </template>
       <template v-slot:items="props">
         <tr :active="props.selected" @click="props.selected = !props.selected">
-          <td class="p-0">
-            <v-edit-dialog
-              :return-value.sync="props.item.width"
-              lazy
-              @save="save"
-              @cancel="cancel"
-              @open="open"
-              @close="close"
-            >
-              <span class="text-center">{{ props.item.width }}</span>
-              <template v-slot:input>
-                <v-text-field
-                  v-model="props.item.width"
-                  :rules="[max25chars]"
-                  label="Edit"
-                  single-line
-                  counter
-                ></v-text-field>
-              </template>
-            </v-edit-dialog>
+          <td class="text-xs-right" v-for="header in headers" v-if="header.value !== 'actions'" v-bind:key="header.value">
+              {{props.item[header.value]}}
           </td>
-          <td class="text-xs-right" >{{ props.item.drop }}</td>
-          <td class="text-xs-right">{{ props.item.sqm }}</td>
-          <td class="text-xs-right">{{ props.item.type }}</td>
-          <td class="text-xs-right">{{ props.item.layout }}</td>
-          <td class="text-xs-right">{{ props.item.qty }}</td>
-          <td class="text-xs-right">{{ props.item.io }}</td>
-          <td class="text-xs-right">{{ props.item.mdr }}</td>
-          <td class="text-xs-right">{{ props.item.mdHeight }}</td>
-          <td class="text-xs-right">{{ props.item.bsize }}</td>
-          <td class="text-xs-right">{{ props.item.tiltRod }}</td>
-          <td class="text-xs-right">{{ props.item.color }}</td>
-          <td class="text-xs-right">{{ props.item.frame }}</td>
-          <td class="text-xs-right">{{ props.item.notes }}</td>
-          <td class="text-xs-right">
-            <v-tooltip top>
-              <template v-slot:activator="{ on }">
-                <v-btn fab small color="#748C5D" dark v-on="on" @click.prevent="openAddItemWindow">
-                  <v-icon>remove</v-icon>
-                </v-btn>
-              </template>
-              <span>Remove item</span>
-            </v-tooltip>
+          <td class="text-xs-center">
+            <v-menu offset-x left bottom>
+              <v-btn
+                      icon
+                      slot="activator">
+                <v-icon>more_vert</v-icon>
+              </v-btn>
+              <v-list>
+                <v-list-tile @click="onEdit(props.index)">
+                  <v-list-tile-title >Edit</v-list-tile-title>
+                </v-list-tile>
+                <v-list-tile @click="onRemove(props.index)">
+                  <v-list-tile-title >Remove</v-list-tile-title>
+                </v-list-tile>
+              </v-list>
+            </v-menu>
           </td>
         </tr>
       </template>
     </v-data-table>
+  </v-flex>
 </template>
 <script>
   export default {
-    props: ['headers', 'shutters'],
+    props: ['headers', 'items'],
     data: () => ({
       max25chars: v => v.length <= 25 || 'Input too long!',
       pagination: {
         sortBy: 'width'
       },
-      // headers: [
-      //   { text: 'Width(mm)', value: 'width'},
-      //   { text: 'Drop(mm)', value: 'drop'},
-      //   { text: 'Sqm', value: 'sqm'},
-      //   { text: 'Shutter Type', value: 'type'},
-      //   { text: 'Panel Layout', value: 'layout'},
-      //   { text: 'Panel Qty', value: 'qty'},
-      //   { text: 'In or Out', value: 'io'},
-      //   { text: 'Mid Rail', value: 'mdr'},
-      //   { text: 'Mid Rail Height', value: 'mdHeight'},
-      //   { text: 'Blade Size', value: 'bsize'},
-      //   { text: 'Tilt Rod', value: 'tiltRod'},
-      //   { text: 'Color', value: 'color'},
-      //   { text: 'Frame', value: 'frame'},
-      //   { text: 'Notes', value: 'notes'},
-      //   { text: 'Actions', value: ''}
-      // ],
-      // shutters: [
-      //   {
-      //     width: 200,
-      //     drop: 150,
-      //     sqm: 30000,
-      //     type: 'standard',
-      //     layout: 'square',
-      //     qty: 5,
-      //     io: 'In',
-      //     mdr: 'Centre',
-      //     mdHeight: 100,
-      //     bsize: 3000,
-      //     tiltRod: 'Clear View',
-      //     color: 'grey',
-      //     frame: 'no frame',
-      //     notes: 'no comments'
-      //   }
-      // ]
     }),
 
     methods: {
@@ -143,6 +71,12 @@
       },
       close () {
         console.log('Dialog closed')
+      },
+      onEdit(index) {
+         this.$emit('edit', index)
+      },
+      onRemove(index) {
+         this.$emit('remove', index)
       }
     }
   }
