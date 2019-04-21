@@ -135,7 +135,7 @@
                 </v-tab-item>
             </v-tabs>
         </v-flex>
-        <app-add-item @clicked="onClickChild" :type="selectedTabKey" :selectedProduct.sync="selectedProduct"></app-add-item>
+        <app-add-item @clicked="onProductSubmit" :type="selectedTabKey" :selectedProduct.sync="selectedProduct"></app-add-item>
     </v-layout>
     </v-form>
 </template>
@@ -170,24 +170,28 @@
       },
       selectedTabKey: '',
       selectedProduct: {},
+      selectedProductIndex: null
     }),
     methods: {
       openAddItemWindow() {
         this.$store.dispatch('updateAddItemDialogStatus', {status: true});
         this.selectedProduct = {}
-      },
-      editItem() {
-          this.$store.dispatch('updateAddItemDialogStatus', {status: true});
+        this.selectedProductIndex = null
       },
       getProducts(index) {
         this.selectedTabKey = this.products[index].key;
-        console.log(this.products[index].key);
       },
-      onClickChild (product) {
-        this.order[product.type].push(product)
+      onProductSubmit (product) {
+        if (this.selectedProductIndex !== null) {
+          this.order[this.selectedTabKey][this.selectedProductIndex] = product
+        } else {
+          this.order[this.selectedTabKey].push(product)
+        }
+     
         this.selectedProduct = {}
       },
       onEdit(index) {
+        this.selectedProductIndex = index
         this.selectedProduct = this.order[this.selectedTabKey][index]
         this.$store.dispatch('updateAddItemDialogStatus', {status: true});
       },
