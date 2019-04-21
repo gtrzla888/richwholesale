@@ -9,6 +9,7 @@
                     item-value="id"
                     outline
                     label="Company Name (Select)"
+                    class="mx-3"
                     v-model="company_id"
             ></v-select>
         </v-flex>
@@ -29,7 +30,8 @@
                             label="Todays Date (Display) "
                             prepend-inner-icon="event"
                             readonly
-                                outline
+                            outline
+                            class="mx-3"
                             v-on="on"
                     ></v-text-field>
                 </template>
@@ -48,6 +50,7 @@
                     outline
                     :rules="poRefRules"
                     label="PO Number or Reference"
+                    class="mx-3"
                     required
             ></v-text-field>
         </v-flex>
@@ -67,6 +70,8 @@
                     label="Notes"
                     rows="1"
                     v-model="notes"
+                    class="mx-3"
+                    outline
                     auto-grow
             ></v-textarea>
         </v-flex>

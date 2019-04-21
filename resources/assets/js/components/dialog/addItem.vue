@@ -224,7 +224,6 @@
       ...mapGetters(['isDialogOpen']),
       product: {
         get() {
-            console.log(this.selectedProduct)
             return this.selectedProduct
         },
         set() {
