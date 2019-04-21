@@ -186,7 +186,12 @@
       }
     },
     computed: {
-      ...mapGetters(['companies', 'products']),
+      ...mapGetters(['products']),
+      companies: {
+        get() {
+            return this.$store.state.auth.user.companies;
+        },
+      },
       order: {
         get() {
           return this.$store.state.order;
@@ -226,7 +231,6 @@
     },
     created () {
       // fetch the companies
-      this.$store.dispatch('fetchCompanies')
       this.$store.dispatch('fetchProducts')
     }
   }
