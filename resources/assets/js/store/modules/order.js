@@ -10,13 +10,14 @@ export const state = {
   pvc_shutters: [],
   au_pvc_shutters: [],
   aluminium_shutters: [],
-  roller_blinds: []
+  roller_blinds: [],
+  order: null
 }
 
 // mutations
 export const mutations = {
-  [types.SAVE_ORDER] (state, { order }) {
-    state.order = order
+  [types.SAVE_ORDER] (state, order) {
+    state.order = JSON.parse(order)
   },
   [types.SAVE_ORDER_PO_REFERENCE] (state, poReference) {
     state.po_reference = poReference
@@ -30,8 +31,13 @@ export const mutations = {
   [types.FETCH_ORDER_FAILURE] (state) {
     state.order = null
   },
-  [types.UPDATE_ORDER] (state, { order }) {
-    state.order = order
+  [types.UPDATE_ORDER] (state, newOrder) {
+    state.order = newOrder
+  },
+  [types.INSERT_ORDER] (state, payload) {
+    if (payload.selectedKey && payload.product) {
+      state[payload.selectedKey].push(payload.product)
+    }
   },
   [types.CLEAR_ORDER] (state) {
     state.order = null
@@ -40,8 +46,8 @@ export const mutations = {
 
 // actions
 export const actions = {
-  saveOrder ({ commit, dispatch }, payload) {
-    commit(types.SAVE_ORDER, payload)
+  saveOrder ({ commit }, payload) {
+    commit(types.SAVE_ORDER, JSON.stringify(payload))
   },
   updatePoReference ({ commit }, payload) {
     commit(types.SAVE_ORDER_PO_REFERENCE, payload)
@@ -53,6 +59,10 @@ export const actions = {
     commit(types.GET_ORDER, payload)
   },
 
+  async updateOrder ({ commit }, payload) {
+    commit(types.UPDATE_ORDER, payload)
+  },
+
   async fetchOrder ({ commit }) {
     try {
       const { data } = await axios.get('/api/order/companies')
@@ -60,6 +70,9 @@ export const actions = {
     } catch (e) {
       commit(types.FETCH_ORDER_FAILURE)
     }
+  },
+  insertOrder ({ commit }, payload) {
+    commit(types.INSERT_ORDER, payload)
   }
 }
 
