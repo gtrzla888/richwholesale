@@ -12,6 +12,7 @@
     <v-form
       ref="form"
       v-model="valid"
+      :lazy-validation="true"
     >
       <v-card>
         <v-card-title>
@@ -36,6 +37,7 @@
             label="Width(mm)"
             :rules="[v => !!v || 'Width is required']"
             type = "number"
+            min="0"
             required
           ></v-text-field>
 
@@ -44,6 +46,7 @@
             label="Drop(mm)"
             type = "number"
             :rules="[v => !!v || 'Drop is required']"
+            min="0"
             @blur="calculateSqm"
             required
           >
@@ -51,15 +54,14 @@
 
           <v-text-field
             :value="product.sqm"
-            placeholder="Sqm"
             label="Sqm"
             readonly
           ></v-text-field>
 
           <v-select
-            :items="shutterTypes"
+            :items="shutterType"
             label="Shutter Type"
-            :v-model="product.shutter_type"
+            v-model="product.shutter_type"
             :rules="[v => !!v || 'Shutter Type is required']"
             required
           ></v-select>
@@ -67,20 +69,21 @@
           <v-select
             :items="corners"
             label="Corner"
-            :v-model="product.corner"
+            v-model="product.corner"
             :rules="[v => !!v || 'Corner is required']"
             required
           ></v-select>
 
           <v-text-field
-            :v-model="product.panel_layout"
+            v-model="product.panel_layout"
             label="Panel Layout"
             :rules="[v => !!v || 'Panel Layout is required']"
             required
+            type="text"
           ></v-text-field>
 
           <v-text-field
-            :v-model="product.panel_qty"
+            v-model="product.panel_qty"
             label="Panel Quantity"
             type="number"
             readonly
@@ -93,87 +96,86 @@
             required
             :rules="[v => !!v || 'In or Out is required']"
           >
-            <v-radio label="In" value="in"></v-radio>
-            <v-radio label="Out" value="out"></v-radio>
+            <v-radio label="In" value="In"></v-radio>
+            <v-radio label="Out" value="Out"></v-radio>
           </v-radio-group>
 
           <v-select
-            :items="midRails"
+            :items="midRail"
             label="Mid Rail"
-            :v-model="product.mid_rail"
+            v-model="product.mid_rail"
             :rules="[v => !!v || 'Mid Rail is required']"
             required
           ></v-select>
 
           <v-text-field
-            :v-model="product.mid_rail_height"
+            v-model="product.mid_rail_height"
             label="Mid Rail Height"
             :rules="[v => !!v || 'Mid Rail Height is required']"
             type="number"
-            required
-          ></v-text-field>
-
-          <v-text-field
-            :v-model="product.blade_size"
-            label="Blade Size"
-            :rules="[v => !!v || 'Blade size is required']"
-            type="number"
-            required
-          ></v-text-field>
-
-          <v-text-field
-            :v-model="product.tilt_rod"
-            label="Tilt Rod"
-            :rules="[v => !!v || 'Tile rod is required']"
-            type="number"
+            min="0"
             required
           ></v-text-field>
 
           <v-select
-                  :items="colours"
+              :items="bladeSize"
+              label="Blade Size"
+              :rules="[v => !!v || 'Blade Size is required']"
+              v-model="product.blade_size"
+          ></v-select>
+
+          <v-select
+              :items="tiltRod"
+              label="Tile Rod"
+              :rules="[v => !!v || 'Tile Rod is required']"
+              v-model="product.tilt_rod"
+          ></v-select>
+
+          <v-select
+                  :items="colour"
                   label="Mid Rail"
                   :rules="[v => !!v || 'Mid Rail is required']"
-                  :v-model="product.colour"
+                  v-model="product.colour"
                   required
           ></v-select>
 
           <v-select
-                  :items="stileTypes"
+                  :items="stileType"
                   label="Stile Type"
                   :rules="[v => !!v || 'Stile Type is required']"
-                  :v-model="product.stileTypes"
+                  v-model="product.stile_type"
           ></v-select>
 
           <v-select
-                  :items="frames"
+                  :items="frame"
                   label="Frame"
                   :rules="[v => !!v || 'Frame is required']"
-                  :v-model="product.frame"
+                  v-model="product.frame"
           ></v-select>
 
           <v-select
                   :items="frameOptions"
                   label="Frame"
                   :rules="[v => !!v || 'Frame Option is required']"
-                  :v-model="product.frameOptions"
+                  v-model="product.frame_options"
           ></v-select>
 
           <v-select
-                  :items="hingeTypes"
+                  :items="hingeType"
                   label="Hinge Type"
                   :rules="[v => !!v || 'Hinge Type is required']"
-                  :v-model="product.hingeType"
+                  v-model="product.hinge_type"
           ></v-select>
 
           <v-select
-                  :items="hingeColours"
+                  :items="hingeColour"
                   label="Hinge Colour"
                   :rules="[v => !!v || 'Hinge Colour is required']"
-                  :v-model="product.hingeColour"
+                  v-model="product.hinge_colour"
           ></v-select>
 
           <v-text-field
-                  :v-model="product.notes"
+                  v-model="product.notes"
                   label="Notes"
                   type="text"
           ></v-text-field>
@@ -201,6 +203,7 @@
     }),
     methods: {
       onSubmit(event) {
+        console.log(this.product)
         if (!this.$refs.form.validate()) {
            return
         }
@@ -221,14 +224,13 @@
       ...mapGetters(['isDialogOpen']),
       product: {
         get() {
-            console.log(this.selectedProduct)
             return this.selectedProduct
         },
         set() {
 
         }
       },
-      shutterTypes() {
+      shutterType() {
           return  [
             'Standard',
             'Sliding',
@@ -243,7 +245,7 @@
               135
           ]
       },
-      tiltRods() {
+      tiltRod() {
         return [
           'Clear View'
         ]
@@ -253,7 +255,7 @@
            '89mm'
          ]
       },
-      midRails() {
+      midRail() {
         return [
           'Centre',
           '1',
@@ -261,7 +263,7 @@
           '3'
         ]
       },
-      frames() {
+      frame() {
         return [
           'No Frame',
           'Z20-C6',
@@ -277,25 +279,25 @@
             'LRB'
           ]
       },
-      stileTypes() {
+      stileType() {
         return [
           '50b'
         ]
       },
-      colours() {
+      colour() {
         return [
           'W100 Snow',
 
         ]
       },
-      hingeTypes() {
+      hingeType() {
           return [
             'na',
             'Non Mortised',
             'Pivot'
           ]
       },
-      hingeColours() {
+      hingeColour() {
           return [
             'white',
           ]
@@ -304,13 +306,7 @@
     props: {
       type: String,
       selectedProduct: Object
-    },
-    created() {
-      //console.log(this.product)
     }
   }
 </script>
 
-<style scoped>
-
-</style>
