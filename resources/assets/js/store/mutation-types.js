@@ -9,3 +9,24 @@ export const UPDATE_USER = 'UPDATE_USER'
 // feedback.js
 export const RESPONSE_MSG = 'RESPONSE_MSG'
 export const CLEAR_MSG = 'CLEAR_MSG'
+
+// company.js
+export const FETCH_COMPANIES = 'FETCH_COMPANIES'
+export const FETCH_COMPANIES_SUCCESS = 'FETCH_COMPANIES_SUCCESS'
+export const FETCH_COMPANIES_FAILURE = 'FETCH_COMPANIES_FAILURE'
+
+// dialog.js
+export const UPDATE_ADD_ITEM_DIALOG_STATUS = 'UPDATE_ADD_ITEM_DIALOG_STATUS'
+
+// prouducts.js
+export const FETCH_PRODUCTS = 'FETCH_PRODUCTS'
+export const FETCH_PRODUCTS_LINE = 'FETCH_PRODUCTS_LINE'
+
+export const SAVE_ORDER = 'SAVE_ORDER'
+export const SUBMIT_ORDER = 'SUBMIT_ORDER'
+export const FETCH_ORDER = 'FETCH_ORDER'
+export const GET_ORDER = 'GET_ORDER'
+export const CLEAR_ORDER = 'CLEAR_ORDER'
+export const FETCH_ORDER_SUCCESS = 'FETCH_USER_SUCCESS'
+export const FETCH_ORDER_FAILURE = 'FETCH_USER_FAILURE'
+export const UPDATE_ORDER = 'UPDATE_USER'

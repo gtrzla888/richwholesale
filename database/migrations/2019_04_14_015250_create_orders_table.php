@@ -18,6 +18,7 @@ class CreateOrdersTable extends Migration
             $table->unsignedInteger('company_id');
             $table->string('po_reference');
             $table->string('status');
+            $table->decimal('total');
             $table->string('notes');
             $table->timestamps();
         });

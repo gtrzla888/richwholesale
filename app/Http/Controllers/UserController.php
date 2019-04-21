@@ -1,18 +1,24 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Lixing
- * Date: 2019-04-15
- * Time: 19:16
- */
 
 namespace App\Http\Controllers;
 
+
+use App\Http\Resources\Company as CompanyResource;
+use App\Http\Resources\User as UserResource;
+use App\User;
+use Illuminate\Http\Request;
 
 class UserController
 {
     public function index()
     {
-        return request()->user();
+        return new UserResource(request()->user()->with('companies')->first());
+    }
+
+    public function companies(Request $request)
+    {
+        /** @var User $user */
+        $user = $request->user();
+        return CompanyResource::collection($user->companies);
     }
 }
