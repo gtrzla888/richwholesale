@@ -7,9 +7,10 @@
                     :items="companies"
                     item-text="name"
                     item-value="id"
-                    box
+                    outline
                     label="Company Name (Select)"
-                    v-model="order.company_id"
+                    class="mx-3"
+                    v-model="company_id"
             ></v-select>
         </v-flex>
         <v-spacer></v-spacer>
@@ -27,9 +28,10 @@
                     <v-text-field
                             v-model="todays"
                             label="Todays Date (Display) "
-                            prepend-icon="event"
+                            prepend-inner-icon="event"
                             readonly
-                            box
+                            outline
+                            class="mx-3"
                             v-on="on"
                     ></v-text-field>
                 </template>
@@ -43,12 +45,12 @@
         <v-spacer></v-spacer>
         <v-flex xs12 sm3 d-flex>
             <v-text-field
-                    v-model="order.po_reference"
+                    v-model="po_reference"
                     :counter="10"
-                    box
+                    outline
                     :rules="poRefRules"
                     label="PO Number or Reference"
-                    placeholder="PO Number or Reference"
+                    class="mx-3"
                     required
             ></v-text-field>
         </v-flex>
@@ -58,7 +60,6 @@
                     class="mx-3"
                     outline
                     label="Customer Name"
-                    placeholder="Enter your customer name"
                     prepend-inner-icon="people"
             ></v-text-field>
         </v-flex>
@@ -68,9 +69,10 @@
                     name="notes"
                     label="Notes"
                     rows="1"
-                    v-model="order.notes"
+                    v-model="notes"
+                    class="mx-3"
+                    outline
                     auto-grow
-                    hint="You can put some notes here..."
             ></v-textarea>
         </v-flex>
 
@@ -135,7 +137,7 @@
                 </v-tab-item>
             </v-tabs>
         </v-flex>
-        <app-add-item @clicked="onClickChild" :type="selectedTabKey" :selectedProduct.sync="selectedProduct"></app-add-item>
+        <app-add-item @clicked="onProductSubmit" :type="selectedTabKey" :selectedProduct.sync="selectedProduct"></app-add-item>
     </v-layout>
     </v-form>
 </template>
@@ -154,40 +156,33 @@
       modal: false,
       poRefRules: [
         v => !!v || 'PO number is required',
-        v => v.length <= 10 || 'PO number must be less than 10 characters'
       ],
       search: null,
       active: null,
-      order: {
-        company_id: '',
-        po_reference: '',
-        basswood_shutters: [],
-        pvc_shutters: [],
-        av_pvc_shtters: [],
-        aluminium_shutters: [],
-        roller_blinds: [],
-        notes: '',
-      },
       selectedTabKey: '',
       selectedProduct: {},
+      selectedProductIndex: null
     }),
     methods: {
       openAddItemWindow() {
         this.$store.dispatch('updateAddItemDialogStatus', {status: true});
         this.selectedProduct = {}
-      },
-      editItem() {
-          this.$store.dispatch('updateAddItemDialogStatus', {status: true});
+        this.selectedProductIndex = null
       },
       getProducts(index) {
         this.selectedTabKey = this.products[index].key;
-        console.log(this.products[index].key);
       },
-      onClickChild (product) {
-        this.order[product.type].push(product)
+      onProductSubmit (product) {
+        if (this.selectedProductIndex !== null) {
+          this.order[this.selectedTabKey][this.selectedProductIndex] = product
+        } else {
+          this.order[this.selectedTabKey].push(product)
+        }
+     
         this.selectedProduct = {}
       },
       onEdit(index) {
+        this.selectedProductIndex = index
         this.selectedProduct = this.order[this.selectedTabKey][index]
         this.$store.dispatch('updateAddItemDialogStatus', {status: true});
       },
@@ -195,31 +190,53 @@
           this.order[this.selectedTabKey].splice(index, 1)
       }
     },
-    computed: mapGetters({
-        currentOrder: 'order',
-        companies: 'companies',
-        products: 'products',
-    }),
+    computed: {
+      ...mapGetters(['products']),
+      companies: {
+        get() {
+            return this.$store.state.auth.user.companies;
+        },
+      },
+      order: {
+        get() {
+          return this.$store.state.order;
+        },
+        set(newOrder) {
+          this.$store.dispatch('saveOrder', { order: newOrder })
+        }
+      },
+      notes: {
+        get () {
+          return this.$store.state.order.notes
+        },
+        set (value) {
+          this.$store.commit('updateMessage', value)
+        }
+      },
+      po_reference: {
+         get () {
+           return this.$store.state.order.po_reference
+        },
+        set (value) {
+          this.$store.dispatch('updatePoReference', value)
+        }
+      },
+      company_id: {
+         get () {
+            return this.$store.state.order.company_id
+        },
+        set (value) {
+          this.$store.dispatch('updateCompanyId', value)
+        }
+      }
+    },
     components: {
       appAddItem: addItemWindow,
       appProductList: productList
     },
-    watch: {
-        order: {
-          handler(oldOrder, newOrder) {
-            //this.$store.dispatch('saveOrder', newOrder)
-          },
-          deep: true
-        },
-        todays() {
-          console.log('changed')
-        }
-    },
     created () {
       // fetch the companies
-      this.$store.dispatch('fetchCompanies')
       this.$store.dispatch('fetchProducts')
-      this.$store.dispatch('getOrder')
     }
   }
 </script>

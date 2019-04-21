@@ -65,5 +65,5 @@ export const actions = {
 export const getters = {
   authUser: state => state.user,
   authToken: state => state.token,
-  authCheck: state => state.user !== null,
+  authCheck: state => state.user !== null
 }
