@@ -1,123 +1,238 @@
 <template>
+    <v-form ref="form" lazy-validation>
     <v-layout row wrap align-center>
-      <v-flex xs12 sm3 d-flex>
-        <v-select
-          :items="companies"
-          box
-          label="Company Name (Select)"
-        ></v-select>
-      </v-flex>
-      <v-spacer></v-spacer>
-      <v-flex xs12 sm3 d-flex>
-        <v-dialog
-          ref="dialog"
-          v-model="modal"
-          :return-value.sync="todays"
-          persistent
-          lazy
-          full-width
-          width="25%"
-        >
-          <template v-slot:activator="{ on }">
+
+        <v-flex xs12 sm3 d-flex>
+            <v-select
+                    :items="companies"
+                    item-text="name"
+                    item-value="id"
+                    box
+                    label="Company Name (Select)"
+                    v-model="order.company_id"
+            ></v-select>
+        </v-flex>
+        <v-spacer></v-spacer>
+        <v-flex xs12 sm3 d-flex>
+            <v-dialog
+                    ref="dialog"
+                    v-model="modal"
+                    :return-value.sync="todays"
+                    persistent
+                    lazy
+                    full-width
+                    width="290px"
+            >
+                <template v-slot:activator="{ on }">
+                    <v-text-field
+                            v-model="todays"
+                            label="Todays Date (Display) "
+                            prepend-icon="event"
+                            readonly
+                            box
+                            v-on="on"
+                    ></v-text-field>
+                </template>
+                <v-date-picker v-model="todays" scrollable>
+                    <v-spacer></v-spacer>
+                    <v-btn flat color="primary" @click="modal = false">Cancel</v-btn>
+                    <v-btn flat color="primary" @click="$refs.dialog.save(todays)">OK</v-btn>
+                </v-date-picker>
+            </v-dialog>
+        </v-flex>
+        <v-spacer></v-spacer>
+        <v-flex xs12 sm3 d-flex>
             <v-text-field
-              v-model="todays"
-              label="Todays Date (Display) "
-              prepend-icon="event"
-              readonly
-              box
-              v-on="on"
+                    v-model="order.po_reference"
+                    :counter="10"
+                    box
+                    :rules="poRefRules"
+                    label="PO Number or Reference"
+                    placeholder="PO Number or Reference"
+                    required
             ></v-text-field>
-          </template>
-          <v-date-picker v-model="todays" scrollable>
-            <v-spacer></v-spacer>
-            <v-btn flat color="primary" @click="modal = false">Cancel</v-btn>
-            <v-btn flat color="primary" @click="$refs.dialog.save(todays)">OK</v-btn>
-          </v-date-picker>
-        </v-dialog>
-      </v-flex>
-      <v-spacer></v-spacer>
-      <v-flex xs12 sm3 d-flex>
-        <v-text-field
-          v-model="poRef"
-          :counter="10"
-          box
-          :rules="poRefRules"
-          label="PO Number or Reference"
-          placeholder="PO Number or Reference"
-          required
-        ></v-text-field>
-      </v-flex>
-      <v-spacer></v-spacer>
-      <v-flex xs12 sm3 d-flex>
-        <v-text-field
-          class="mx-3"
-          outline
-          label="Search"
-          placeholder="Search"
-          prepend-inner-icon="search"
-        ></v-text-field>
-      </v-flex>
+        </v-flex>
+        <v-spacer></v-spacer>
+        <v-flex xs12 sm3 d-flex>
+            <v-text-field
+                    class="mx-3"
+                    outline
+                    label="Customer Name"
+                    placeholder="Enter your customer name"
+                    prepend-inner-icon="people"
+            ></v-text-field>
+        </v-flex>
 
-      <v-flex xs12 sm12 d-flex>
-        <v-text-field
-          label="Notes"
-          placeholder="Notes..."
-        ></v-text-field>
-      </v-flex>
+        <v-flex xs12 sm12 d-flex>
+            <v-textarea
+                    name="notes"
+                    label="Notes"
+                    rows="1"
+                    v-model="order.notes"
+                    auto-grow
+                    hint="You can put some notes here..."
+            ></v-textarea>
+        </v-flex>
 
-      <v-flex xs12 sm12 d-flex>
-        <v-tabs
-          v-model="active"
-          color="#589ACC"
-          dark
-          slider-color="blue"
-        >
-          <v-tab
-            v-for="product in products"
-            :key="product.name"
-            ripple
-          >
-            {{product.name}}
-          </v-tab>
-          <v-tab-item
-            v-for="product in products"
-            :key="product.name"
-          >
-            <v-card flat>
-              <v-card-text>{{product.name}}</v-card-text>
-            </v-card>
-          </v-tab-item>
-        </v-tabs>
-      </v-flex>
+        <v-flex xs12 sm12 d-flex>
+            <v-toolbar
+                    dark
+                    color = "#748C5D"
+            >
+                <!--          <v-toolbar-side-icon></v-toolbar-side-icon>-->
+                <v-toolbar-title>Total price $10000</v-toolbar-title>
+                <v-spacer></v-spacer>
+                <v-toolbar-items class="hidden-sm-and-down">
+                    <v-tooltip top>
+                        <template v-slot:activator="{ on }">
+                            <v-btn fab small color="#748C5D" dark v-on="on" @click.prevent="openAddItemWindow">
+                                <v-icon>add</v-icon>
+                            </v-btn>
+                        </template>
+                        <span>Add item</span>
+                    </v-tooltip>
+                    <v-tooltip top>
+                        <template v-slot:activator="{ on }">
+                            <v-btn fab small color="#748C5D" dark v-on="on">
+                                <v-icon>save</v-icon>
+                            </v-btn>
+                        </template>
+                        <span>Save quote</span>
+                    </v-tooltip>
+                    <v-tooltip top>
+                        <template v-slot:activator="{ on }">
+                            <v-btn fab small color="#748C5D" dark v-on="on">
+                                <v-icon>send</v-icon>
+                            </v-btn>
+                        </template>
+                        <span>Submit order</span>
+                    </v-tooltip>
+                </v-toolbar-items>
+            </v-toolbar>
+        </v-flex>
 
+        <v-flex xs12 sm12 d-flex>
+            <v-tabs
+                    v-model="active"
+                    color="#748C5D"
+                    dark
+                    grow
+                    slider-color="#F2D7B6"
+                    @change="getProducts"
+            >
+                <v-tab
+                        v-for="product in products"
+                        :key="product.name"
+                        ripple
+                >
+                    {{product.name}}
+                </v-tab>
+                <v-tab-item
+                        v-for="product in products"
+                        :key="product.name"
+                >
+                    <app-product-list :headers="product.headers" :items="order[selectedTabKey]" @edit="onEdit" @remove="onRemove"></app-product-list>
+                </v-tab-item>
+            </v-tabs>
+        </v-flex>
+        <app-add-item @clicked="onClickChild" :type="selectedTabKey" :selectedProduct.sync="selectedProduct"></app-add-item>
     </v-layout>
+    </v-form>
 </template>
 
 <script>
-export default {
-  name: 'home-view',
-  metaInfo () {
-    return { title: this.$t('home') }
-  },
-  data: () => ({
-    companies: ['Company A', 'Company B', 'Company C'],
-    todays: new Date().toISOString().substr(0, 10),
-    modal: false,
-    poRef: 'A00123',
-    poRefRules: [
-      v => !!v || 'PO number is required',
-      v => v.length <= 10 || 'PO number must be less than 10 characters'
-    ],
-    search: null,
-    active: null,
-    products: [
-      {name: 'Basswood Shutters'},
-      {name: 'PVC Shutters'},
-      {name: 'AU PVC Shutters'},
-      {name: 'Aluminium  Shutters'},
-      {name: 'Roller Blinder'},
-    ]
+  import {mapGetters} from 'vuex'
+  import addItemWindow from '~/components/dialog/addItem'
+  import productList from '~/components/table/productItem'
+  export default {
+    name: 'home-view',
+    metaInfo () {
+      return { title: this.$t('home') }
+    },
+    data: () => ({
+      todays: new Date().toISOString().substr(0, 10),
+      modal: false,
+      poRefRules: [
+        v => !!v || 'PO number is required',
+        v => v.length <= 10 || 'PO number must be less than 10 characters'
+      ],
+      search: null,
+      active: null,
+      // products: [
+      //   {name: 'Basswood Shutters'},
+      //   {name: 'PVC Shutters'},
+      //   {name: 'AU PVC Shutters'},
+      //   {name: 'Aluminium  Shutters'},
+      //   {name: 'Roller Blinder'},
+      // ],
 
-  })
-}
+      order: {
+        company_id: '',
+        po_reference: '',
+        basswood_shutters: [],
+        pvc_shutters: [],
+        av_pvc_shtters: [],
+        aluminium_shutters: [],
+        roller_blinds: [],
+        notes: '',
+      },
+      selectedTabKey: '',
+      selectedProduct: {},
+    }),
+    methods: {
+      openAddItemWindow() {
+        this.$store.dispatch('updateAddItemDialogStatus', {status: true});
+        this.selectedProduct = {}
+      },
+      editItem() {
+          this.$store.dispatch('updateAddItemDialogStatus', {status: true});
+      },
+      getProducts(index) {
+        this.selectedTabKey = this.products[index].key;
+        console.log(this.products[index].key);
+      },
+      onClickChild (product) {
+        this.order[product.type].push(product)
+        this.selectedProduct = {}
+      },
+      onEdit(index) {
+        this.selectedProduct = this.order[this.selectedTabKey][index]
+        this.$store.dispatch('updateAddItemDialogStatus', {status: true});
+      },
+      onRemove(index) {
+          this.order[this.selectedTabKey].splice(index, 1)
+      }
+    },
+    computed: mapGetters({
+        currentOrder: 'order',
+        companies: 'companies',
+        products: 'products',
+    }),
+    components: {
+      appAddItem: addItemWindow,
+      appProductList: productList
+    },
+    watch: {
+        order: {
+          handler(oldOrder, newOrder) {
+            //this.$store.dispatch('saveOrder', newOrder)
+          },
+          deep: true
+        },
+        todays() {
+          console.log('changed')
+        }
+    },
+    created () {
+      console.log('Order', this.order);
+      // fetch the companies
+      this.$store.dispatch('fetchCompanies')
+      this.$store.dispatch('fetchProducts')
+      this.$store.dispatch('getOrder')
+    }
+  }
 </script>
+<style lang="stylus" scoped>
+    a .primary--text
+        color: #212626 !important
+</style>

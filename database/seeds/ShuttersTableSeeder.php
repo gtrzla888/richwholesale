@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\BasswoodShutter;
 
 class ShuttersTableSeeder extends Seeder
 {
@@ -11,6 +12,6 @@ class ShuttersTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(\App\Shutter::class, 10)->create();
+        factory(BasswoodShutter::class, 5)->create();
     }
 }

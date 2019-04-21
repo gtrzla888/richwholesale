@@ -14,23 +14,19 @@ export const mutations = {
     state.token = token
     Cookies.set('token', token, { expires: remember ? 365 : null })
   },
-
   [types.FETCH_USER_SUCCESS] (state, { user }) {
     state.user = user
   },
-
   [types.FETCH_USER_FAILURE] (state) {
     state.token = null
     Cookies.remove('token')
   },
-
   [types.LOGOUT] (state) {
     state.user = null
     state.token = null
 
     Cookies.remove('token')
   },
-
   [types.UPDATE_USER] (state, { user }) {
     state.user = user
   }
@@ -69,5 +65,5 @@ export const actions = {
 export const getters = {
   authUser: state => state.user,
   authToken: state => state.token,
-  authCheck: state => state.user !== null
+  authCheck: state => state.user !== null,
 }

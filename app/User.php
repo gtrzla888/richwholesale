@@ -73,4 +73,24 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->role == $role;
     }
+
+    public function getIsCompanyAdminAttribute()
+    {
+        return $this->role == static::ROLE_COMPANY_ADMIN;
+    }
+
+    public function getIsCompanyUserAttribute()
+    {
+        return $this->role == static::ROLE_COMPANY_USER;
+    }
+
+    public function getIsWholesaleAdminAttribute()
+    {
+        return $this->role == static::ROLE_WHOLESALE_ADMIN;
+    }
+
+    public function getIsWholesaleUserAttribute()
+    {
+        return $this->role == static::ROLE_WHOLESALE_USER;
+    }
 }

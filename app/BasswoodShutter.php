@@ -7,7 +7,7 @@ use Illuminate\Validation\Rule;
 
 class BasswoodShutter extends Shutter
 {
-    const NAME = 'Bassword Shutter';
+    const NAME = 'Basswood Shutter';
 
     public static function rules()
     {
