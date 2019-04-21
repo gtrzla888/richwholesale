@@ -158,14 +158,6 @@
       ],
       search: null,
       active: null,
-      // products: [
-      //   {name: 'Basswood Shutters'},
-      //   {name: 'PVC Shutters'},
-      //   {name: 'AU PVC Shutters'},
-      //   {name: 'Aluminium  Shutters'},
-      //   {name: 'Roller Blinder'},
-      // ],
-
       order: {
         company_id: '',
         po_reference: '',
@@ -224,7 +216,6 @@
         }
     },
     created () {
-      console.log('Order', this.order);
       // fetch the companies
       this.$store.dispatch('fetchCompanies')
       this.$store.dispatch('fetchProducts')
