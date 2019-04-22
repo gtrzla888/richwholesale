@@ -133,7 +133,7 @@
                         v-for="product in products"
                         :key="product.name"
                 >
-                    <app-product-list :headers="product.headers" :items="order[selectedTabKey]" @edit="onEdit" @remove="onRemove"></app-product-list>
+                    <app-product-list :headers="product.headers" @edit="onEdit" @remove="onRemove" :productType="selectedTabKey"></app-product-list>
                 </v-tab-item>
             </v-tabs>
         </v-flex>
@@ -173,12 +173,7 @@
         this.selectedTabKey = this.products[index].key;
       },
       onProductSubmit (product) {
-        if (this.selectedProductIndex !== null) {
-          this.order[this.selectedTabKey][this.selectedProductIndex] = product
-        } else {
-          this.order[this.selectedTabKey].push(product)
-        }
-     
+        this.$store.dispatch('saveOrderProduct', {product, selectedTabKey: this.selectedTabKey})
         this.selectedProduct = {}
       },
       onEdit(index) {
@@ -191,6 +186,9 @@
       },
       submitOrder() {
           this.$store.dispatch('submitOrder', this.order)
+      },
+      addProduct() {
+        this.$store.dispatch('addProduct', {selectedTabKey: this.selectedTabKey})
       }
     },
     computed: {
@@ -231,7 +229,8 @@
         set (value) {
           this.$store.dispatch('updateCompanyId', value)
         }
-      }
+      },
+
     },
     components: {
       appAddItem: addItemWindow,
