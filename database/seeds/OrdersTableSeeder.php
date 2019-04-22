@@ -20,7 +20,7 @@ class OrdersTableSeeder extends Seeder
         $orderItem->product_type = get_class($shutter);
         $orderItem->product_id = $shutter->id;
         $orderItem->price = 100;
-        $orderItem->note = 'test';
+        $orderItem->notes = 'test';
 
         $order = new Order();
         $order->company()->associate(Company::find(1));

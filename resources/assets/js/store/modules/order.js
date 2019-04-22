@@ -10,14 +10,13 @@ export const state = {
   pvc_shutters: [],
   au_pvc_shutters: [],
   aluminium_shutters: [],
-  roller_blinds: [],
-  order: null
+  roller_blinds: []
 }
 
 // mutations
 export const mutations = {
-  [types.SAVE_ORDER] (state, order) {
-    state.order = JSON.parse(order)
+  [types.SAVE_ORDER] (state, { order }) {
+    state.order = order
   },
   [types.SAVE_ORDER_PO_REFERENCE] (state, poReference) {
     state.po_reference = poReference
@@ -25,19 +24,20 @@ export const mutations = {
   [types.SAVE_ORDER_COMPANY_ID] (state, companyId) {
     state.company_id = companyId
   },
+  [types.SAVE_ORDER_PRODUCT] (state, payload) {
+    state[payload.selectedKey].push(payload.product)
+  },
+  [types.REMOVE_ORDER_PRODUCT] (state, payload) {
+    state[payload.selectedTabKey].splice(payload.index, 1)
+  },
   [types.FETCH_ORDER_SUCCESS] (state, { order }) {
     state.order = order
   },
   [types.FETCH_ORDER_FAILURE] (state) {
     state.order = null
   },
-  [types.UPDATE_ORDER] (state, newOrder) {
-    state.order = newOrder
-  },
-  [types.INSERT_ORDER] (state, payload) {
-    if (payload.selectedKey && payload.product) {
-      state[payload.selectedKey].push(payload.product)
-    }
+  [types.UPDATE_ORDER] (state, { order }) {
+    state.order = order
   },
   [types.CLEAR_ORDER] (state) {
     state.order = null
@@ -46,8 +46,8 @@ export const mutations = {
 
 // actions
 export const actions = {
-  saveOrder ({ commit }, payload) {
-    commit(types.SAVE_ORDER, JSON.stringify(payload))
+  saveOrder ({ commit, dispatch }, payload) {
+    commit(types.SAVE_ORDER, payload)
   },
   updatePoReference ({ commit }, payload) {
     commit(types.SAVE_ORDER_PO_REFERENCE, payload)
@@ -58,11 +58,12 @@ export const actions = {
   getOrder ({ commit }, payload) {
     commit(types.GET_ORDER, payload)
   },
-
-  async updateOrder ({ commit }, payload) {
-    commit(types.UPDATE_ORDER, payload)
+  saveOrderProduct ({ commit }, payload) {
+    commit(types.SAVE_ORDER_PRODUCT, payload)
   },
-
+  removeOrderProduct ({ commit }, payload) {
+    commit(types.REMOVE_ORDER_PRODUCT, payload)
+  },
   async fetchOrder ({ commit }) {
     try {
       const { data } = await axios.get('/api/order/companies')
@@ -71,8 +72,18 @@ export const actions = {
       commit(types.FETCH_ORDER_FAILURE)
     }
   },
-  insertOrder ({ commit }, payload) {
-    commit(types.INSERT_ORDER, payload)
+  async submitOrder ({ commit }, payload) {
+    try {
+      console.log('erere')
+      const { data } = await axios.post('/api/orders', payload)
+      console.log(data)
+      commit(types.RESPONSE_MSG, {
+        type: 'error',
+        text: data.errors
+      })
+    } catch (e) {
+      console.log('iam here')
+    }
   }
 }
 

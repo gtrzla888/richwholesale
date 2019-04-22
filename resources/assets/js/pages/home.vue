@@ -103,7 +103,7 @@
                     </v-tooltip>
                     <v-tooltip top>
                         <template v-slot:activator="{ on }">
-                            <v-btn fab small color="#748C5D" dark v-on="on">
+                            <v-btn fab small color="#748C5D" dark v-on="on"  @click="submitOrder">
                                 <v-icon>send</v-icon>
                             </v-btn>
                         </template>
@@ -217,7 +217,10 @@
         this.$store.dispatch('updateAddItemDialogStatus', {status: true});
       },
       onRemove(index) {
-          this.order[this.selectedTabKey].splice(index, 1)
+          this.$store.dispatch('removeOrderProduct', {selectedTabKey: this.selectedTabKey, index: index})
+      },
+      submitOrder() {
+          this.$store.dispatch('submitOrder', this.order)
       }
     },
     computed: {

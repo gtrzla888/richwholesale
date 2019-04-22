@@ -24,7 +24,7 @@ class BasswoodShutter extends Shutter
             ],
             'in_or_out' => [
                 'required',
-                Rule::in('in', 'out')
+                Rule::in('In', 'Out')
             ],
             'mid_rail' => [
                 'required'
@@ -34,7 +34,7 @@ class BasswoodShutter extends Shutter
             ],
             'blade_size' => 'required',
             'tilt_rod' => 'required',
-            'color' => [
+            'colour' => [
                 'required'
             ],
             'stile_type' => 'required',

@@ -26,7 +26,7 @@ abstract class Shutter extends Product
         return [
             'name' => 'required|max:255',
             'width' => 'required|integer',
-            'drop' => 'require|integer',
+            'drop' => 'required|integer',
         ];
     }
 
@@ -36,6 +36,7 @@ abstract class Shutter extends Product
             'product' => static::NAME,
             'width' => $this->width,
             'drop' => $this->drop,
+            'colour' => $this->colour,
             'shutter_type' => $this->shutter_type,
             'corner' => $this->corner,
             'frame' => $this->frame,
