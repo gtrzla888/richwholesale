@@ -71,9 +71,7 @@ export default {
       email: '',
       role: '',
       contactNumber: ''
-
-    }),
-    roles: ['admin', 'user']
+    })
   }),
 
   computed: mapGetters({
@@ -89,7 +87,7 @@ export default {
   mixins: [validateMixin],
   methods: {
     async update () {
-      if (await this.formHasErrors()) return;
+      if (await this.formHasErrors()) return
 
       this.$emit('busy', true)
 
