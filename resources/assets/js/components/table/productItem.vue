@@ -2,15 +2,30 @@
   <v-flex style="overflow: auto">
       <v-data-table
       :headers="headers"
-      :items="items"
+      :items="products"
       hide-actions
       item-key="name"
       class="product-list"
     >
       <template v-slot:items="props">
-        <tr :active="props.selected" @click="props.selected = !props.selected">
+        <tr>
           <td class="text-xs-right" v-for="header in headers" v-if="header.value !== 'actions'" v-bind:key="header.value">
+
+            <v-edit-dialog
+                    :return-value="name"
+                    large
+                    lazy
+                    persistent
+                    @save="save"
+                    @cancel="cancel"
+                    @open="open"
+                    @close="close"
+            >
               {{props.item[header.value]}}
+              <template v-slot:input>
+                <component v-bind:is="header.value" :value="props.item[header.value]" v-on:productChanged="productChanged" :index="props.index"></component>
+              </template>
+            </v-edit-dialog>
           </td>
           <td class="text-xs-center">
             <v-menu offset-x left bottom>
@@ -20,9 +35,6 @@
                 <v-icon>more_vert</v-icon>
               </v-btn>
               <v-list>
-                <v-list-tile @click="onEdit(props.index)">
-                  <v-list-tile-title >Edit</v-list-tile-title>
-                </v-list-tile>
                 <v-list-tile @click="onRemove(props.index)">
                   <v-list-tile-title >Remove</v-list-tile-title>
                 </v-list-tile>
@@ -36,15 +48,30 @@
 </template>
 <script>
   export default {
-    props: ['headers', 'items'],
     data: () => ({
-      max25chars: v => v.length <= 25 || 'Input too long!',
-      pagination: {
-        sortBy: 'width'
-      },
     }),
+    computed: {
+        name: {
+          get() {
+            return 'test'
+          },
+          set() {
 
+          }
+        },
+        products: {
+          get() {
+            return this.$store.state.order[this.productType]
+          },
+          set (value) {
+            //this.$store.dispatch('updateProducts', { selectedTabKey: this.productType, value})
+          }
+        },
+    },
     methods: {
+      onUpdateProduct(payload) {
+          console.log(payload.id, payload.name)
+      },
       toggleAll () {
         if (this.selected.length) this.selected = []
         else this.selected = this.desserts.slice()
@@ -57,7 +84,11 @@
           this.pagination.descending = false
         }
       },
-      save () {
+      productChanged(value) {
+        console.log(value)
+          this.$store.dispatch('updateOrderProduct', { selectedTabKey: this.productType, ...value})
+      },
+      save (index) {
         this.snack = true
         this.snackText = 'Data saved'
       },
@@ -65,12 +96,11 @@
         this.snack = true
         this.snackText = 'Canceled'
       },
-      open () {
+      open (index) {
         this.snack = true
         this.snackText = 'Dialog opened'
       },
       close () {
-        console.log('Dialog closed')
       },
       onEdit(index) {
          this.$emit('edit', index)
@@ -78,7 +108,12 @@
       onRemove(index) {
          this.$emit('remove', index)
       }
-    }
+    },
+    props: {
+      productType: String,
+      headers: Array,
+      items: Object
+    },
   }
 </script>
 
