@@ -31,52 +31,82 @@ class OrderController extends Controller
         $order = new Order();
         $order->company_id = $validated['company_id'];
         $order->po_reference = $validated['po_reference'];
-        $order->customer_name = $validated['customer_name'];
-        $order->note = $validated['note'];
-        foreach ($validated['basswood_shutters'] as $shutter) {
-            $product = BasswoodShutter::create($shutter);
-            $item = new OrderItem();
-            $item->price = $product->getPrice();
-            $item->note = $shutter['note'];
-            $item->product()->associate($product);
-            $order->items()->save($item);
+        if (isset($validated['customer_name'])) {
+            $order->customer_name = $validated['customer_name'];
+        }
+        $order->notes = $validated['notes'];
+        $order->total = 0;
+        $order->save();
+        if (isset($validated['basswood_shutters'])) {
+            foreach ($validated['basswood_shutters'] as $shutter) {
+                $product = BasswoodShutter::create($shutter);
+                $item = new OrderItem();
+                $item->price = $product->getPrice();
+                $order->total += $item->price;
+                if (isset($shutter['notes'])) {
+                    $item->notes = $shutter['notes'];
+                }
+                $item->product()->associate($product);
+                $order->items()->save($item);
+            }
         }
 
-        foreach ($validated['pvc_shutters'] as $shutter) {
-            $product = PVCShutter::create($shutter);
-            $item = new OrderItem();
-            $item->price = $product->getPrice();
-            $item->note = $shutter['note'];
-            $item->product()->associate($product);
-            $order->items()->save($item);
+        if (isset($validated['pvc_shutters'])) {
+            foreach ($validated['pvc_shutters'] as $shutter) {
+                $product = PVCShutter::create($shutter);
+                $item = new OrderItem();
+                $item->price = $product->getPrice();
+                $order->total += $item->price;
+                if (isset($shutter['notes'])) {
+                    $item->notes = $shutter['notes'];
+                }
+                $item->product()->associate($product);
+                $order->items()->save($item);
+            }
         }
 
-        foreach ($validated['au_pvc_shutters'] as $shutter) {
-            $product = AUPVCShutter::create($shutter);
-            $item = new OrderItem();
-            $item->price = $product->getPrice();
-            $item->note = $shutter['note'];
-            $item->product()->associate($product);
-            $order->items()->save($item);
+        if (isset($validated['au_pvc_shutters'])) {
+            foreach ($validated['au_pvc_shutters'] as $shutter) {
+                $product = AUPVCShutter::create($shutter);
+                $item = new OrderItem();
+                $item->price = $product->getPrice();
+                $order->total += $item->price;
+                if (isset($shutter['notes'])) {
+                    $item->notes = $shutter['notes'];
+                }
+                $item->product()->associate($product);
+                $order->items()->save($item);
+            }
         }
 
-        foreach ($validated['aluminium_shutters'] as $shutter) {
-            $product = AluminiumShutter::create($shutter);
-            $item = new OrderItem();
-            $item->price = $product->getPrice();
-            $item->note = $shutter['note'];
-            $item->product()->associate($product);
-            $order->items()->save($item);
+        if (isset($validated['aluminium_shutters'])) {
+            foreach ($validated['aluminium_shutters'] as $shutter) {
+                $product = AluminiumShutter::create($shutter);
+                $item = new OrderItem();
+                $item->price = $product->getPrice();
+                $order->total += $item->price;
+                if (isset($shutter['notes'])) {
+                    $item->notes = $shutter['notes'];
+                }
+                $item->product()->associate($product);
+                $order->items()->save($item);
+            }
         }
 
-        foreach ($validated['roller_blinds'] as $rollerBlind) {
-            $product = RollerBlind::create($rollerBlind);
-            $item = new OrderItem();
-            $item->price = $product->getPrice();
-            $item->note = $rollerBlind['note'];
-            $item->product()->associate($product);
-            $order->items()->save($item);
+        if (isset($validated['roller_blinds'])) {
+            foreach ($validated['roller_blinds'] as $rollerBlind) {
+                $product = RollerBlind::create($rollerBlind);
+                $item = new OrderItem();
+                $item->price = $product->getPrice();
+                $order->total += $item->price;
+                if (isset($rollerBlind['notes'])) {
+                    $item->notes = $rollerBlind['notes'];
+                }
+                $item->product()->associate($product);
+                $order->items()->save($item);
+            }
         }
+
 
         $order->save();
 

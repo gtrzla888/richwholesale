@@ -7,7 +7,7 @@ export const state = {
 
 // mutations
 export const mutations = {
-  [types.UPDATE_ADD_ITEM_DIALOG_STATUS] (state, {status}) {
+  [types.UPDATE_ADD_ITEM_DIALOG_STATUS] (state, { status }) {
     state.isDialogOpen = status
   }
 }
