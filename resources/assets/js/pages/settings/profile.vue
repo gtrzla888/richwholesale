@@ -6,6 +6,18 @@
       </v-card-title>
       <v-card-text>
 
+<!--        <v-select-->
+<!--          v-model="form.role"-->
+<!--          :form="form"-->
+<!--          :items="roles"-->
+<!--          label="Role"-->
+<!--        ></v-select>-->
+        <v-text-field
+          label="Role"
+          :value="user.role"
+          readonly
+        ></v-text-field>
+
         <!-- Name -->
         <text-input
           :form="form"
@@ -15,6 +27,16 @@
           counter="30"
           name="name"
           v-validate="'required|max:30'"
+        ></text-input>
+
+        <!-- contact -->
+        <text-input
+          :form="form"
+          :v-errors="errors"
+          v-validate="'required|numeric|max:10'"
+          :value.sync="form.contactNumber"
+          label="Contact Number"
+          name="contact"
         ></text-input>
 
         <!-- Email -->
@@ -27,6 +49,7 @@
           v-validate="'required|email'"
         ></email-input>
 
+
       </v-card-text>
       <v-card-actions>
         <submit-button :flat="true" :form="form" :label="$t('update')"></submit-button>
@@ -38,14 +61,19 @@
 <script>
 import Form from 'vform'
 import { mapGetters } from 'vuex'
+import { validateMixin } from '~/plugins/validation'
 
 export default {
   name: 'profile-view',
   data: () => ({
     form: new Form({
       name: '',
-      email: ''
-    })
+      email: '',
+      role: '',
+      contactNumber: ''
+
+    }),
+    roles: ['admin', 'user']
   }),
 
   computed: mapGetters({
@@ -58,10 +86,10 @@ export default {
       this.form[key] = this.user[key]
     })
   },
-
+  mixins: [validateMixin],
   methods: {
     async update () {
-      if (await this.formHasErrors()) return
+      if (await this.formHasErrors()) return;
 
       this.$emit('busy', true)
 
