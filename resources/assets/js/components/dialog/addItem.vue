@@ -203,7 +203,6 @@
     }),
     methods: {
       onSubmit(event) {
-        console.log(this.product)
         if (!this.$refs.form.validate()) {
            return
         }
