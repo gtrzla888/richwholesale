@@ -33,7 +33,7 @@ class ShutterPrice
         $this->getPrice('shutter_type');
         $this->getPrice('frame');
         $this->getPrice('corner');
-        $this->getPrice('color');
+        $this->getPrice('colour');
 
         return $this->area() * $this->pricePerSqm + $this->addonPrice;
     }

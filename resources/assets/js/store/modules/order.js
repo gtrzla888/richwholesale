@@ -24,6 +24,12 @@ export const mutations = {
   [types.SAVE_ORDER_COMPANY_ID] (state, companyId) {
     state.company_id = companyId
   },
+  [types.SAVE_ORDER_PRODUCT] (state, payload) {
+    state[payload.selectedKey].push(payload.product)
+  },
+  [types.REMOVE_ORDER_PRODUCT] (state, payload) {
+    state[payload.selectedTabKey].splice(payload.index, 1)
+  },
   [types.FETCH_ORDER_SUCCESS] (state, { order }) {
     state.order = order
   },
@@ -52,13 +58,31 @@ export const actions = {
   getOrder ({ commit }, payload) {
     commit(types.GET_ORDER, payload)
   },
-
+  saveOrderProduct ({ commit }, payload) {
+    commit(types.SAVE_ORDER_PRODUCT, payload)
+  },
+  removeOrderProduct ({ commit }, payload) {
+    commit(types.REMOVE_ORDER_PRODUCT, payload)
+  },
   async fetchOrder ({ commit }) {
     try {
       const { data } = await axios.get('/api/order/companies')
       commit(types.FETCH_ORDER_SUCCESS, { order: data })
     } catch (e) {
       commit(types.FETCH_ORDER_FAILURE)
+    }
+  },
+  async submitOrder ({ commit }, payload) {
+    try {
+      console.log('erere')
+      const { data } = await axios.post('/api/orders', payload)
+      console.log(data)
+      commit(types.RESPONSE_MSG, {
+        type: 'error',
+        text: data.errors
+      })
+    } catch (e) {
+      console.log('iam here')
     }
   }
 }

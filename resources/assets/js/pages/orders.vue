@@ -51,7 +51,6 @@
                 <v-date-picker
                         v-model="props.item.eta"
                         :landscape="true"
-                        :class="date-pi"
                 >
                 </v-date-picker>
               </template>

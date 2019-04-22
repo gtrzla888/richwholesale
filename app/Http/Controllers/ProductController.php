@@ -37,7 +37,7 @@ class ProductController extends Controller
             'drop' => 'required',
             'shutter_type' => 'required_unless:product,roller_blind',
             'corner' => 'required_unless:product,roller_blind',
-            'color' => 'required_unless:product,roller_blind',
+            'colour' => 'required_unless:product,roller_blind',
             'frame' => 'required_unless:product,roller_blind',
             'type' => 'required_if:product,roller_blind',
             'fabric' => 'required_if:product,roller_blind',
