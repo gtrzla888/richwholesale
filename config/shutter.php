@@ -34,7 +34,7 @@ return [
                 'unit'  => 'sqm',
             ],
         ],
-        'color'        => [
+        'colour'        => [
             'W100 Snow'       => [
                 'price' => 0,
                 'unit'  => 'order',

@@ -8,6 +8,7 @@ $factory->define(BasswoodShutter::class, function (Faker $faker) {
         'name' => $faker->word,
         'width' => $faker->numberBetween(1000),
         'drop' => $faker->numberBetween(1200),
+        'shutter_type' => 'Bifold Track',
         'corner' => 'no',
         'panel_layout' => 'LR',
         'panel_qty' => 2,

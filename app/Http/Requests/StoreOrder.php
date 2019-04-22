@@ -31,8 +31,8 @@ class StoreOrder extends FormRequest
         $rules = [
             'company_id' => 'required',
             'po_reference' => 'required',
-            'customer_name' => 'required',
-            'note' => 'max:255'
+            'customer_name' => 'max:255',
+            'notes' => 'max:255'
         ];
 
         if (!empty($this->request->get('basswood_shutters'))) {

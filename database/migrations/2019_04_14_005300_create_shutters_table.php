@@ -18,13 +18,14 @@ class CreateShuttersTable extends Migration
             $table->string('name');
             $table->integer('width');
             $table->integer('drop');
+            $table->string('shutter_type');
             $table->string('corner');
             $table->string('panel_layout');
-            $table->integer('panel_qty');
+            $table->integer('panel_qty')->nullable();
             $table->string('in_or_out');
             $table->string('mid_rail');
             $table->string('mid_rail_height')->nullable();
-            $table->integer('blade_size');
+            $table->string('blade_size');
             $table->string('tilt_rod');
             $table->string('colour');
             $table->string('stile_type');

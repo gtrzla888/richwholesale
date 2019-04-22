@@ -18,7 +18,7 @@ class CreateOrderItemsTable extends Migration
             $table->morphs('product');
             $table->unsignedInteger('order_id');
             $table->decimal('price');
-            $table->string('note')->nullable();
+            $table->string('notes')->nullable();
         });
     }
 
