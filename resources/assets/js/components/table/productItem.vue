@@ -15,14 +15,14 @@
                     large
                     lazy
                     persistent
-                    @save="save"
+                    @save="onEdit(props.index, header.value, props.item[header.value])"
                     @cancel="cancel"
                     @open="open"
                     @close="close"
             >
               {{props.item[header.value]}}
               <template v-slot:input>
-                <component v-bind:is="header.value" :value="props.item[header.value]" v-on:productChanged="productChanged" :index="props.index"></component>
+                <component v-bind:is="header.value" :value="props.item[header.value]"  v-on:productChanged="productChanged" :index="props.index"></component>
               </template>
             </v-edit-dialog>
           </td>
@@ -88,7 +88,6 @@
           this.$store.dispatch('updateOrderProduct', { selectedTabKey: this.productType, ...value})
       },
       save (index) {
-        console.log(this.props.item[header.value])
         this.snack = true
         this.snackText = 'Data saved'
       },
@@ -102,8 +101,13 @@
       },
       close () {
       },
-      onEdit(index) {
-         this.$emit('edit', index)
+      onEdit(index, fieldName, fieldVal) {
+         this.$emit('edit', 
+          {
+            index: index,
+            name: fieldName,
+            value: fieldVal
+          })
       },
       onRemove(index) {
          this.$emit('remove', index)
@@ -120,4 +124,6 @@
 <style lang="stylus">
   .v-tabs
     width: 100%;
+  table.v-table tbody td
+    font-size: 11px;
 </style>

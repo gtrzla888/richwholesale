@@ -5,6 +5,7 @@
             :rules="[v => !!v || 'Corner is required']"
             required
             :value="value"
+            v-model="corner"
             @change="onChange"
     ></v-select>
 </template>

@@ -176,10 +176,21 @@
         this.$store.dispatch('saveOrderProduct', {product, selectedTabKey: this.selectedTabKey})
         this.selectedProduct = {}
       },
-      onEdit(index) {
-        this.selectedProductIndex = index
-        this.selectedProduct = this.order[this.selectedTabKey][index]
-        this.$store.dispatch('updateAddItemDialogStatus', {status: true});
+      onEdit(fieldObj) {
+        this.selectedProductIndex = fieldObj.index
+        this.selectedProduct = this.order[this.selectedTabKey][fieldObj.index]
+        let payload = {
+          selectedTabKey: this.selectedTabKey,
+          index: fieldObj.index,
+          field: fieldObj.name,
+          value: fieldObj.value
+        }
+        if (payload.field === 'width' || payload.field === 'drop') {
+          this.$store.dispatch('calculateSQM', payload)
+        }
+        this.$store.dispatch('updateOrderProduct', payload)
+        console.log(this.selectedProduct)
+        // this.$store.dispatch('updateAddItemDialogStatus', {status: true});
       },
       onRemove(index) {
           this.$store.dispatch('removeOrderProduct', {selectedTabKey: this.selectedTabKey, index: index})
