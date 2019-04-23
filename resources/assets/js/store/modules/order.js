@@ -25,10 +25,13 @@ export const mutations = {
     state.company_id = companyId
   },
   [types.SAVE_ORDER_PRODUCT] (state, payload) {
-    state[payload.selectedKey].push(payload.product)
+    state[payload.selectedTabKey].push(payload.product)
   },
   [types.REMOVE_ORDER_PRODUCT] (state, payload) {
     state[payload.selectedTabKey].splice(payload.index, 1)
+  },
+  [types.UPDATE_ORDER_PRODUCT] (state, payload) {
+    state[payload.selectedTabKey][payload.index][payload.field] = payload.value
   },
   [types.FETCH_ORDER_SUCCESS] (state, { order }) {
     state.order = order
@@ -60,6 +63,9 @@ export const actions = {
   },
   saveOrderProduct ({ commit }, payload) {
     commit(types.SAVE_ORDER_PRODUCT, payload)
+  },
+  updateOrderProduct ({ commit }, payload) {
+    commit(types.UPDATE_ORDER_PRODUCT, payload)
   },
   removeOrderProduct ({ commit }, payload) {
     commit(types.REMOVE_ORDER_PRODUCT, payload)

@@ -11,7 +11,7 @@
         <tr>
           <td class="text-xs-right" v-for="header in headers" v-if="header.value !== 'actions'" v-bind:key="header.value">
             <v-edit-dialog
-                    :return-value="props.item[header.value]"
+                    :return-value="header.value"
                     large
                     lazy
                     persistent
@@ -88,7 +88,6 @@
           this.$store.dispatch('updateOrderProduct', { selectedTabKey: this.productType, ...value})
       },
       save (index) {
-        console.log(this.props.item[header.value])
         this.snack = true
         this.snackText = 'Data saved'
       },

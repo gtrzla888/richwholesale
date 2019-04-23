@@ -10,8 +10,9 @@
       <template v-slot:items="props">
         <tr>
           <td class="text-xs-right" v-for="header in headers" v-if="header.value !== 'actions'" v-bind:key="header.value">
+
             <v-edit-dialog
-                    :return-value="props.item[header.value]"
+                    :return-value="name"
                     large
                     lazy
                     persistent
@@ -65,7 +66,17 @@
           set (value) {
             //this.$store.dispatch('updateProducts', { selectedTabKey: this.productType, value})
           }
-        }
+        },
+        // filters: {
+        //   filterActionHeaders (hVal) {
+        //     return hVal
+        //     // if(hVal.value === 'actions') {
+        //     //   return ''
+        //     // }else {
+        //     //   return hVal
+        //     // }
+        //   }
+        // }
     },
     methods: {
       onUpdateProduct(payload) {
@@ -88,7 +99,6 @@
           this.$store.dispatch('updateOrderProduct', { selectedTabKey: this.productType, ...value})
       },
       save (index) {
-        console.log(this.props.item[header.value])
         this.snack = true
         this.snackText = 'Data saved'
       },
@@ -118,6 +128,8 @@
 </script>
 
 <style lang="stylus">
-  .v-tabs
-    width: 100%;
+  .product-list
+    overflow: scroll
+  .v-table__overflow
+    overflow: scroll !important
 </style>

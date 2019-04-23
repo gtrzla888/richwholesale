@@ -88,7 +88,6 @@
           this.$store.dispatch('updateOrderProduct', { selectedTabKey: this.productType, ...value})
       },
       save (index) {
-        console.log(this.props.item[header.value])
         this.snack = true
         this.snackText = 'Data saved'
       },

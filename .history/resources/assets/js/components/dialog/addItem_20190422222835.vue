@@ -216,7 +216,7 @@
         this.$store.dispatch('updateAddItemDialogStatus', {status: false})
       },
       calculateSqm() {
-        this.product.sqm = this.product.width * this.product.drop;
+        this.product.sqm = this.width * this.drop;
       }
     },
     computed: {

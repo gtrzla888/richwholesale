@@ -95,7 +95,7 @@
                     </v-tooltip>
                     <v-tooltip top>
                         <template v-slot:activator="{ on }">
-                            <v-btn fab small color="#748C5D" dark v-on="on" @click="saveOrder">
+                            <v-btn fab small color="#748C5D" dark v-on="on">
                                 <v-icon>save</v-icon>
                             </v-btn>
                         </template>
@@ -133,21 +133,7 @@
                         v-for="product in products"
                         :key="product.name"
                 >
-                    <app-product-list :headers="product.headers" :items="order[selectedTabKey]" @edit="onEdit" @remove="onRemove"></app-product-list>
-                  <v-snackbar
-                    v-model="snackBar.showSnack"
-                    :bottom="true"
-                    :timeout="snackBar.timeout"
-                  >
-                    {{ snackBar.text }}
-                    <v-btn
-                      color="pink"
-                      flat
-                      @click="snackBar.showSnack = false"
-                    >
-                      Close
-                    </v-btn>
-                  </v-snackbar>
+                    <app-product-list :headers="product.headers" @edit="onEdit" @remove="onRemove" :productType="selectedTabKey"></app-product-list>
                 </v-tab-item>
             </v-tabs>
         </v-flex>
@@ -175,12 +161,7 @@
       active: null,
       selectedTabKey: '',
       selectedProduct: {},
-      selectedProductIndex: null,
-      snackBar: {
-        showSnack: false,
-        timeout: 6000,
-        text: ''
-      }
+      selectedProductIndex: null
     }),
     methods: {
       openAddItemWindow() {
@@ -191,24 +172,8 @@
       getProducts(index) {
         this.selectedTabKey = this.products[index].key;
       },
-      saveOrder() {
-        this.$store.dispatch('saveOrder', this.order)
-        this.snackBar.text = "Your order is saved."
-        this.snackBar.showSnack = true
-      },
       onProductSubmit (product) {
-        if (this.selectedProductIndex !== null) {
-          this.order[this.selectedTabKey][this.selectedProductIndex] = product
-          this.$store.dispatch('updateOrder', this.order)
-        } else {
-          let payload = {};
-          payload.selectedKey = this.selectedTabKey;
-          payload.product = product;
-          this.$store.dispatch('insertOrder', payload)
-          this.snackBar.text = 'Your order item is added'
-          this.snackBar.showSnack = true
-        }
-     
+        this.$store.dispatch('saveOrderProduct', {product, selectedTabKey: this.selectedTabKey})
         this.selectedProduct = {}
       },
       onEdit(index) {
@@ -221,6 +186,9 @@
       },
       submitOrder() {
           this.$store.dispatch('submitOrder', this.order)
+      },
+      addProduct() {
+        this.$store.dispatch('addProduct', {selectedTabKey: this.selectedTabKey})
       }
     },
     computed: {
@@ -235,7 +203,7 @@
           return this.$store.state.order;
         },
         set(newOrder) {
-          this.$store.dispatch('saveOrder', newOrder)
+          this.$store.dispatch('saveOrder', { order: newOrder })
         }
       },
       notes: {
@@ -261,7 +229,8 @@
         set (value) {
           this.$store.dispatch('updateCompanyId', value)
         }
-      }
+      },
+
     },
     components: {
       appAddItem: addItemWindow,
