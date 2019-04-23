@@ -18,6 +18,7 @@ class CreateOrdersTable extends Migration
             $table->unsignedInteger('company_id');
             $table->string('po_reference');
             $table->string('status')->default('submitted');
+            $table->timestamp('eta')->nullable();
             $table->decimal('total');
             $table->string('notes')->nullable();
             $table->timestamps();

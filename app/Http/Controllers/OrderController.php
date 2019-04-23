@@ -12,6 +12,7 @@ use App\PVCShutter;
 use App\RollerBlind;
 use App\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\UpdateOrder;
 
 class OrderController extends Controller
 {
@@ -115,11 +116,25 @@ class OrderController extends Controller
 
 
     /**
-     * @param Order $order
+     * @param Order       $order
+     * @param UpdateOrder $request
+     *
+     * @return Order
      */
-    public function update(Order $order, Request $request)
+    public function update(Order $order, UpdateOrder $request)
     {
+        $validated = $request->validated();
+        if (isset($validated['status'])) {
+            $order->status = $validated['status'];
+        }
 
+        if (isset($validated['eta'])) {
+            $order->eta = $validated['eta'];
+        }
+
+        $order->save();
+
+        return $order;
     }
 
 }

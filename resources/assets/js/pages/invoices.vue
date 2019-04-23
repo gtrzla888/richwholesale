@@ -50,7 +50,7 @@
     },
     methods: {
       async loadInvoices() {
-        const { data } = await axios.get('/api/orders')
+        const { data } = await axios.get('/api/invoies')
         this.invoices = data;
         console.log(data);
       }
