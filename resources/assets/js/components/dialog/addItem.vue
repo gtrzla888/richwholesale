@@ -214,9 +214,6 @@
       },
       onCancel() {
         this.$store.dispatch('updateAddItemDialogStatus', {status: false})
-      },
-      calculateSqm() {
-        this.product.sqm = this.product.width * this.product.drop;
       }
     },
     computed: {
@@ -228,6 +225,9 @@
         set() {
 
         }
+      },
+      calculateSqm() {
+        this.product.sqm = this.product.width * this.product.drop;
       },
       shutterType() {
           return  [
