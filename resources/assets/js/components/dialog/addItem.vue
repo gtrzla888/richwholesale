@@ -20,11 +20,13 @@
         </v-card-title>
         <v-card-text>
           <v-text-field
+                  v-if="type==='basswood_shutters' || type==='pvc_shutters' || type==='aluminium_shutters'"
                   v-model="product.type"
                   v-show="false"
           ></v-text-field>
 
           <v-text-field
+            v-if="type==='basswood_shutters' || type==='pvc_shutters' || type==='aluminium_shutters'"
             v-model="product.name"
             :counter="10"
             :rules="nameRules"
@@ -33,6 +35,7 @@
           ></v-text-field>
 
           <v-text-field
+            v-if="type==='basswood_shutters' || type==='pvc_shutters' || type==='aluminium_shutters'"
             v-model="product.width"
             label="Width(mm)"
             :rules="[v => !!v || 'Width is required']"
@@ -42,6 +45,7 @@
           ></v-text-field>
 
           <v-text-field
+            v-if="type==='basswood_shutters' || type==='pvc_shutters' || type==='aluminium_shutters'"
             v-model="product.drop"
             label="Drop(mm)"
             type = "number"
@@ -53,12 +57,14 @@
           </v-text-field>
 
           <v-text-field
+            v-if="type==='basswood_shutters' || type==='pvc_shutters' || type==='aluminium_shutters'"
             :value="product.sqm"
             label="Sqm(auto calculated)"
             readonly
           ></v-text-field>
 
           <v-select
+            v-if="type==='basswood_shutters' || type==='pvc_shutters' || type==='aluminium_shutters'"
             :items="shutterType"
             label="Shutter Type"
             v-model="product.shutter_type"
@@ -67,6 +73,7 @@
           ></v-select>
 
           <v-select
+            v-if="type==='basswood_shutters' || type==='pvc_shutters'"
             :items="corners"
             label="Corner"
             v-model="product.corner"
@@ -74,7 +81,8 @@
             required
           ></v-select>
 
-          <v-text-field
+           <v-text-field
+            v-if="type==='basswood_shutters' || type==='pvc_shutters' || type==='aluminium_shutters'"
             v-model="product.panel_layout"
             label="Panel Layout"
             :rules="[v => !!v || 'Panel layout is required', v =>  /[LTRD-]/gm.test(v) || 'Panel Layout is not valid']"
@@ -84,6 +92,7 @@
           ></v-text-field>
 
           <v-text-field
+            v-if="type==='basswood_shutters' || type==='pvc_shutters' || type==='aluminium_shutters'"
             :value="product.panel_qty"
             label="Panel Quantity"
             type="number"
@@ -91,6 +100,7 @@
           ></v-text-field>
 
           <v-radio-group 
+            v-if="type==='basswood_shutters' || type==='pvc_shutters' || type==='aluminium_shutters'"
             v-model="product.in_or_out" 
             :mandatory="true" 
             row 
@@ -102,6 +112,7 @@
           </v-radio-group>
 
           <v-select
+            v-if="type==='basswood_shutters' || type==='pvc_shutters' || type==='aluminium_shutters'"
             :items="midRail"
             label="Mid Rail"
             v-model="product.mid_rail"
@@ -110,6 +121,7 @@
           ></v-select>
 
           <v-text-field
+            v-if="type==='basswood_shutters' || type==='pvc_shutters' || type==='aluminium_shutters'"
             v-model="product.mid_rail_height"
             label="Mid Rail Height"
             :rules="[v => !!v || 'Mid Rail Height is required']"
@@ -119,66 +131,75 @@
           ></v-text-field>
 
           <v-select
-              :items="bladeSize"
-              label="Blade Size"
-              :rules="[v => !!v || 'Blade Size is required']"
-              v-model="product.blade_size"
+            v-if="type==='basswood_shutters' || type==='pvc_shutters' || type==='aluminium_shutters'"
+            :items="bladeSize"
+            label="Blade Size"
+            :rules="[v => !!v || 'Blade Size is required']"
+            v-model="product.blade_size"
           ></v-select>
 
           <v-select
-              :items="tiltRod"
-              label="Tile Rod"
-              :rules="[v => !!v || 'Tile Rod is required']"
-              v-model="product.tilt_rod"
+            v-if="type==='basswood_shutters' || type==='pvc_shutters' || type==='aluminium_shutters'"
+            :items="tiltRod"
+            label="Tile Rod"
+            :rules="[v => !!v || 'Tile Rod is required']"
+            v-model="product.tilt_rod"
           ></v-select>
 
           <v-select
-                  :items="colour"
-                  label="Mid Rail"
-                  :rules="[v => !!v || 'Mid Rail is required']"
-                  v-model="product.colour"
-                  required
+            v-if="type==='basswood_shutters' || type==='pvc_shutters' || type==='aluminium_shutters'"
+            :items="colours"
+            label="Color"
+            :rules="[v => !!v || 'Color is required']"
+            v-model="product.shutter_color"
           ></v-select>
 
           <v-select
-                  :items="stileType"
-                  label="Stile Type"
-                  :rules="[v => !!v || 'Stile Type is required']"
-                  v-model="product.stile_type"
+            v-if="type==='basswood_shutters' || type==='pvc_shutters'"
+            :items="stileType"
+            label="Stile Type"
+            :rules="[v => !!v || 'Stile Type is required']"
+            v-model="product.stile_type"
           ></v-select>
 
           <v-select
-                  :items="frame"
-                  label="Frame"
-                  :rules="[v => !!v || 'Frame is required']"
-                  v-model="product.frame"
+            v-if="type==='basswood_shutters' || type==='pvc_shutters' || type==='aluminium_shutters'"
+            :items="frame"
+            label="Frame"
+            :rules="[v => !!v || 'Frame is required']"
+            v-model="product.frame"
           ></v-select>
 
           <v-select
-                  :items="frameOptions"
-                  label="Frame"
-                  :rules="[v => !!v || 'Frame Option is required']"
-                  v-model="product.frame_options"
+            v-if="type==='basswood_shutters' || type==='pvc_shutters'"
+            :items="frameOptions"
+            label="Frame Options"
+            :rules="[v => !!v || 'Frame Options is required']"
+            v-model="product.frame_options"
+          ></v-select>
+
+
+          <v-select
+            v-if="type==='basswood_shutters' || type==='pvc_shutters'"
+            :items="hingeType"
+            label="Hinge Type"
+            :rules="[v => !!v || 'Hinge Type is required']"
+            v-model="product.hinge_type"
           ></v-select>
 
           <v-select
-                  :items="hingeType"
-                  label="Hinge Type"
-                  :rules="[v => !!v || 'Hinge Type is required']"
-                  v-model="product.hinge_type"
-          ></v-select>
-
-          <v-select
-                  :items="hingeColour"
-                  label="Hinge Colour"
-                  :rules="[v => !!v || 'Hinge Colour is required']"
-                  v-model="product.hinge_color"
+            v-if="type==='basswood_shutters' || type==='pvc_shutters'"
+            :items="hingeColour"
+            label="Hinge Colour"
+            :rules="[v => !!v || 'Hinge Colour is required']"
+            v-model="product.hinge_color"
           ></v-select>
 
           <v-text-field
-                  v-model="product.notes"
-                  label="Notes"
-                  type="text"
+            v-if="type==='basswood_shutters' || type==='pvc_shutters' || type==='aluminium_shutters'"
+            v-model="product.notes"
+            label="Notes"
+            type="text"
           ></v-text-field>
         </v-card-text>
         <v-card-actions>
@@ -284,10 +305,13 @@
       },
       stileType() {
         return [
-          '50b'
+          '50b',
+          '60b',
+          '50f',
+          '60f',
         ]
       },
-      colour() {
+      colours() {
         return [
           'W100 Snow',
 

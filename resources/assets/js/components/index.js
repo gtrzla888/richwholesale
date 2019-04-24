@@ -20,8 +20,10 @@ import BladeSize from './product/shutter/BladeSize'
 import TiltRod from './product/shutter/TiltRod'
 import ShutterColor from './product/shutter/ShutterColor'
 import FrameOptions from './product/shutter/FrameOptions'
+import Frame from './product/shutter/Frame'
 import HingeColor from './product/shutter/HingeColor'
 import HingeType from './product/shutter/HingeType'
+import StileType from './product/shutter/StileType'
 
 Vue.component(Icon.name, Icon)
 Vue.component(EmailInput.name, EmailInput)
@@ -45,7 +47,9 @@ Vue.component(TiltRod.name, TiltRod)
 Vue.component(ShutterColor.name, ShutterColor)
 Vue.component(PanelLayout.name, PanelLayout)
 Vue.component(FrameOptions.name, FrameOptions)
+Vue.component(Frame.name, Frame)
 Vue.component(HingeColor.name, HingeColor)
 Vue.component(HingeType.name, HingeType)
+Vue.component(StileType.name, StileType)
 Vue.component(Notes.name, Notes)
 
