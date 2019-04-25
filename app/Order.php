@@ -13,8 +13,13 @@ class Order extends Model
         return $this->hasMany(OrderItem::class);
     }
 
-    public function company()
+    public function invoice()
     {
-        return $this->belongsTo(Company::class);
+        return $this->hasOne(Invoice::class);
+    }
+
+    public function quote()
+    {
+        return $this->belongsTo(Quote::class);
     }
 }

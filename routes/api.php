@@ -24,9 +24,13 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     Route::get('orders', 'OrderController@index');
     Route::post('orders', 'OrderController@store');
+    Route::put('orders/{order}', 'OrderController@update');
 
     Route::get('product/cost', 'ProductController@cost');
 
+    Route::get('companies', 'CompanyController@index');
+    Route::get('invoices', 'InvoiceController@index');
+    Route::get('quotes', 'QuoteController@index');
 });
 
 Route::group(['middleware' => 'guest:api'], function () {

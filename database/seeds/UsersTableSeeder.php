@@ -21,9 +21,24 @@ class UsersTableSeeder extends Seeder
         $user->save();
 
         $company = new Company();
-        $company->name = 'Thompson Tech';
+        $company->name = 'Rich WholeSale';
         $company->abn = '2039929922';
         $company->save();
         $user->companies()->attach($company);
+        $user->save();
+
+        $user = new User();
+        $user->name = 'Richard Thompson';
+        $user->email = 'richard+company@thompsontech.com.au';
+        $user->password = bcrypt('secretsecret');
+        $user->role = User::ROLE_COMPANY_ADMIN;
+        $user->save();
+
+        $company = new Company();
+        $company->name = 'Thompson Tech ';
+        $company->abn = '2039929922';
+        $company->save();
+        $user->companies()->attach($company);
+        $user->save();
     }
 }

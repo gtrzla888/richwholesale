@@ -89,11 +89,10 @@ export const actions = {
       commit(types.FETCH_ORDER_FAILURE)
     }
   },
+
   async submitOrder ({ commit }, payload) {
     try {
-      console.log('erere')
       const { data } = await axios.post('/api/orders', payload)
-      console.log(data)
       commit(types.RESPONSE_MSG, {
         type: 'error',
         text: data.errors
