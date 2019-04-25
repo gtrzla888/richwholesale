@@ -195,7 +195,7 @@
             v-if="type==='basswood_shutters' || type==='pvc_shutters' || type==='aluminium_shutters' || type==='au_pvc_shutters'"
             v-model="product.panel_layout"
             label="Panel Layout"
-            :rules="[v => !!v || 'Panel layout is required', v =>  /[LTRD-]/gm.test(v) || 'Panel Layout is not valid']"
+            :rules="[v => !!v || 'Panel layout is required', v =>  /[LTRDltrd-]/gm.test(v) || 'Panel Layout is not valid']"
             required
             type="text"
             @blur="calculatePQTY"
@@ -350,7 +350,7 @@
         this.product.sqm = this.product.width * this.product.drop;
       },
       calculatePQTY() {
-        this.product.panel_qty = (this.product.panel_layout.match(/L/g) || []).length + (this.product.panel_layout.match(/R/g) || []).length
+        this.product.panel_qty = (this.product.panel_layout.toUpperCase().match(/L/g) || []).length + (this.product.panel_layout.toUpperCase().match(/R/g) || []).length
       }
     },
     computed: {
@@ -423,23 +423,59 @@
         ]
       },
       fabrics() {
-        return [
-          'Blockout - Solitaire',
-          'Blockout - Focus',
-          'Blockout - Metroshade',
-          'Blockout - Sanctuary',
-          'Blockout - Riviera',
-          'Blockout - Tusk',
-          'Blockout - Jersey',
-          'Blockout - Balmoral',
-          'Screen - One Screen',
-          'Screen - Solar View',
-          'Light Filter - Metroshade',
-          'Light Filter - Riviera',
-          'Light Filter - Tusk',
-          'Light Filter - Jersey',
-          'Light Filter - Balmoral',
-        ]
+        let options = []
+        switch (this.selectedProduct.type) {
+          case 'Blockout':
+            options = [
+              'Blockout - Solitaire',
+              'Blockout - Focus',
+              'Blockout - Metroshade',
+              'Blockout - Sanctuary',
+              'Blockout - Riviera',
+              'Blockout - Tusk',
+              'Blockout - Jersey',
+              'Blockout - Balmoral'
+            ];
+            break;
+          case 'Screen':
+            options = [
+              'Screen - One Screen',
+              'Screen - Solar View'
+            ];
+            break;
+          case 'Light Filter':
+            options = [
+              'Light Filter - Metroshade',
+              'Light Filter - Riviera',
+              'Light Filter - Tusk',
+              'Light Filter - Jersey',
+              'Light Filter - Balmoral'
+            ];
+            break;
+          case 'Screen - One Screen':
+
+          break;
+          default:
+            options = [
+              'Blockout - Solitaire',
+              'Blockout - Focus',
+              'Blockout - Metroshade',
+              'Blockout - Sanctuary',
+              'Blockout - Riviera',
+              'Blockout - Tusk',
+              'Blockout - Jersey',
+              'Blockout - Balmoral',
+              'Screen - One Screen',
+              'Screen - Solar View',
+              'Light Filter - Metroshade',
+              'Light Filter - Riviera',
+              'Light Filter - Tusk',
+              'Light Filter - Jersey',
+              'Light Filter - Balmoral'
+            ];
+            break;
+        }
+        return options;
       },
       colours() {
         let colors = [];
@@ -539,7 +575,276 @@
             'Putty',
             'Pyrite',
             'Steel', 
+            'White',
+            'Sand',
+            'Dune',
+            'Linen/Bronze',
+            'Wallaby',
+            'Ice',
+            'Grey',
+            'Gunmetal',
+            'Silver/Black',
+            'Mercury',
+            'Charcoal',
+            'Black',
+            'White',
+            'Off White',
+            'Alabaster',
+            'Cotton',
+            'Bone/Off White',
+            'Taupe',
+            'Platinum',
+            'Bronze/Charcoal',
+            'Black/Copper',
+            'Grey',
+            'Charcoal',
+            'Black'
             ];
+            switch (this.selectedProduct.type) {
+              case 'Blockout - Solitaire':
+                colors = [
+                'Snow',
+                'Antique White',
+                'Champagne',
+                'Granite',
+                'Peat',
+                'Pepper',
+                'Coffee',
+                'Concord',
+                'Ironstone',
+                'Onyx'
+                ];
+                break;
+              case 'Blockout - Focus':
+                colors = [
+                  'White',
+                  'Chalk',
+                  'Shell',
+                  'Dove',
+                  'Linen',
+                  'Cream',
+                  'Powder',
+                  'Putty',
+                  'Stone',
+                  'Cotton',
+                  'Alabaster',
+                  'Almond',
+                  'Sandstone',
+                  'Latte',
+                  'Beechwood',
+                  'Cloud',
+                  'Pumice',
+                  'Oyster',
+                  'Eucalypt',
+                  'Duck Egg',
+                  'Smoke',
+                  'Ash',
+                  'Blush',
+                  'Jarrah',
+                  'Espresso',
+                  'Fig',
+                  'Tempest',
+                  'Coal',
+                  'Ebony'
+                ];
+                break;
+              case 'Blockout - Metroshade':
+                colors = ['Dove/White',
+                          'Ecru',
+                          'Nougat',
+                          'Dune',
+                          'Pebble',
+                          'Seal',
+                          'Quill',
+                          'Ice Grey',
+                          'Moonstone',
+                          'Slate',
+                          'Storm',
+                          'Black'];
+                break;
+              case 'Blockout - Sanctuary':
+                colors = ['Plaster',
+                          'Marble',
+                          'Limestone',
+                          'Ceramic',
+                          'Truffle',
+                          'Fossil',
+                          'Suede',
+                          'Mineral',
+                          'Slate',
+                          'Baltic',
+                          'Lava'];
+                break;
+              case 'Blockout - Riviera':
+                colors = ['Cannes',
+                  'Nice',
+                  'La Palme',
+                  'St Marie',
+                  'Monte Carlo',
+                  'Cassis'];
+                break; 
+              case 'Blockout - Tusk':
+                colors = [
+                  'Mushroom',
+                  'Pepper',
+                  'Beach',
+                  'Coconut',
+                  'Slate',
+                  'Whisper',
+                  'Hazelnut',
+                  'Henna'
+                  ];
+                break;
+              case 'Blockout - Jersey':
+                colors = [
+                  'Opal',
+                  'Organic',
+                  'Stone',
+                  'Render',
+                  'Timber',
+                  'Pavement',
+                  'Steel',
+                  ];
+                break;
+              case 'Blockout - Balmoral':
+                colors = [
+                  'White',
+                  'Pearl',
+                  'Birch',
+                  'Bourneville',
+                  'Concrete',
+                  'Dove',
+                  'Jet',
+                  'Putty',
+                  'Pyrite',
+                  'Steel'
+                  ];
+                break;
+              case 'Screen - One Screen':
+                colors = [
+                  'White',
+                  'Sand',
+                  'Dune',
+                  'Linen/Bronze',
+                  'Wallaby',
+                  'Ice',
+                  'Grey'
+                  ];
+                break;
+              case 'Screen - Solar View':
+                colors = [
+                  'White',
+                  'Off White',
+                  'Alabaster',
+                  'Cotton',
+                  'Bone/Off White',
+                  'Taupe',
+                  'Platinum',
+                  'Bronze/Charcoal',
+                  'Black/Copper',
+                  'Grey',
+                  'Charcoal',
+                  'Black'
+                  ];
+                break;
+              default:
+                colors = [
+                  'Snow',
+                  'Antique White',
+                  'Champagne',
+                  'Granite',
+                  'Peat',
+                  'Pepper',
+                  'Coffee',
+                  'Concord',
+                  'Ironstone',
+                  'Onyx',
+                  'White',
+                  'Chalk',
+                  'Shell',
+                  'Dove',
+                  'Linen',
+                  'Cream',
+                  'Powder',
+                  'Putty',
+                  'Stone',
+                  'Cotton',
+                  'Alabaster',
+                  'Almond',
+                  'Sandstone',
+                  'Latte',
+                  'Beechwood',
+                  'Cloud',
+                  'Pumice',
+                  'Oyster',
+                  'Eucalypt',
+                  'Duck Egg',
+                  'Smoke',
+                  'Ash',
+                  'Blush',
+                  'Jarrah',
+                  'Espresso',
+                  'Fig',
+                  'Tempest',
+                  'Coal',
+                  'Ebony',
+                  'Dove/White',
+                  'Ecru',
+                  'Nougat',
+                  'Dune',
+                  'Pebble',
+                  'Seal',
+                  'Quill',
+                  'Ice Grey',
+                  'Moonstone',
+                  'Slate',
+                  'Storm',
+                  'Black',
+                  'Plaster',
+                  'Marble',
+                  'Limestone',
+                  'Ceramic',
+                  'Truffle',
+                  'Fossil',
+                  'Suede',
+                  'Mineral',
+                  'Slate',
+                  'Baltic',
+                  'Lava',
+                  'Cannes',
+                  'Nice',
+                  'La Palme',
+                  'St Marie',
+                  'Monte Carlo',
+                  'Cassis',
+                  'Mushroom',
+                  'Pepper',
+                  'Beach',
+                  'Coconut',
+                  'Slate',
+                  'Whisper',
+                  'Hazelnut',
+                  'Henna',
+                  'Opal',
+                  'Organic',
+                  'Stone',
+                  'Render',
+                  'Timber',
+                  'Pavement',
+                  'Steel',
+                  'White',
+                  'Pearl',
+                  'Birch',
+                  'Bourneville',
+                  'Concrete',
+                  'Dove',
+                  'Jet',
+                  'Putty',
+                  'Pyrite',
+                  'Steel', 
+                  ];
+                break;
+            } 
             break;
           case 'au_pvc_shutters':
             colors = [
