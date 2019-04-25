@@ -9,7 +9,7 @@ use App\PVCShutter;
 use App\RollerBlind;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreOrder extends FormRequest
+class StoreQuote extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
