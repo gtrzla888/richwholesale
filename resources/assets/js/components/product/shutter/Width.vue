@@ -1,6 +1,7 @@
 <template>
     <v-text-field
             :value="value"
+            v-model="width"
             label="Width(mm)"
             :rules="[v => !!v || 'Width is required']"
             type = "number"
@@ -17,7 +18,20 @@
         data: () => ({
         }),
         props: {
-            value: String
+            value: String,
+            index: Number
+        },
+        computed: {
+            width: {
+                get() {
+                    return this.value
+                },
+                set(value) {
+                    this.$emit('productChanged', {field: 'width', value, index: this.index}) 
+                }
+            }
+        },
+        methods: {
         }
     }
 </script>

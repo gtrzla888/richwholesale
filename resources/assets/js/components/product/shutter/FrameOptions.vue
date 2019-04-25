@@ -1,16 +1,16 @@
 <template>
     <v-select
-            :items="midRail"
-            v-model="mr"
+            :items="frameOptions"
+            v-model="fOptions"
             :value="value"
-            label="Mid Rail"
-            :rules="[v => !!v || 'Mid rail is required']"
+            label="Frame Options"
+            :rules="[v => !!v || 'Frame Options is required']"
             required
     ></v-select>
 </template>
 <script>
     export default {
-        name: 'mid_rail',
+        name: 'frame_options',
         data: () => ({
         }),
         props: {
@@ -18,20 +18,20 @@
             index: Number
         },
         computed: {
-            midRail() {
+            frameOptions() {
                 return [
-                'Centre',
-                '1',
-                '2',
-                '3'
+                'na',
+                'LRTB',
+                'LRT',
+                'LRB'
                 ]
             },
-            mr: {
+            fOptions: {
                 get() {
                     return this.value;
                 },
                 set(value) {
-                    this.$emit('productChanged', {field: 'mid_rail', value, index: this.index})
+                    this.$emit('productChanged', {field: 'frame_options', value, index: this.index})
                 }
             }
         }

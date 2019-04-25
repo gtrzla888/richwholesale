@@ -10,20 +10,19 @@
       <template v-slot:items="props">
         <tr>
           <td class="text-xs-right" v-for="header in headers" v-if="header.value !== 'actions'" v-bind:key="header.value">
-
             <v-edit-dialog
-                    :return-value="name"
+                    :return-value="props.item[header.value]"
                     large
                     lazy
                     persistent
-                    @save="save"
+                    @save="onEdit(props.index, header.value, props.item[header.value])"
                     @cancel="cancel"
                     @open="open"
                     @close="close"
             >
               {{props.item[header.value]}}
               <template v-slot:input>
-                <component v-bind:is="header.value" :value="props.item[header.value]" v-on:productChanged="productChanged" :index="props.index"></component>
+                <component v-bind:is="header.value" :value="props.item[header.value]"  v-on:productChanged="productChanged" :index="props.index"></component>
               </template>
             </v-edit-dialog>
           </td>
@@ -66,7 +65,7 @@
           set (value) {
             //this.$store.dispatch('updateProducts', { selectedTabKey: this.productType, value})
           }
-        },
+        }
     },
     methods: {
       onUpdateProduct(payload) {
@@ -102,8 +101,13 @@
       },
       close () {
       },
-      onEdit(index) {
-         this.$emit('edit', index)
+      onEdit(index, fieldName, fieldVal) {
+         this.$emit('edit', 
+          {
+            index: index,
+            name: fieldName,
+            value: fieldVal
+          })
       },
       onRemove(index) {
          this.$emit('remove', index)
@@ -117,7 +121,9 @@
   }
 </script>
 
-<style scoped lang="stylus">
-  table.v-table thead td:not(:nth-child(1)), table.v-table tbody td:not(:nth-child(1)), table.v-table thead th:not(:nth-child(1)), table.v-table tbody th:not(:nth-child(1)), table.v-table thead td:first-child, table.v-table tbody td:first-child, table.v-table thead th:first-child, table.v-table tbody th:first-child
-    padding: 0!important;
+<style lang="stylus">
+  .v-tabs
+    width: 100%;
+  table.v-table tbody td
+    font-size: 11px;
 </style>

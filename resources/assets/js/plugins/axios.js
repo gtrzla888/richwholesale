@@ -9,6 +9,9 @@ axios.interceptors.request.use(request => {
   if (store.getters.authToken) {
     request.headers.common['Authorization'] = `Bearer ${store.getters.authToken}`
   }
+
+  request.headers.common['Accept'] = 'application/json'
+
   return request
 })
 

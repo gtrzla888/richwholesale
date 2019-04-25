@@ -1,16 +1,16 @@
 <template>
     <v-select
-            :items="midRail"
-            v-model="mr"
+            :items="hingeTypes"
+            v-model="hingeType"
             :value="value"
-            label="Mid Rail"
-            :rules="[v => !!v || 'Mid rail is required']"
+            label="Frame Options"
+            :rules="[v => !!v || 'Frame Options is required']"
             required
     ></v-select>
 </template>
 <script>
     export default {
-        name: 'mid_rail',
+        name: 'hinge_type',
         data: () => ({
         }),
         props: {
@@ -18,20 +18,20 @@
             index: Number
         },
         computed: {
-            midRail() {
+            hingeTypes() {
                 return [
-                'Centre',
-                '1',
-                '2',
-                '3'
+                'na',
+                'Non Mortised',
+                'Hang Strip',
+                'Pivot'
                 ]
             },
-            mr: {
+            hingeType: {
                 get() {
                     return this.value;
                 },
                 set(value) {
-                    this.$emit('productChanged', {field: 'mid_rail', value, index: this.index})
+                    this.$emit('productChanged', {field: 'hinge_type', value, index: this.index})
                 }
             }
         }

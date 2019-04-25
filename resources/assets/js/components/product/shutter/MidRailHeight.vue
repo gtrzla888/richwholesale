@@ -1,16 +1,16 @@
 <template>
     <v-select
-            :items="midRail"
-            v-model="mr"
+            :items="midRailHeight"
             :value="value"
-            label="Mid Rail"
-            :rules="[v => !!v || 'Mid rail is required']"
+            v-model="mdh"
+            label="Mid Rail Height"
+            :rules="[v => !!v || 'Mid rail Height is required']"
             required
     ></v-select>
 </template>
 <script>
     export default {
-        name: 'mid_rail',
+        name: 'mid_rail_height',
         data: () => ({
         }),
         props: {
@@ -18,7 +18,7 @@
             index: Number
         },
         computed: {
-            midRail() {
+            midRailHeight() {
                 return [
                 'Centre',
                 '1',
@@ -26,12 +26,12 @@
                 '3'
                 ]
             },
-            mr: {
+            mdh: {
                 get() {
-                    return this.value;
+                    return this.value
                 },
                 set(value) {
-                    this.$emit('productChanged', {field: 'mid_rail', value, index: this.index})
+                    this.$emit('productChanged', {field: 'mid_rail_height', value, index: this.index}) 
                 }
             }
         }

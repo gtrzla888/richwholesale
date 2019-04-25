@@ -78,12 +78,12 @@ export default {
   mixins: [validateMixin],
   methods: {
     async login () {
-      if (await this.formHasErrors()) return;
+      if (await this.formHasErrors()) return
       this.busy = true
 
       // Submit the form.
       const { data } = await this.form.post('/api/login')
-
+      console.log(data)
       // Save the token.
       this.$store.dispatch('saveToken', {
         token: data.token,
