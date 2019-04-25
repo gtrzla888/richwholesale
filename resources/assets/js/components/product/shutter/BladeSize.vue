@@ -1,16 +1,16 @@
 <template>
     <v-select
-            :items="midRail"
-            v-model="mr"
+            :items="bladeSize"
+            v-model="bSize"
             :value="value"
-            label="Mid Rail"
-            :rules="[v => !!v || 'Mid rail is required']"
+            label="Blade Size"
+            :rules="[v => !!v || 'Blade Size is required']"
             required
     ></v-select>
 </template>
 <script>
     export default {
-        name: 'mid_rail',
+        name: 'blade_size',
         data: () => ({
         }),
         props: {
@@ -18,20 +18,20 @@
             index: Number
         },
         computed: {
-            midRail() {
+            bladeSize() {
                 return [
-                'Centre',
-                '1',
-                '2',
-                '3'
+                '47mm',
+                '89mm',
+                '64mm',
+                '114mm'
                 ]
             },
-            mr: {
+            bSize: {
                 get() {
                     return this.value;
                 },
                 set(value) {
-                    this.$emit('productChanged', {field: 'mid_rail', value, index: this.index})
+                    this.$emit('productChanged', {field: 'blade_size', value, index: this.index})
                 }
             }
         }

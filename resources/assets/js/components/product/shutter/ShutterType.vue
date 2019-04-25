@@ -1,6 +1,7 @@
 <template>
     <v-select
             :items="shutterType"
+             v-model="sType"
             label="Shutter Type"
             :rules="[v => !!v || 'Shutter Type is required']"
             required
@@ -13,7 +14,8 @@
         data: () => ({
         }),
         props: {
-            value: String
+            value: String,
+            index: Number
         },
         computed: {
             shutterType() {
@@ -24,6 +26,14 @@
                     'U Channel',
                 ]
             },
+            sType: {
+                get() {
+                    return this.value;
+                },
+                set(value) {
+                    this.$emit('productChanged', {field: 'shutter_type', value, index: this.index})
+                }
+            }
         }
     }
 </script>

@@ -1,16 +1,16 @@
 <template>
     <v-select
-            :items="midRail"
-            v-model="mr"
+            :items="tiltRod"
+            v-model="tRod"
             :value="value"
-            label="Mid Rail"
-            :rules="[v => !!v || 'Mid rail is required']"
+            label="Tilt Rod"
+            :rules="[v => !!v || 'Tilt Rod is required']"
             required
     ></v-select>
 </template>
 <script>
     export default {
-        name: 'mid_rail',
+        name: 'tilt_rod',
         data: () => ({
         }),
         props: {
@@ -18,20 +18,18 @@
             index: Number
         },
         computed: {
-            midRail() {
+            tiltRod() {
                 return [
-                'Centre',
-                '1',
-                '2',
-                '3'
+                'Clear View',
+                'Central'
                 ]
             },
-            mr: {
+            tRod: {
                 get() {
                     return this.value;
                 },
                 set(value) {
-                    this.$emit('productChanged', {field: 'mid_rail', value, index: this.index})
+                    this.$emit('productChanged', {field: 'tilt_rod', value, index: this.index})
                 }
             }
         }

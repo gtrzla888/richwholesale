@@ -78,7 +78,7 @@ export default {
   mixins: [validateMixin],
   methods: {
     async login () {
-      if (await this.formHasErrors()) return;
+      if (await this.formHasErrors()) return
       this.busy = true
 
       // Submit the form.

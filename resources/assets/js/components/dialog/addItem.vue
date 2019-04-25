@@ -47,14 +47,14 @@
             type = "number"
             :rules="[v => !!v || 'Drop is required']"
             min="0"
-            @blur="calculateSqm"
             required
+            @blur="calculateSqm"
           >
           </v-text-field>
 
           <v-text-field
             :value="product.sqm"
-            label="Sqm"
+            label="Sqm(auto calculated)"
             readonly
           ></v-text-field>
 
@@ -77,13 +77,14 @@
           <v-text-field
             v-model="product.panel_layout"
             label="Panel Layout"
-            :rules="[v => !!v || 'Panel Layout is required']"
+            :rules="[v => !!v || 'Panel layout is required', v =>  /[LTRD-]/gm.test(v) || 'Panel Layout is not valid']"
             required
             type="text"
+            @blur="calculatePQTY"
           ></v-text-field>
 
           <v-text-field
-            v-model="product.panel_qty"
+            :value="product.panel_qty"
             label="Panel Quantity"
             type="number"
             readonly
@@ -171,7 +172,7 @@
                   :items="hingeColour"
                   label="Hinge Colour"
                   :rules="[v => !!v || 'Hinge Colour is required']"
-                  v-model="product.hinge_colour"
+                  v-model="product.hinge_color"
           ></v-select>
 
           <v-text-field
@@ -216,7 +217,10 @@
         this.$store.dispatch('updateAddItemDialogStatus', {status: false})
       },
       calculateSqm() {
-        this.sqm = this.width * this.drop;
+        this.product.sqm = this.product.width * this.product.drop;
+      },
+      calculatePQTY() {
+        this.product.panel_qty = (this.product.panel_layout.match(/L/g) || []).length + (this.product.panel_layout.match(/R/g) || []).length
       }
     },
     computed: {

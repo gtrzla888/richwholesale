@@ -44,7 +44,15 @@ export const mutations = {
   },
   [types.CLEAR_ORDER] (state) {
     state.order = null
-  }
+  },
+  [types.CALCULATE_ORDER_SQM] (state, payload) {
+    if (payload.field === 'width') {
+      state[payload.selectedTabKey][payload.index]['sqm'] = payload.value * state[payload.selectedTabKey][payload.index]['drop']
+    }
+    if (payload.field === 'drop') {
+      state[payload.selectedTabKey][payload.index]['sqm'] = payload.value * state[payload.selectedTabKey][payload.index]['width']
+    }
+  },
 }
 
 // actions
@@ -69,6 +77,9 @@ export const actions = {
   },
   removeOrderProduct ({ commit }, payload) {
     commit(types.REMOVE_ORDER_PRODUCT, payload)
+  },
+  calculateSQM ({ commit }, payload) {
+    commit(types.CALCULATE_ORDER_SQM, payload)
   },
   async fetchOrder ({ commit }) {
     try {
