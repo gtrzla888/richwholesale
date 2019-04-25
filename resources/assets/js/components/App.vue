@@ -23,7 +23,6 @@ const layouts = requireContext.keys()
   }, {})
 
 export default {
-
   components: {
     'v-loading': Loading
   },
