@@ -1,7 +1,6 @@
 <template>
     <v-form ref="form" lazy-validation>
     <v-layout row wrap align-center>
-
         <v-flex xs12 sm3 d-flex>
             <v-select
                     :items="companies"
