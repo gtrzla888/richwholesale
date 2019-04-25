@@ -1,37 +1,42 @@
 <template>
   <v-card>
     <v-card-title>
-        <v-layout row wrap>
+      <v-layout row wrap align-end>
+        <v-flex xs12 sm3 d-flex offset-sm9>
+            <v-text-field
+                    v-model="search"
+                    append-icon="search"
+                    label="Search"
+                    outline
+                    hide-details
+            ></v-text-field>
+        </v-flex>
         <v-flex xs12 sm3 d-flex>
-            <v-select
-                    :items="companies"
-                    item-text="name"
-                    item-value="id"
-                    outline
-                    label="Company Name (Select)"
-                    class="mx-3"
-            ></v-select>
+          <v-select
+            :items="companies"
+            v-model="company"
+            item-text="name"
+            item-value="id"
+            outline
+            label="Company Name (Select)"
+            class="mx-3"
+            clearable
+          ></v-select>
         </v-flex>
-      <v-flex xs12 sm2 d-flex>
-          <v-text-field
-                  v-model="search"
-                  append-icon="search"
-                  label="Search"
-                  outline
-                  hide-details
-          ></v-text-field>
-      </v-flex>
-      <v-flex xs12 sm3 d-flex>
-            <v-select
-                    :items="companies"
-                    item-text="name"
-                    item-value="id"
-                    outline
-                    label="Last 30 Days"
-                    class="mx-3"
-            ></v-select>
+
+        <v-flex xs12 sm3  d-flex offset-sm6>
+          <v-select
+            :items="dates"
+            v-model="createdAt"
+            item-text="text"
+            item-value="value"
+            outline
+            class="mx-3"
+            label="Date Filter"
+            clearable
+          ></v-select>
         </v-flex>
-        </v-layout>
+      </v-layout>
     </v-card-title>
   
     <v-card-text>
@@ -52,8 +57,8 @@
             ></v-checkbox>
           </td>
           <td>{{ props.item.id }}</td>
-          <td class="text-xs-left">{{ props.item.company.name }}</td>
-          <td class="text-xs-left">{{ props.item.po_reference }}</td>
+          <td class="text-xs-left">{{ props.item.quote.company.name }}</td>
+          <td class="text-xs-left">{{ props.item.quote.po_reference }}</td>
           <td class="text-xs-left">{{ props.item.updated_at }}</td>
           <td class="text-xs-left">{{ props.item.total }}</td>
           <td class="text-xs-left">
@@ -77,17 +82,17 @@
                     :return-value.sync="props.item.eta"
                     lazy
                     large
-                    hide-overlay="true"
                     @save="saveEta(props.item)"
             >
               {{ props.item.eta }}
+              <template v-slot:input>
                 <v-date-picker
-                        slot="input"
                         :value="today"
                         v-model="props.item.eta"
                         :landscape="true"
                 >
                 </v-date-picker>
+                </template>
             </v-edit-dialog>
           </td>
         </template>
@@ -100,7 +105,8 @@
 </template>
 
 <script>
-  import axios from 'axios';
+  import axios from 'axios'
+  import moment from 'moment'
   import {mapGetters} from 'vuex'
   export default {
     data () {
@@ -116,8 +122,8 @@
             sortable: false,
             value: 'id'
           },
-          { text: 'Company', value: 'company.name' },
-          { text: 'PO / Reference', value: 'po_reference' },
+          { text: 'Company', value: 'quote.company.name' },
+          { text: 'PO / Reference', value: 'quote.po_reference' },
           { text: 'Last modifired', value: 'updated_at' },
           { text: 'Total', value: 'total' },
           { text: 'Status', value: 'status' },
@@ -125,6 +131,15 @@
           { text: 'ETA', value: 'eta' },
         ],
         orders: [],
+        companies: [],
+        company: '',
+        createdAt: '',
+        dates: [
+          {
+            'value': moment().add(-30, 'days').format('YYYY-MM-DD'),
+            'text': 'Last 30 days'
+          }
+        ],
         today: new Date().toISOString().substr(0, 10),
       }
     },
@@ -134,7 +149,7 @@
     },
     methods: {
       async loadOrders() {
-        const { data } = await axios.get('/api/orders')
+        const { data } = await axios.get('/api/orders', { params: {company: this.company, created_at: this.createdAt}})
         this.orders = data;
         console.log(data);
       },
@@ -143,12 +158,26 @@
       },
       async saveEta(item) {
         const { data } = await axios.put('/api/orders/' + item.id, {eta: item.eta})
+      },
+      async loadCompanies() {
+        const { data } = await axios.get('/api/companies')
+        console.log(data)
+        this.companies = data;
+      },
+    },
+    watch: {
+      company() {
+        this.loadOrders()
+      },
+      createdAt() {
+        this.loadOrders()
       }
     },
     created () {
       // fetch the companies
       //this.$store.dispatch('fetchOrders')
       this.loadOrders()
+      this.loadCompanies()
     }
   }
 </script>

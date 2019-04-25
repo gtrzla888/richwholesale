@@ -12,7 +12,7 @@ class UserController
 {
     public function index()
     {
-        return new UserResource(request()->user()->with('companies')->first());
+        return new UserResource(request()->user());
     }
 
     public function companies(Request $request)

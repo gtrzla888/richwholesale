@@ -9,49 +9,49 @@ use App\Http\Requests\StoreQuote;
 use App\Order;
 use App\OrderItem;
 use App\PVCShutter;
+use App\Quote;
 use App\RollerBlind;
 use App\User;
 use Illuminate\Http\Request;
-use App\Http\Requests\UpdateOrder;
 
-class OrderController extends Controller
+class QuoteController extends Controller
 {
-
     public function index(Request $request)
     {
-        /** @var User $user */
-        $user = request()->user();
+         /** @var User $user */
+         $user = request()->user();
 
-        $query = Order::with('quote.company')->with('items.product');
-
-        if ($company = $request->get('company')) {
-            $query->where('quote.company_id', $company);
-        }
-
-        if ($createdAt = $request->get('created_at')) {
-            $query->where('quote.created_at', '>=', $createdAt);
-        }
-
-        return $query->get();
+         $query = Quote::with('orders')->with('company')->with('orders.items.product');
+ 
+         if ($company = $request->get('company')) {
+             $query->where('company_id', $company);
+         }
+ 
+         if ($createdAt = $request->get('created_at')) {
+             $query->where('created_at', '>=', $createdAt);
+         }
+ 
+         return $query->get();
     }
 
     public function store(StoreQuote $request)
     {
         $validated = $request->validated();
 
-        $order = new Order();
-        $order->company_id = $validated['company_id'];
-        $order->po_reference = $validated['po_reference'];
+        $quote = new Quote();
+        $quote->company_id = $validated['company_id'];
+        $quote->po_reference = $validated['po_reference'];
         if (isset($validated['customer_name'])) {
-            $order->customer_name = $validated['customer_name'];
+            $quote->customer_name = $validated['customer_name'];
         }
-        $order->notes = $validated['notes'];
-        $order->total = 0;
-        $order->save();
+        $quote->notes = $validated['notes'];
+        $quote->total = 0;
+        $quote->save();
         if (isset($validated['basswood_shutters'])) {
+            $order = new Order();
             foreach ($validated['basswood_shutters'] as $shutter) {
+                $item = new OrderItem();
                 $product = BasswoodShutter::create($shutter);
-                $item = new OrderItem();
                 $item->price = $product->getPrice();
                 $order->total += $item->price;
                 if (isset($shutter['notes'])) {
@@ -60,12 +60,16 @@ class OrderController extends Controller
                 $item->product()->associate($product);
                 $order->items()->save($item);
             }
+            $order->save();
+            $quote->orders()->save($order);
         }
 
-        if (isset($validated['pvc_shutters'])) {
+        if (!empty($validated['pvc_shutters'])) {
+            $order = new Order();
             foreach ($validated['pvc_shutters'] as $shutter) {
+
+                $item = new OrderItem();
                 $product = PVCShutter::create($shutter);
-                $item = new OrderItem();
                 $item->price = $product->getPrice();
                 $order->total += $item->price;
                 if (isset($shutter['notes'])) {
@@ -74,12 +78,16 @@ class OrderController extends Controller
                 $item->product()->associate($product);
                 $order->items()->save($item);
             }
+            $order->save();
+            $quote->orders()->save($order);
         }
 
-        if (isset($validated['au_pvc_shutters'])) {
+        if (!empty($validated['au_pvc_shutters'])) {
+            $order = new Order();
             foreach ($validated['au_pvc_shutters'] as $shutter) {
+                $order = new Order();
+                $item = new OrderItem();
                 $product = AUPVCShutter::create($shutter);
-                $item = new OrderItem();
                 $item->price = $product->getPrice();
                 $order->total += $item->price;
                 if (isset($shutter['notes'])) {
@@ -88,12 +96,15 @@ class OrderController extends Controller
                 $item->product()->associate($product);
                 $order->items()->save($item);
             }
+            $order->save();
+            $quote->orders()->save($order);
         }
 
-        if (isset($validated['aluminium_shutters'])) {
+        if (!empty($validated['aluminium_shutters'])) {
+            $order = new Order();
             foreach ($validated['aluminium_shutters'] as $shutter) {
-                $product = AluminiumShutter::create($shutter);
                 $item = new OrderItem();
+                $product = AluminiumShutter::create($shutter);
                 $item->price = $product->getPrice();
                 $order->total += $item->price;
                 if (isset($shutter['notes'])) {
@@ -102,12 +113,15 @@ class OrderController extends Controller
                 $item->product()->associate($product);
                 $order->items()->save($item);
             }
+            $order->save();
+            $quote->orders()->save($order);
         }
 
-        if (isset($validated['roller_blinds'])) {
+        if (!empty($validated['roller_blinds'])) {
+            $order = new Order();
             foreach ($validated['roller_blinds'] as $rollerBlind) {
-                $product = RollerBlind::create($rollerBlind);
                 $item = new OrderItem();
+                $product = RollerBlind::create($rollerBlind);
                 $item->price = $product->getPrice();
                 $order->total += $item->price;
                 if (isset($rollerBlind['notes'])) {
@@ -115,36 +129,25 @@ class OrderController extends Controller
                 }
                 $item->product()->associate($product);
                 $order->items()->save($item);
+
             }
+            $order->save();
+            $quote->orders()->save($order);
         }
 
+        $quote->save();
 
-        $order->save();
-
-        return $order;
+        return $quote;
     }
 
-
-    /**
-     * @param Order       $order
-     * @param UpdateOrder $request
-     *
-     * @return Order
-     */
-    public function update(Order $order, UpdateOrder $request)
+    public function price()
     {
-        $validated = $request->validated();
-        if (isset($validated['status'])) {
-            $order->status = $validated['status'];
-        }
 
-        if (isset($validated['eta'])) {
-            $order->eta = $validated['eta'];
-        }
+    }
 
-        $order->save();
-
-        return $order;
+    public function getTotalPriceAttribute()
+    {
+        
     }
 
 }
