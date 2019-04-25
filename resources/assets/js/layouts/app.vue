@@ -11,7 +11,7 @@
     </v-navigation-drawer>
     <tool-bar v-on:toggleDrawer="drawer = !drawer" :drawer="drawer"></tool-bar>
     <v-content>
-      <v-container fluid grid-list-xl>
+      <v-container fluid grid-list-md>
         <transition name="page" mode="out-in">
           <router-view></router-view>
         </transition>
