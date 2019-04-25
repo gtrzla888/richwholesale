@@ -9,7 +9,7 @@
     >
       <template v-slot:items="props">
         <tr>
-          <td class="text-xs-right" v-for="header in headers" v-if="header.value !== 'actions'" v-bind:key="header.value">
+          <td v-for="header in headers" v-if="header.value !== 'actions'" v-bind:key="header.value">
             <v-edit-dialog
                     :return-value="props.item[header.value]"
                     
@@ -40,7 +40,7 @@
               </v-list>
               <v-list>
                 <v-list-tile @click="onCopy(props.index)">
-                  <v-list-tile-title >Copy</v-list-tile-title>
+                  <v-list-tile-title >Duplicate</v-list-tile-title>
                 </v-list-tile>
               </v-list>
             </v-menu>
@@ -133,5 +133,5 @@
   .v-tabs
     width: 100%;
   table.v-table tbody td
-    font-size: 11px;
+    font-size: 10px;
 </style>

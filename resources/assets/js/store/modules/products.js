@@ -31,6 +31,7 @@ const productLines = [{
   name: 'PVC Shutters',
   key: 'pvc_shutters',
   headers: [
+    { text: 'Name', value: 'name', sortable: false },
     { text: 'Width(mm)', value: 'width', sortable: false },
     { text: 'Drop(mm)', value: 'drop', sortable: false },
     { text: 'Sqm', value: 'sqm', sortable: false },
@@ -54,6 +55,7 @@ const productLines = [{
   name: 'AU PVC Shutters',
   key: 'au_pvc_shutters',
   headers: [
+    { text: 'Name', value: 'name', sortable: false },
     { text: 'Width(mm)', value: 'width', sortable: false },
     { text: 'Drop(mm)', value: 'drop', sortable: false },
     { text: 'Sqm', value: 'sqm', sortable: false },
@@ -77,6 +79,7 @@ const productLines = [{
   name: 'Aluminium  Shutters',
   key: 'aluminium_shutters',
   headers: [
+    { text: 'Name', value: 'name', sortable: false },
     { text: 'Width(mm)', value: 'width', sortable: false },
     { text: 'Drop(mm)', value: 'drop', sortable: false },
     { text: 'Sqm', value: 'sqm', sortable: false },
@@ -98,6 +101,7 @@ const productLines = [{
   name: 'Roller Blinds',
   key: 'roller_blinds',
   headers: [
+    { text: 'Name', value: 'name', sortable: false },
     { text: 'Width(mm)', value: 'width', sortable: false },
     { text: 'Drop(mm)', value: 'drop', sortable: false },
     { text: 'Type', value: 'type', sortable: false },
