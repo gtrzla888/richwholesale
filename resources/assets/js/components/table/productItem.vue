@@ -12,7 +12,7 @@
           <td class="text-xs-right" v-for="header in headers" v-if="header.value !== 'actions'" v-bind:key="header.value">
             <v-edit-dialog
                     :return-value="props.item[header.value]"
-                    large
+                    
                     lazy
                     persistent
                     @save="onEdit(props.index, header.value, props.item[header.value])"
