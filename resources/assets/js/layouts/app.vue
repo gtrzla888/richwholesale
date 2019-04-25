@@ -4,6 +4,7 @@
       v-if="authenticated" 
       persistent 
       v-model="drawer" 
+      :mini-variant.sync="mini"
       enable-resize-watcher 
       app
     >
@@ -44,7 +45,8 @@ export default {
 
   data () {
     return {
-      drawer: true
+      drawer: false,
+      mini: true,
     }
   }
 }
