@@ -42,7 +42,7 @@ const productLines = [{
    { text: 'Mid Rail Height', value: 'mid_rail_height' },
    { text: 'Blade Size', value: 'blade_size' },
    { text: 'Tilt Rod', value: 'tilt_rod' },
-   { text: 'Color', value: 'coshutter_colorlor' },
+   { text: 'Color', value: 'shutter_color' },
    { text: 'Frame', value: 'frame' },
     { text: 'Notes', value: 'notes', sortable: false },
     { text: 'Actions', value: 'actions', sortable: false }
@@ -65,7 +65,7 @@ const productLines = [{
    { text: 'Mid Rail Height', value: 'mid_rail_height' },
    { text: 'Blade Size', value: 'blade_size' },
    { text: 'Tilt Rod', value: 'tilt_rod' },
-   { text: 'Color', value: 'coshutter_colorlor' },
+   { text: 'Color', value: 'shutter_color' },
    { text: 'Frame', value: 'frame' },
    { text: 'Notes', value: 'notes', sortable: false },
     { text: 'Actions', value: 'actions', sortable: false }

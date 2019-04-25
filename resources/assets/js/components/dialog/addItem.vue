@@ -4,11 +4,6 @@
     persistent=""
     width="500"
   >
-<!--    <v-radio-group v-model="column" column>-->
-<!--      <v-radio label="Aluminium Shutters" value="radio-1"></v-radio>-->
-<!--      <v-radio label="Option 2" value="radio-2"></v-radio>-->
-<!--    </v-radio-group>-->
-    <!-- for alum shutters -->
     <v-form
       ref="form"
       v-model="valid"
@@ -20,13 +15,12 @@
         </v-card-title>
         <v-card-text>
           <v-text-field
-                  v-if="type==='basswood_shutters' || type==='pvc_shutters' || type==='aluminium_shutters'"
                   v-model="product.type"
                   v-show="false"
           ></v-text-field>
 
           <v-text-field
-            v-if="type==='basswood_shutters' || type==='pvc_shutters' || type==='aluminium_shutters'"
+            v-if="type==='basswood_shutters' || type==='pvc_shutters' || type==='aluminium_shutters' || type==='au_pvc_shutters'"
             v-model="product.name"
             :counter="10"
             :rules="nameRules"
@@ -35,7 +29,7 @@
           ></v-text-field>
 
           <v-text-field
-            v-if="type==='basswood_shutters' || type==='pvc_shutters' || type==='aluminium_shutters'"
+            v-if="type==='basswood_shutters' || type==='pvc_shutters' || type==='aluminium_shutters' || type==='au_pvc_shutters' || type==='roller_blinds'"
             v-model="product.width"
             label="Width(mm)"
             :rules="[v => !!v || 'Width is required']"
@@ -45,7 +39,7 @@
           ></v-text-field>
 
           <v-text-field
-            v-if="type==='basswood_shutters' || type==='pvc_shutters' || type==='aluminium_shutters'"
+            v-if="type==='basswood_shutters' || type==='pvc_shutters' || type==='aluminium_shutters' || type==='au_pvc_shutters' || type==='roller_blinds'"
             v-model="product.drop"
             label="Drop(mm)"
             type = "number"
@@ -57,14 +51,14 @@
           </v-text-field>
 
           <v-text-field
-            v-if="type==='basswood_shutters' || type==='pvc_shutters' || type==='aluminium_shutters'"
+            v-if="type==='basswood_shutters' || type==='pvc_shutters' || type==='aluminium_shutters' || type==='au_pvc_shutters' || type==='roller_blinds'"
             :value="product.sqm"
             label="Sqm(auto calculated)"
             readonly
           ></v-text-field>
 
           <v-select
-            v-if="type==='basswood_shutters' || type==='pvc_shutters' || type==='aluminium_shutters'"
+            v-if="type==='basswood_shutters' || type==='pvc_shutters' || type==='aluminium_shutters' || type==='au_pvc_shutters'"
             :items="shutterType"
             label="Shutter Type"
             v-model="product.shutter_type"
@@ -73,7 +67,123 @@
           ></v-select>
 
           <v-select
-            v-if="type==='basswood_shutters' || type==='pvc_shutters'"
+            v-if="type==='roller_blinds'"
+            :items="types"
+            label="Type"
+            v-model="product.type"
+            :rules="[v => !!v || 'Type is required']"
+            required
+          ></v-select>
+
+          <v-select
+            v-if="type==='roller_blinds'"
+            :items="fabrics"
+            label="Fabric"
+            v-model="product.fabric"
+            :rules="[v => !!v || 'Fabric is required']"
+            required
+          ></v-select>
+
+          <v-select
+            v-if="type==='roller_blinds'"
+            :items="controlType"
+            label="Control Type"
+            v-model="product.control_type"
+            :rules="[v => !!v || 'Control type is required']"
+            required
+          ></v-select>
+
+          <v-select
+            v-if="type==='roller_blinds'"
+            :items="controlSide"
+            label="Control Side"
+            v-model="product.control_side"
+            :rules="[v => !!v || 'Control side is required']"
+            required
+          ></v-select>
+
+          <v-text-field
+            v-if="type==='roller_blinds'"
+            :value="product.chain_length"
+            label="Chain Length"
+            :rules="[v => !!v || 'Chain Length is required']"
+            required
+          ></v-text-field>
+
+          <v-select
+            v-if="type==='roller_blinds'"
+            :items="componentColors"
+            label="Component Color"
+            v-model="product.component_color"
+            :rules="[v => !!v || 'Component Color is required']"
+            required
+          ></v-select>
+
+          <v-select
+            v-if="type==='roller_blinds'"
+            :items="baseRails"
+            label="Base Rail"
+            v-model="product.base_rail"
+            :rules="[v => !!v || 'Base Rail is required']"
+            required
+          ></v-select>
+
+          <v-select
+            v-if="type==='roller_blinds'"
+            :items="rollDirections"
+            label="Roll Directions"
+            v-model="product.roll_direction"
+            :rules="[v => !!v || 'Roll Directions is required']"
+            required
+          ></v-select>
+
+          <v-select
+            v-if="type==='roller_blinds'"
+            :items="motorTypes"
+            label="Motor Type"
+            v-model="product.motor_type"
+            :rules="[v => !!v || 'Motor Type is required']"
+            required
+          ></v-select>
+
+          <v-select
+            v-if="type==='roller_blinds'"
+            :items="chargers"
+            label="Charger"
+            v-model="product.charger"
+            :rules="[v => !!v || 'Charger is required']"
+            required
+          ></v-select>
+
+          <v-select
+            v-if="type==='roller_blinds'"
+            :items="wiFiHubs"
+            label="WiFi Hub"
+            v-model="product.wifi_hub"
+            :rules="[v => !!v || 'WiFi Hub is required']"
+            required
+          ></v-select>
+
+          <v-select
+            v-if="type==='roller_blinds'"
+            :items="remotes"
+            label="Remote"
+            v-model="product.remote"
+            :rules="[v => !!v || 'Remote is required']"
+            required
+          ></v-select>
+
+          <v-select
+            v-if="type==='roller_blinds'"
+            :items="bracketOptions"
+            label="Bracket Options"
+            v-model="product.bracket_options"
+            :rules="[v => !!v || 'Bracket Options is required']"
+            required
+          ></v-select>
+
+          <v-select
+            v-if="type==='basswood_shutters' || type==='pvc_shutters' || type==='au_pvc_shutters'"
             :items="corners"
             label="Corner"
             v-model="product.corner"
@@ -82,7 +192,7 @@
           ></v-select>
 
            <v-text-field
-            v-if="type==='basswood_shutters' || type==='pvc_shutters' || type==='aluminium_shutters'"
+            v-if="type==='basswood_shutters' || type==='pvc_shutters' || type==='aluminium_shutters' || type==='au_pvc_shutters'"
             v-model="product.panel_layout"
             label="Panel Layout"
             :rules="[v => !!v || 'Panel layout is required', v =>  /[LTRD-]/gm.test(v) || 'Panel Layout is not valid']"
@@ -92,7 +202,7 @@
           ></v-text-field>
 
           <v-text-field
-            v-if="type==='basswood_shutters' || type==='pvc_shutters' || type==='aluminium_shutters'"
+            v-if="type==='basswood_shutters' || type==='pvc_shutters' || type==='aluminium_shutters' || type==='au_pvc_shutters'"
             :value="product.panel_qty"
             label="Panel Quantity"
             type="number"
@@ -100,7 +210,7 @@
           ></v-text-field>
 
           <v-radio-group 
-            v-if="type==='basswood_shutters' || type==='pvc_shutters' || type==='aluminium_shutters'"
+            v-if="type==='basswood_shutters' || type==='pvc_shutters' || type==='aluminium_shutters' || type==='au_pvc_shutters'"
             v-model="product.in_or_out" 
             :mandatory="true" 
             row 
@@ -112,7 +222,7 @@
           </v-radio-group>
 
           <v-select
-            v-if="type==='basswood_shutters' || type==='pvc_shutters' || type==='aluminium_shutters'"
+            v-if="type==='basswood_shutters' || type==='pvc_shutters' || type==='aluminium_shutters' || type==='au_pvc_shutters'"
             :items="midRail"
             label="Mid Rail"
             v-model="product.mid_rail"
@@ -121,7 +231,7 @@
           ></v-select>
 
           <v-text-field
-            v-if="type==='basswood_shutters' || type==='pvc_shutters' || type==='aluminium_shutters'"
+            v-if="type==='basswood_shutters' || type==='pvc_shutters' || type==='aluminium_shutters' || type==='au_pvc_shutters'"
             v-model="product.mid_rail_height"
             label="Mid Rail Height"
             :rules="[v => !!v || 'Mid Rail Height is required']"
@@ -131,7 +241,7 @@
           ></v-text-field>
 
           <v-select
-            v-if="type==='basswood_shutters' || type==='pvc_shutters' || type==='aluminium_shutters'"
+            v-if="type==='basswood_shutters' || type==='pvc_shutters' || type==='aluminium_shutters' || type==='au_pvc_shutters'"
             :items="bladeSize"
             label="Blade Size"
             :rules="[v => !!v || 'Blade Size is required']"
@@ -139,7 +249,7 @@
           ></v-select>
 
           <v-select
-            v-if="type==='basswood_shutters' || type==='pvc_shutters' || type==='aluminium_shutters'"
+            v-if="type==='basswood_shutters' || type==='pvc_shutters' || type==='aluminium_shutters' || type==='au_pvc_shutters'"
             :items="tiltRod"
             label="Tile Rod"
             :rules="[v => !!v || 'Tile Rod is required']"
@@ -147,7 +257,7 @@
           ></v-select>
 
           <v-select
-            v-if="type==='basswood_shutters' || type==='pvc_shutters' || type==='aluminium_shutters'"
+            v-if="type==='basswood_shutters' || type==='pvc_shutters' || type==='aluminium_shutters' || type==='au_pvc_shutters' || type==='roller_blinds'"
             :items="colours"
             label="Color"
             :rules="[v => !!v || 'Color is required']"
@@ -155,7 +265,7 @@
           ></v-select>
 
           <v-select
-            v-if="type==='basswood_shutters' || type==='pvc_shutters'"
+            v-if="type==='basswood_shutters' || type==='pvc_shutters' || type==='au_pvc_shutters'"
             :items="stileType"
             label="Stile Type"
             :rules="[v => !!v || 'Stile Type is required']"
@@ -163,7 +273,7 @@
           ></v-select>
 
           <v-select
-            v-if="type==='basswood_shutters' || type==='pvc_shutters' || type==='aluminium_shutters'"
+            v-if="type==='basswood_shutters' || type==='pvc_shutters' || type==='aluminium_shutters' || type==='au_pvc_shutters'"
             :items="frame"
             label="Frame"
             :rules="[v => !!v || 'Frame is required']"
@@ -171,16 +281,15 @@
           ></v-select>
 
           <v-select
-            v-if="type==='basswood_shutters' || type==='pvc_shutters'"
+            v-if="type==='basswood_shutters' || type==='pvc_shutters' || type==='au_pvc_shutters'"
             :items="frameOptions"
             label="Frame Options"
             :rules="[v => !!v || 'Frame Options is required']"
             v-model="product.frame_options"
           ></v-select>
 
-
           <v-select
-            v-if="type==='basswood_shutters' || type==='pvc_shutters'"
+            v-if="type==='basswood_shutters' || type==='pvc_shutters' || type==='au_pvc_shutters'"
             :items="hingeType"
             label="Hinge Type"
             :rules="[v => !!v || 'Hinge Type is required']"
@@ -188,7 +297,7 @@
           ></v-select>
 
           <v-select
-            v-if="type==='basswood_shutters' || type==='pvc_shutters'"
+            v-if="type==='basswood_shutters' || type==='pvc_shutters' || type==='au_pvc_shutters'"
             :items="hingeColour"
             label="Hinge Colour"
             :rules="[v => !!v || 'Hinge Colour is required']"
@@ -196,7 +305,7 @@
           ></v-select>
 
           <v-text-field
-            v-if="type==='basswood_shutters' || type==='pvc_shutters' || type==='aluminium_shutters'"
+            v-if="type==='basswood_shutters' || type==='pvc_shutters' || type==='aluminium_shutters' || type==='au_pvc_shutters'"
             v-model="product.notes"
             label="Notes"
             type="text"
@@ -271,11 +380,13 @@
       },
       tiltRod() {
         return [
-          'Clear View'
+          'Clear View',
+          'Central'
         ]
       },
       bladeSize() {
          return [
+           '64mm',
            '89mm'
          ]
       },
@@ -311,11 +422,151 @@
           '60f',
         ]
       },
-      colours() {
+      fabrics() {
         return [
-          'W100 Snow',
-
+          'Blockout - Solitaire',
+          'Blockout - Focus',
+          'Blockout - Metroshade',
+          'Blockout - Sanctuary',
+          'Blockout - Riviera',
+          'Blockout - Tusk',
+          'Blockout - Jersey',
+          'Blockout - Balmoral',
+          'Screen - One Screen',
+          'Screen - Solar View',
+          'Light Filter - Metroshade',
+          'Light Filter - Riviera',
+          'Light Filter - Tusk',
+          'Light Filter - Jersey',
+          'Light Filter - Balmoral',
         ]
+      },
+      colours() {
+        let colors = [];
+        if (this.type==='roller_blinder') {
+          colors = [
+            'Snow',
+            'Antique White',
+            'Champagne',
+            'Granite',
+            'Peat',
+            'Pepper',
+            'Coffee',
+            'Concord',
+            'Ironstone',
+            'Onyx',
+            'White',
+            'Chalk',
+            'Shell',
+            'Dove',
+            'Linen',
+            'Cream',
+            'Powder',
+            'Putty',
+            'Stone',
+            'Cotton',
+            'Alabaster',
+            'Almond',
+            'Sandstone',
+            'Latte',
+            'Beechwood',
+            'Cloud',
+            'Pumice',
+            'Oyster',
+            'Eucalypt',
+            'Duck Egg',
+            'Smoke',
+            'Ash',
+            'Blush',
+            'Jarrah',
+            'Espresso',
+            'Fig',
+            'Tempest',
+            'Coal',
+            'Ebony',
+            'Dove/White',
+            'Ecru',
+            'Nougat',
+            'Dune',
+            'Pebble',
+            'Seal',
+            'Quill',
+            'Ice Grey',
+            'Moonstone',
+            'Slate',
+            'Storm',
+            'Black',
+            'Plaster',
+            'Marble',
+            'Limestone',
+            'Ceramic',
+            'Truffle',
+            'Fossil',
+            'Suede',
+            'Mineral',
+            'Slate',
+            'Baltic',
+            'Lava',
+            'Cannes',
+            'Nice',
+            'La Palme',
+            'St Marie',
+            'Monte Carlo',
+            'Cassis',
+            'Mushroom',
+            'Pepper',
+            'Beach',
+            'Coconut',
+            'Slate',
+            'Whisper',
+            'Hazelnut',
+            'Henna',
+            'Opal',
+            'Organic',
+            'Stone',
+            'Render',
+            'Timber',
+            'Pavement',
+            'Steel',
+            'White',
+            'Pearl',
+            'Birch',
+            'Bourneville',
+            'Concrete',
+            'Dove',
+            'Jet',
+            'Putty',
+            'Pyrite',
+            'Steel', 
+            ];
+        } else {
+          colors = [
+          'W100 Snow',
+          'W101 Dove',
+          'W104 China',
+          'W105 Soft Pearl',
+          'W107 Pearl',
+          'W109 Linen Wash',
+          'W115 Clay',
+          'W118 Wheat', 
+          'W401 Eggshell',
+          'W402 Palm Beach',
+          'W00 Custom',
+          'S430 Black Ash',
+          'S508 Jet',
+          'S602 Maple',
+          'S604 Aged Teak',
+          'S606 Mahogan',
+          'S701 Walnut'
+          ];
+        }
+        return colors;
+      },
+      controlSide() {
+        return ['Left','Right']
+      },
+      controlType() {
+        return ['Chain', 'Motor']
       },
       hingeType() {
           return [
@@ -327,7 +578,70 @@
       hingeColour() {
           return [
             'white',
+            'Nickel',
+            'Stainless',
+            'Colour Match',
           ]
+      },
+      types() {
+        return [
+          'Blockout',
+          'Screen',
+          'Light Filter'
+        ]
+      },
+      componentColors() {
+        return [
+          'White',
+          'Black',
+        ]
+      },
+      baseRails() {
+        return [
+          'Silver',
+          'Black',
+        ]
+      },
+      rollDirections() {
+        return [
+          'Standard',
+          'Reverse',
+        ]
+      },
+      motorTypes() {
+        return [
+          'na',
+          'Acmeda 240v',
+          'Acmeda Li Ion 1.1nm',
+          'Acmeda Li Ion 3.0nm',
+        ]
+      },
+      chargers() {
+        return [
+          'na',
+          'yes',
+        ]
+      },
+      wiFiHubs() {
+        return [
+          'na',
+          'Acmeda Pulse'
+        ]
+      },
+      remotes() {
+        return [
+          'na',
+          '1 Channel',
+          '15 Channel',
+        ]
+      },
+      bracketOptions() {
+        return [
+          'Single',
+          'Slim Combo Top Front',
+          'Slim Combo Top Back',
+          'Double Bracket',
+        ]
       }
     },
     props: {

@@ -24,6 +24,17 @@ import Frame from './product/shutter/Frame'
 import HingeColor from './product/shutter/HingeColor'
 import HingeType from './product/shutter/HingeType'
 import StileType from './product/shutter/StileType'
+import Type from './product/shutter/Type'
+import ControlType from './product/shutter/ControlType'
+import ControlSide from './product/shutter/ControlSide'
+import ChainLength from './product/shutter/ChainLength'
+import BracketOptions from './product/shutter/BracketOptions'
+import Charger from './product/shutter/Chargers'
+import MotorType from './product/shutter/MotorType'
+import BaseRail from './product/shutter/BaseRail'   
+import Remote from './product/shutter/Remotes'
+import Fabric from './product/shutter/Fabric'
+import ComponentColor from './product/shutter/ComponentColor'
 
 Vue.component(Icon.name, Icon)
 Vue.component(EmailInput.name, EmailInput)
@@ -34,10 +45,20 @@ Vue.component(TextInput.name, TextInput)
 Vue.component(HasError.name, HasError)
 Vue.component(AlertError.name, AlertError)
 Vue.component(AlertSuccess.name, AlertSuccess)
+Vue.component(BaseRail.name, BaseRail)
 Vue.component(Name.name, Name)
 Vue.component(Width.name, Width)
 Vue.component(Drop.name, Drop)
 Vue.component(ShutterType.name, ShutterType)
+Vue.component(Type.name, Type)
+Vue.component(ControlType.name, ControlType)
+Vue.component(ControlSide.name, ControlSide)
+Vue.component(ChainLength.name, ChainLength)
+Vue.component(ComponentColor.name, ComponentColor)
+Vue.component(BracketOptions.name, BracketOptions)
+Vue.component(Fabric.name, Fabric)
+Vue.component(Charger.name, Charger)
+Vue.component(MotorType.name, MotorType)
 Vue.component(Corner.name, Corner)
 Vue.component(InOrOut.name, InOrOut)
 Vue.component(MidRail.name, MidRail)
@@ -50,6 +71,7 @@ Vue.component(FrameOptions.name, FrameOptions)
 Vue.component(Frame.name, Frame)
 Vue.component(HingeColor.name, HingeColor)
 Vue.component(HingeType.name, HingeType)
+Vue.component(Remote.name, Remote)
 Vue.component(StileType.name, StileType)
 Vue.component(Notes.name, Notes)
 

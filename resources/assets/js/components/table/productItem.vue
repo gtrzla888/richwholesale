@@ -38,6 +38,11 @@
                   <v-list-tile-title >Remove</v-list-tile-title>
                 </v-list-tile>
               </v-list>
+              <v-list>
+                <v-list-tile @click="onCopy(props.index)">
+                  <v-list-tile-title >Copy</v-list-tile-title>
+                </v-list-tile>
+              </v-list>
             </v-menu>
           </td>
         </tr>
@@ -111,6 +116,9 @@
       },
       onRemove(index) {
          this.$emit('remove', index)
+      },
+      onCopy(index) {
+        this.$emit('copy', index)
       }
     },
     props: {

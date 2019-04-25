@@ -10,7 +10,8 @@ export const state = {
   pvc_shutters: [],
   au_pvc_shutters: [],
   aluminium_shutters: [],
-  roller_blinds: []
+  roller_blinds: [],
+  total: 0
 }
 
 // mutations
@@ -53,6 +54,12 @@ export const mutations = {
       state[payload.selectedTabKey][payload.index]['sqm'] = payload.value * state[payload.selectedTabKey][payload.index]['width']
     }
   },
+  [types.FETCH_ORDER_TOTALPRICE_SUCCESS] (state, {price}) {
+    state.total = price
+  },
+  [types.FETCH_ORDER_TOTALPRICE_FAILURE] (state) {
+    state.total = 0
+  }
 }
 
 // actions
@@ -80,6 +87,14 @@ export const actions = {
   },
   calculateSQM ({ commit }, payload) {
     commit(types.CALCULATE_ORDER_SQM, payload)
+  },
+  async getTotalPrice({ commit }) {
+    try {
+      const { data } = await axios.get('/api/order/companies')
+      commit(types.FETCH_ORDER_TOTALPRICE_SUCCESS, { price: data })
+    } catch (e) {
+      commit(types.FETCH_ORDER_TOTALPRICE_FAILURE)
+    }
   },
   async fetchOrder ({ commit }) {
     try {

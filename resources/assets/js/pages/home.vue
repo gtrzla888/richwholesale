@@ -215,6 +215,7 @@
         },
         set(newOrder) {
           this.$store.dispatch('saveOrder', { order: newOrder })
+          this.$store.dispatch('getTotalPrice')
         }
       },
       notes: {
