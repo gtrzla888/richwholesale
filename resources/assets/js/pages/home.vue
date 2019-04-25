@@ -81,7 +81,7 @@
                     color = "#748C5D"
             >
                 <!--          <v-toolbar-side-icon></v-toolbar-side-icon>-->
-                <v-toolbar-title>Total price $10000</v-toolbar-title>
+                <v-toolbar-title>Total price ${{order.total}}</v-toolbar-title>
                 <v-spacer></v-spacer>
                 <v-toolbar-items class="hidden-sm-and-down">
                     <v-tooltip top>
