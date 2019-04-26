@@ -93,7 +93,6 @@ export default {
         this.calculatePQTY()
         this.$store.dispatch('copyOrderProduct', {selectedTabKey: this.type, product: this.selectedProduct, index: eventBus.selectedProudctIndex})
         this.$store.dispatch('updateCopyItemDialogStatus', {status: false})
-        this.selectedProduct = null
       },
       onCancel() {
         this.$store.dispatch('updateCopyItemDialogStatus', {status: false})
