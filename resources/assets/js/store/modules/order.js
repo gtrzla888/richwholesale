@@ -93,6 +93,8 @@ export const mutations = {
   [types.UPDATE_TARGET_ORDER_INDEX] (state, {index}) {
     if (index > 0) {
       state.targetItemIndex = index
+    } else {
+      state.targetItemIndex = 0;
     }
   }
 }
