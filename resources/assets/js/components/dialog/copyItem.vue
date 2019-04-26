@@ -11,7 +11,7 @@
         >
         <v-card>
             <v-card-title>
-                <h3>Fill and copy</h3>
+                <h3>Fill the fields and copy the current product</h3>
             </v-card-title>
             <v-card-text>
                 <v-text-field
