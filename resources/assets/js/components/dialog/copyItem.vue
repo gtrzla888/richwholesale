@@ -78,6 +78,7 @@
 </template>
 <script>
 import {mapGetters} from 'vuex'
+import {eventBus} from '../../app'
 export default {
     name: 'copyItem',
     data: () => ({
@@ -90,8 +91,7 @@ export default {
         }
         this.calculateSqm()
         this.calculatePQTY()
-        this.$store.dispatch('copyOrderProduct', {selectedTabKey: this.type, product: this.selectedProduct})
-
+        this.$store.dispatch('copyOrderProduct', {selectedTabKey: this.type, product: this.selectedProduct, index: eventBus.selectedProudctIndex})
         this.$store.dispatch('updateCopyItemDialogStatus', {status: false})
       },
       onCancel() {
@@ -118,7 +118,7 @@ export default {
     },
     props: {
       type: String,
-      selectedProduct: Object
+      selectedProduct: Object,
     }
 }
 </script>

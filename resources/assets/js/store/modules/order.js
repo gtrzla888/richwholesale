@@ -12,7 +12,6 @@ export const state = {
   aluminium_shutters: [],
   roller_blinds: [],
   total: 0,
-  targetItemIndex: 0
 }
 
 // mutations
@@ -33,7 +32,7 @@ export const mutations = {
     state[payload.selectedTabKey].splice(payload.index, 1)
   },
   [types.COPY_ORDER_PRODUCT] (state, payload) {
-    let targetObj = state[payload.selectedTabKey][state.targetItemIndex]
+    let targetObj = state[payload.selectedTabKey][payload.index]
     let newObj = {...targetObj};
     Object.keys(newObj).map((key, index) => {
       switch (key) {
@@ -90,13 +89,6 @@ export const mutations = {
   [types.FETCH_ORDER_TOTALPRICE_FAILURE] (state) {
     state.total = 0
   },
-  [types.UPDATE_TARGET_ORDER_INDEX] (state, {index}) {
-    if (index > 0) {
-      state.targetItemIndex = index
-    } else {
-      state.targetItemIndex = 0;
-    }
-  }
 }
 
 // actions
@@ -127,9 +119,6 @@ export const actions = {
   },
   calculateSQM ({ commit }, payload) {
     commit(types.CALCULATE_ORDER_SQM, payload)
-  },
-  updateTargetOrderIndex( {commit}, payload) {
-    commit(types.UPDATE_TARGET_ORDER_INDEX, payload)
   },
   async getTotalPrice({ commit }) {
     try {

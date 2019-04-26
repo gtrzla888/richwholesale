@@ -7,6 +7,12 @@ import App from '~/components/App'
 import '~/components'
 import acl from './acl'
 
+export const eventBus = new Vue({
+  data: () => ({
+    selectedProudctIndex: 0
+  })
+});
+
 Vue.use(Vuetify)
 
 Vue.config.productionTip = false

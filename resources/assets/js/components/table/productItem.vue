@@ -51,6 +51,7 @@
   </v-flex>
 </template>
 <script>
+import {eventBus} from '../../app'
   export default {
     data: () => ({
     }),
@@ -118,8 +119,8 @@
          this.$emit('remove', index)
       },
       openCopyItemDialog(index) {
+        eventBus.selectedProudctIndex = index
         this.$store.dispatch('updateCopyItemDialogStatus', {status: true})
-        this.$store.dispatch('updateTargetOrderIndex', {index: index})
       }
     },
     props: {
@@ -127,6 +128,9 @@
       headers: Array,
       items: Object
     },
+    created() {
+      this.$store.dispatch('updateCopyItemDialogStatus', {status: false})
+    }
   }
 </script>
 
