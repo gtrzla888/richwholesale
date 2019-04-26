@@ -80,6 +80,31 @@
         </v-card-text>
       </v-card>
     </v-flex>
+
+    <v-dialog v-model="dialog" persistent max-width="600px">
+      <v-card>
+        <v-card-title>
+          <span class="headline">Create customer quote</span>
+        </v-card-title>
+        <v-card-text>
+          <v-container grid-list-md>
+            <v-layout wrap>
+              <v-flex xs12 sm6 md6>
+                <v-text-field label="Fix mark up*" required></v-text-field>
+              </v-flex>
+              <v-flex xs12 sm6 md6>
+                <v-text-field label="Legal middle name" hint="example of helper text only on focus"></v-text-field>
+              </v-flex>
+            </v-layout>
+          </v-container>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="blue darken-1" flat @click="dialog = false">Close</v-btn>
+          <v-btn color="blue darken-1" flat @click="dialog = false">Save</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-layout>
 </template>
 
@@ -90,6 +115,7 @@
   export default {
     data () {
       return {
+        dialog: false,
         search: '',
         headers: [
           {
@@ -131,7 +157,7 @@
         this.companies = data
       },
       createCustomerQuote () {
-
+        this.dialog = true
       },
       edit () {
 
