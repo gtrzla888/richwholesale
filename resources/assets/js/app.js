@@ -4,15 +4,16 @@ import store from '~/store'
 import router from '~/router'
 import { i18n } from '~/plugins'
 import App from '~/components/App'
-import 'material-design-icons-iconfont/dist/material-design-icons.css'
-import '@mdi/font/css/materialdesignicons.css'
-import '@fortawesome/fontawesome-free/css/all.css'
 import '~/components'
 import acl from './acl'
 
-Vue.use(Vuetify, {
-  iconfont: 'md' || 'mdi' || 'fa' || 'fa4'
-})
+export const eventBus = new Vue({
+  data: () => ({
+    selectedProudctIndex: 0
+  })
+});
+
+Vue.use(Vuetify)
 
 Vue.config.productionTip = false
 
