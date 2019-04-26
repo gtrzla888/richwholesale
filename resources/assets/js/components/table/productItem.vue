@@ -39,7 +39,7 @@
                 </v-list-tile>
               </v-list>
               <v-list>
-                <v-list-tile @click="onCopy(props.index)">
+                <v-list-tile @click="openCopyItemDialog(props.index)">
                   <v-list-tile-title >Duplicate</v-list-tile-title>
                 </v-list-tile>
               </v-list>
@@ -117,8 +117,9 @@
       onRemove(index) {
          this.$emit('remove', index)
       },
-      onCopy(index) {
-        this.$emit('copy', index)
+      openCopyItemDialog(index) {
+        this.$store.dispatch('updateCopyItemDialogStatus', {status: true})
+        this.$store.dispatch('updateTargetOrderIndex', {index: index})
       }
     },
     props: {

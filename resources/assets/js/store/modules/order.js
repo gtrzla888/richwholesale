@@ -11,7 +11,8 @@ export const state = {
   au_pvc_shutters: [],
   aluminium_shutters: [],
   roller_blinds: [],
-  total: 0
+  total: 0,
+  targetItemIndex: 0
 }
 
 // mutations
@@ -30,6 +31,43 @@ export const mutations = {
   },
   [types.REMOVE_ORDER_PRODUCT] (state, payload) {
     state[payload.selectedTabKey].splice(payload.index, 1)
+  },
+  [types.COPY_ORDER_PRODUCT] (state, payload) {
+    // let currentCopyIndex = state[payload.selectedTabKey].length-1;
+    // state[payload.selectedTabKey][currentCopyIndex].name = payload.product.name;
+    // state[payload.selectedTabKey][currentCopyIndex].width = payload.product.width;
+    // state[payload.selectedTabKey][currentCopyIndex].drop = payload.product.drop;
+    // state[payload.selectedTabKey][currentCopyIndex].sqm = payload.product.sqm;
+    // state[payload.selectedTabKey][currentCopyIndex].panel_layout = payload.product.panel_layout;
+    // state[payload.selectedTabKey][currentCopyIndex].panel_qty = payload.product.panel_qty;
+    let targetObj = state[payload.selectedTabKey][state.targetItemIndex]
+    let newObj = {...targetObj};
+    Object.keys(newObj).map((key, index) => {
+      switch (key) {
+        case 'name':
+          newObj[key] = payload.product.name
+          break
+        case 'width':
+          newObj[key] = payload.product.width
+          break
+        case 'drop':
+          newObj[key] = payload.product.drop
+          break
+        case 'sqm':
+          newObj[key] = payload.product.sqm
+          break
+        case 'panel_layout':
+          newObj[key] = payload.product.panel_layout
+          break
+        case 'panel_qty':
+          newObj[key] = payload.product.panel_qty
+          break
+        default:
+          break
+      }
+    });
+    console.log(newObj)
+    state[payload.selectedTabKey].push(newObj)
   },
   [types.UPDATE_ORDER_PRODUCT] (state, payload) {
     state[payload.selectedTabKey][payload.index][payload.field] = payload.value
@@ -59,6 +97,11 @@ export const mutations = {
   },
   [types.FETCH_ORDER_TOTALPRICE_FAILURE] (state) {
     state.total = 0
+  },
+  [types.UPDATE_TARGET_ORDER_INDEX] (state, {index}) {
+    if (index > 0) {
+      state.targetItemIndex = index
+    }
   }
 }
 
@@ -85,8 +128,14 @@ export const actions = {
   removeOrderProduct ({ commit }, payload) {
     commit(types.REMOVE_ORDER_PRODUCT, payload)
   },
+  copyOrderProduct({ commit }, payload) {
+    commit(types.COPY_ORDER_PRODUCT, payload)
+  },
   calculateSQM ({ commit }, payload) {
     commit(types.CALCULATE_ORDER_SQM, payload)
+  },
+  updateTargetOrderIndex( {commit}, payload) {
+    commit(types.UPDATE_TARGET_ORDER_INDEX, payload)
   },
   async getTotalPrice({ commit }) {
     try {
