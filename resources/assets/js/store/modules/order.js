@@ -33,13 +33,6 @@ export const mutations = {
     state[payload.selectedTabKey].splice(payload.index, 1)
   },
   [types.COPY_ORDER_PRODUCT] (state, payload) {
-    // let currentCopyIndex = state[payload.selectedTabKey].length-1;
-    // state[payload.selectedTabKey][currentCopyIndex].name = payload.product.name;
-    // state[payload.selectedTabKey][currentCopyIndex].width = payload.product.width;
-    // state[payload.selectedTabKey][currentCopyIndex].drop = payload.product.drop;
-    // state[payload.selectedTabKey][currentCopyIndex].sqm = payload.product.sqm;
-    // state[payload.selectedTabKey][currentCopyIndex].panel_layout = payload.product.panel_layout;
-    // state[payload.selectedTabKey][currentCopyIndex].panel_qty = payload.product.panel_qty;
     let targetObj = state[payload.selectedTabKey][state.targetItemIndex]
     let newObj = {...targetObj};
     Object.keys(newObj).map((key, index) => {
@@ -66,7 +59,6 @@ export const mutations = {
           break
       }
     });
-    console.log(newObj)
     state[payload.selectedTabKey].push(newObj)
   },
   [types.UPDATE_ORDER_PRODUCT] (state, payload) {
