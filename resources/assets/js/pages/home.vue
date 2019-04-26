@@ -1,7 +1,6 @@
 <template>
     <v-form ref="form" lazy-validation>
     <v-layout row wrap align-center>
-
         <v-flex xs12 sm3 d-flex>
             <v-select
                     :items="companies"
@@ -82,7 +81,7 @@
                     color = "#748C5D"
             >
                 <!--          <v-toolbar-side-icon></v-toolbar-side-icon>-->
-                <v-toolbar-title>Total price $10000</v-toolbar-title>
+                <v-toolbar-title>Total price ${{order.total}}</v-toolbar-title>
                 <v-spacer></v-spacer>
                 <v-toolbar-items class="hidden-sm-and-down">
                     <v-tooltip top>
@@ -215,6 +214,7 @@
         },
         set(newOrder) {
           this.$store.dispatch('saveOrder', { order: newOrder })
+          this.$store.dispatch('getTotalPrice')
         }
       },
       notes: {
