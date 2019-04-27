@@ -43,7 +43,6 @@
     "eslint-plugin-html": "^3.2.2",
     "eslint-plugin-vue-libs": "^1.2.1",
     "laravel-mix": "^4.0.15",
-    "material-design-icons-iconfont": "^4.0.5",
     "standard": "^10.0.3",
     "stylint": "^1.5.9",
     "stylus": "^0.54.5",
