@@ -39,7 +39,7 @@
                 </v-list-tile>
               </v-list>
               <v-list>
-                <v-list-tile @click="onCopy(props.index)">
+                <v-list-tile @click="openCopyItemDialog(props.index)">
                   <v-list-tile-title >Duplicate</v-list-tile-title>
                 </v-list-tile>
               </v-list>
@@ -51,6 +51,7 @@
   </v-flex>
 </template>
 <script>
+import {eventBus} from '../../app'
   export default {
     data: () => ({
     }),
@@ -117,8 +118,9 @@
       onRemove(index) {
          this.$emit('remove', index)
       },
-      onCopy(index) {
-        this.$emit('copy', index)
+      openCopyItemDialog(index) {
+        eventBus.selectedProudctIndex = index
+        this.$store.dispatch('updateCopyItemDialogStatus', {status: true})
       }
     },
     props: {
@@ -126,6 +128,9 @@
       headers: Array,
       items: Object
     },
+    created() {
+      this.$store.dispatch('updateCopyItemDialogStatus', {status: false})
+    }
   }
 </script>
 

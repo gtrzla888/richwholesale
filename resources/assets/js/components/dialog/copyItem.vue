@@ -1,0 +1,124 @@
+<template>
+    <v-dialog
+    v-model="isCopyDialogOpen"
+    persistent=""
+    width="50vw"
+  >
+        <v-form
+        ref="form"
+        v-model="valid"
+        :lazy-validation="true"
+        >
+        <v-card>
+            <v-card-title>
+                <h3>Fill the fields and copy the current product</h3>
+            </v-card-title>
+            <v-card-text>
+                <v-text-field
+                  v-if="type==='basswood_shutters' || type==='pvc_shutters' || type==='aluminium_shutters' || type==='au_pvc_shutters' || type==='roller_blinds'"
+                  v-model="product.name"
+                  :counter="3"
+                  :rules="[v => !!v || 'Name is required', v => (v && v.length >= 3) || 'Name must be more than 3 characters']"
+                  label="Name"
+                  required
+                ></v-text-field>
+
+                <v-text-field
+                  v-if="type==='basswood_shutters' || type==='pvc_shutters' || type==='aluminium_shutters' || type==='au_pvc_shutters' || type==='roller_blinds'"
+                  v-model="product.width"
+                  label="Width(mm)"
+                  :rules="[v => !!v || 'Width is required']"
+                  type = "number"
+                  min="0"
+                  required
+                ></v-text-field>
+
+                <v-text-field
+                  v-if="type==='basswood_shutters' || type==='pvc_shutters' || type==='aluminium_shutters' || type==='au_pvc_shutters' || type==='roller_blinds'"
+                  v-model="product.drop"
+                  label="Drop(mm)"
+                  type = "number"
+                  :rules="[v => !!v || 'Drop is required']"
+                  min="0"
+                  required
+                >
+                </v-text-field>
+
+                <v-text-field
+                  v-if="type==='basswood_shutters' || type==='pvc_shutters' || type==='aluminium_shutters' || type==='au_pvc_shutters' || type==='roller_blinds'"
+                  :value="product.sqm"
+                  label="Sqm(auto calculated)"
+                  readonly
+                ></v-text-field>
+
+                <v-text-field
+                  v-if="type==='basswood_shutters' || type==='pvc_shutters' || type==='aluminium_shutters' || type==='au_pvc_shutters'"
+                  v-model="product.panel_layout"
+                  label="Panel Layout"
+                  :rules="[v => !!v || 'Panel layout is required', v =>  /[LTRDltrd-]/gm.test(v) || 'Panel Layout is not valid']"
+                  required
+                  type="text"
+                ></v-text-field>
+
+                <v-text-field
+                  v-if="type==='basswood_shutters' || type==='pvc_shutters' || type==='aluminium_shutters' || type==='au_pvc_shutters'"
+                  :value="product.panel_qty"
+                  label="Panel Quantity"
+                  type="number"
+                  readonly
+                ></v-text-field>
+            </v-card-text>
+            <v-card-actions>
+                <v-btn color="secondary" flat @click.stop="onCancel">Close</v-btn>
+                <v-btn color="primary" flat @click.stop="onCopy">Copy</v-btn>
+            </v-card-actions>
+        </v-card>
+        </v-form>
+    </v-dialog>
+</template>
+<script>
+import {mapGetters} from 'vuex'
+import {eventBus} from '../../app'
+export default {
+    name: 'copyItem',
+    data: () => ({
+        valid: false,
+    }),
+    methods: {
+      onCopy(event) {
+        if (!this.$refs.form.validate()) {
+           return
+        }
+        this.calculateSqm()
+        this.calculatePQTY()
+        this.$store.dispatch('copyOrderProduct', {selectedTabKey: this.type, product: this.selectedProduct, index: eventBus.selectedProudctIndex})
+        this.$store.dispatch('updateCopyItemDialogStatus', {status: false})
+      },
+      onCancel() {
+        this.$store.dispatch('updateCopyItemDialogStatus', {status: false})
+      },
+      calculateSqm() {
+        this.product.sqm = this.product.width * this.product.drop;
+      },
+      calculatePQTY() {
+        this.product.panel_qty = (this.product.panel_layout.toUpperCase().match(/L/g) || []).length + (this.product.panel_layout.toUpperCase().match(/R/g) || []).length
+      }
+    },
+    computed: {
+      ...mapGetters(['isCopyDialogOpen']),
+      product: {
+        get() {
+            return this.selectedProduct
+        },
+        set() {
+
+        }
+      },
+
+    },
+    props: {
+      type: String,
+      selectedProduct: Object,
+    }
+}
+</script>

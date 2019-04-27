@@ -137,6 +137,7 @@
             </v-tabs>
         </v-flex>
         <app-add-item @clicked="onProductSubmit" :type="selectedTabKey" :selectedProduct.sync="selectedProduct"></app-add-item>
+        <app-copy-item :type="selectedTabKey" :selectedProduct.sync="selectedProduct"></app-copy-item>
     </v-layout>
     </v-form>
 </template>
@@ -144,6 +145,7 @@
 <script>
   import {mapGetters} from 'vuex'
   import addItemWindow from '~/components/dialog/addItem'
+  import copyItemWindow from '~/components/dialog/copyItem'
   import productList from '~/components/table/productItem'
   export default {
     name: 'home-view',
@@ -245,6 +247,7 @@
     },
     components: {
       appAddItem: addItemWindow,
+      appCopyItem: copyItemWindow,
       appProductList: productList
     },
     created () {

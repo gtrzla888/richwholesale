@@ -1,8 +1,8 @@
 <template>
   <v-dialog
-    v-model="isDialogOpen"
+    v-model="isAddDialogOpen"
     persistent=""
-    width="500"
+    width="50vw"
   >
     <v-form
       ref="form"
@@ -354,7 +354,7 @@
       }
     },
     computed: {
-      ...mapGetters(['isDialogOpen']),
+      ...mapGetters(['isAddDialogOpen']),
       product: {
         get() {
             return this.selectedProduct
@@ -481,7 +481,7 @@
         let colors = [];
         switch (this.type) {
           case 'roller_blinds':
-if (this.selectedProduct.fabric === 'Solitaire') {
+      if (this.selectedProduct.fabric === 'Solitaire') {
           colors = [
             'Snow',
             'Antique White',
