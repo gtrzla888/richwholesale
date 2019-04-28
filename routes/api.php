@@ -39,6 +39,7 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     Route::get('customer-quotes', 'CustomerQuoteController@index');
     Route::put('customer-quotes/{customerQuote}', 'CustomerQuoteController@update');
+    Route::delete('customer-quotes/{customerQuote}', 'CustomerQuoteController@delete');
 
 });
 

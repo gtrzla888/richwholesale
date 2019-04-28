@@ -98,7 +98,7 @@
                     <v-icon>more_vert</v-icon>
                   </v-btn>
                   <v-list>
-                    <v-list-tile @click="remove(props.item)">
+                    <v-list-tile @click="remove(props.item, props.index)">
                       <v-list-tile-title>Remove</v-list-tile-title>
                     </v-list-tile>
                   </v-list>
@@ -175,8 +175,9 @@
       async updatePercentageMarkup (customerQuote) {
          const { data } = await axios.put('/api/customer-quotes/' + customerQuote.id, { percentage_markup: customerQuote.percentage_markup })
       },
-      remove () {
-
+      async remove (customerQuote, index) {
+         await axios.delete('/api/customer-quotes/' + customerQuote.id)
+         this.quotes.splice(index, 1)
       },
       async OnCreateCustomerQuote() {
         this.dialog = false;

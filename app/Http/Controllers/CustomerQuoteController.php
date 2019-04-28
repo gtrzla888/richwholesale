@@ -55,4 +55,10 @@ class CustomerQuoteController extends Controller
 
         return $customerQuote;
     }
+
+    public function delete(CustomerQuote $customerQuote)
+    {
+        $customerQuote->delete();
+        return response()->json([]);
+    }
 }
