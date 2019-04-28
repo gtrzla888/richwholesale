@@ -13,32 +13,44 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
+        $company1 = new Company();
+        $company1->name = 'Company One';
+        $company1->abn = '1111111111';
+        $company1->save();
+
+        $company2 = new Company();
+        $company2->name = 'Company Two';
+        $company2->abn = '2222222222';
+        $company2->save();
+
         $user = new User();
-        $user->name = 'Richard Thompson';
-        $user->email = 'richard@thompsontech.com.au';
+        $user->name = 'Wholesale Admin';
+        $user->email = 'wholesale.admin@thompsontech.com.au';
         $user->password = bcrypt('secretsecret');
         $user->role = User::ROLE_WHOLESALE_ADMIN;
         $user->save();
 
-        $company = new Company();
-        $company->name = 'Rich WholeSale';
-        $company->abn = '2039929922';
-        $company->save();
-        $user->companies()->attach($company);
+        $user = new User();
+        $user->name = 'Wholesale User';
+        $user->email = 'wholesale.user@thompsontech.com.au';
+        $user->password = bcrypt('secretsecret');
+        $user->role = User::ROLE_WHOLESALE_USER;
         $user->save();
 
         $user = new User();
-        $user->name = 'Richard Thompson';
-        $user->email = 'richard+company@thompsontech.com.au';
+        $user->name = 'Company Admin';
+        $user->email = 'company.admin@thompsontech.com.au';
         $user->password = bcrypt('secretsecret');
         $user->role = User::ROLE_COMPANY_ADMIN;
         $user->save();
+        $user->companies()->saveMany([$company1, $company2]);
 
-        $company = new Company();
-        $company->name = 'Thompson Tech ';
-        $company->abn = '2039929922';
-        $company->save();
-        $user->companies()->attach($company);
+        $user = new User();
+        $user->name = 'Company User';
+        $user->email = 'company.user@thompsontech.com.au';
+        $user->password = bcrypt('secretsecret');
+        $user->role = User::ROLE_COMPANY_USER;
         $user->save();
+        $user->companies()->saveMany([$company1, $company2]);
     }
 }

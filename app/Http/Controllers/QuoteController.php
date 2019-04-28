@@ -2,22 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\AluminiumShutter;
-use App\AUPVCShutter;
-use App\BasswoodShutter;
-use App\Http\Requests\StoreQuote;
+use App\User;
 use App\Order;
+use App\Quote;
 use App\OrderItem;
 use App\PVCShutter;
-use App\Quote;
 use App\RollerBlind;
-use App\User;
+use App\AUPVCShutter;
+use App\BasswoodShutter;
+use App\AluminiumShutter;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreQuote;
+use App\Http\Resources\Quote as QuoteResource;
 
 class QuoteController extends Controller
 {
     public function index(Request $request)
     {
+        
          /** @var User $user */
          $user = request()->user();
 
@@ -25,6 +27,8 @@ class QuoteController extends Controller
  
          if ($company = $request->get('company')) {
              $query->where('company_id', $company);
+         } else {
+            $query->whereIn('company_id', $user->companies->pluck('id'));
          }
  
          if ($createdAt = $request->get('created_at')) {
@@ -37,102 +41,96 @@ class QuoteController extends Controller
     public function store(StoreQuote $request)
     {
         $validated = $request->validated();
-
-        $quote = new Quote();
+        if (isset($validated['id'])) {
+            $quote = Quote::find($validated['id']);
+        } else {
+            $quote = new Quote();
+        }
         $quote->company_id = $validated['company_id'];
         $quote->po_reference = $validated['po_reference'];
-        if (isset($validated['customer_name'])) {
-            $quote->customer_name = $validated['customer_name'];
-        }
+        $quote->customer_name = $validated['customer_name'];
         $quote->notes = $validated['notes'];
         $quote->total = 0;
         $quote->save();
         if (isset($validated['basswood_shutters'])) {
             $order = new Order();
+            $order->product_type = BasswoodShutter::NAME;
+            $order->total = 0;
+            $quote->orders()->save($order);
+            $order->save();
             foreach ($validated['basswood_shutters'] as $shutter) {
                 $item = new OrderItem();
                 $product = BasswoodShutter::create($shutter);
-                $item->price = $product->getPrice();
-                $order->total += $item->price;
-                if (isset($shutter['notes'])) {
-                    $item->notes = $shutter['notes'];
-                }
+                $product->price = $product->getPrice();
+                $order->total += $product->price;
                 $item->product()->associate($product);
                 $order->items()->save($item);
             }
-            $order->save();
-            $quote->orders()->save($order);
         }
 
         if (!empty($validated['pvc_shutters'])) {
             $order = new Order();
+            $order->product_type = PVCShutter::NAME;
+            $order->total = 0;
+            $quote->orders()->save($order);
+            $order->save();
             foreach ($validated['pvc_shutters'] as $shutter) {
-
                 $item = new OrderItem();
                 $product = PVCShutter::create($shutter);
-                $item->price = $product->getPrice();
-                $order->total += $item->price;
-                if (isset($shutter['notes'])) {
-                    $item->notes = $shutter['notes'];
-                }
+                $product->price = $product->getPrice();
+                $order->total += $product->price;
                 $item->product()->associate($product);
                 $order->items()->save($item);
             }
-            $order->save();
-            $quote->orders()->save($order);
         }
 
         if (!empty($validated['au_pvc_shutters'])) {
             $order = new Order();
+            $order->product_type = AUPVCShutter::NAME;
+            $order->total = 0;
+            $quote->orders()->save($order);
+            $order->save();
             foreach ($validated['au_pvc_shutters'] as $shutter) {
                 $order = new Order();
                 $item = new OrderItem();
                 $product = AUPVCShutter::create($shutter);
-                $item->price = $product->getPrice();
-                $order->total += $item->price;
-                if (isset($shutter['notes'])) {
-                    $item->notes = $shutter['notes'];
-                }
+                $product->price = $product->getPrice();
+                $order->total += $product->price;
                 $item->product()->associate($product);
                 $order->items()->save($item);
             }
-            $order->save();
-            $quote->orders()->save($order);
         }
 
         if (!empty($validated['aluminium_shutters'])) {
             $order = new Order();
+            $order->product_type = AluminiumShutter::NAME;
+            $order->total = 0;
+            $quote->orders()->save($order);
+            $order->save();
             foreach ($validated['aluminium_shutters'] as $shutter) {
                 $item = new OrderItem();
                 $product = AluminiumShutter::create($shutter);
-                $item->price = $product->getPrice();
-                $order->total += $item->price;
-                if (isset($shutter['notes'])) {
-                    $item->notes = $shutter['notes'];
-                }
+                $product->price = $product->getPrice();
+                $order->total += $product->price;
                 $item->product()->associate($product);
                 $order->items()->save($item);
             }
-            $order->save();
-            $quote->orders()->save($order);
         }
 
         if (!empty($validated['roller_blinds'])) {
             $order = new Order();
+            $order->product_type = RollerBlind::NAME;
+            $order->total = 0;
+            $quote->orders()->save($order);
+            $order->save();
             foreach ($validated['roller_blinds'] as $rollerBlind) {
                 $item = new OrderItem();
                 $product = RollerBlind::create($rollerBlind);
-                $item->price = $product->getPrice();
-                $order->total += $item->price;
-                if (isset($rollerBlind['notes'])) {
-                    $item->notes = $rollerBlind['notes'];
-                }
+                $product->price = $product->getPrice();
+                $order->total += $product->price;
                 $item->product()->associate($product);
                 $order->items()->save($item);
-
             }
-            $order->save();
-            $quote->orders()->save($order);
         }
 
         $quote->save();
@@ -143,6 +141,11 @@ class QuoteController extends Controller
     public function price()
     {
 
+    }
+
+    public function show(Quote $quote)
+    {
+        return new QuoteResource($quote);
     }
 
     public function getTotalPriceAttribute()

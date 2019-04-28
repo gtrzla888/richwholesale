@@ -12,6 +12,6 @@ class ShuttersTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(BasswoodShutter::class, 5)->create();
+        //factory(BasswoodShutter::class, 5)->create();
     }
 }

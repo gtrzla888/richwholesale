@@ -28,19 +28,19 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         $gate->define('isWholesaleAdmin', function ($user) {
-           return $user->role = User::ROLE_WHOLESALE_ADMIN;
+           return $user->role == User::ROLE_WHOLESALE_ADMIN;
         });
 
         $gate->define('isWholesaleUser', function ($user) {
-            return $user->role = User::ROLE_WHOLESALE_USER;
+            return $user->role == User::ROLE_WHOLESALE_USER;
         });
 
         $gate->define('isCompanyUser', function ($user) {
-            return $user->role = User::ROLE_COMPANY_USER;
+            return $user->role == User::ROLE_COMPANY_USER;
         });
 
         $gate->define('isCompanyAdmin', function ($user) {
-            return $user->role = User::ROLE_COMPANY_ADMIN;
+            return $user->role == User::ROLE_COMPANY_ADMIN;
         });
     }
 }

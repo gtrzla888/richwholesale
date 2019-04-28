@@ -22,39 +22,50 @@ class OrdersTableSeeder extends Seeder
         $quote->company()->associate(Company::find(2));
         $quote->customer_name = 'Richard Thompson';
         $quote->po_reference = uniqid();
-        $quote->status = 'Pending';
+        $quote->total = 400;
         $quote->save();
-
-        $shutter = BasswoodShutter::find(1);
-        $orderItem = new OrderItem();
-        $orderItem->product_type = get_class($shutter);
-        $orderItem->product_id = $shutter->id;
-        $orderItem->price = 100;
-        $orderItem->notes = 'test';
 
         $order = new Order();
         $order->notes = 'test';
-        $order->total = 100;
+        $order->total = 300;
         $order->quote_id = $quote->id;
+        $order->product_type = BasswoodShutter::NAME;
         $order->save();
+
+        $shutter = factory(BasswoodShutter::class)->make();
+        $shutter->price = 100;
+        $shutter->save();
+        $orderItem = new OrderItem();
+        $orderItem->product_type = get_class($shutter);
+        $orderItem->product_id = $shutter->id;
         $orderItem->order()->associate($order);
         $orderItem->save();
 
-        $shutter = PVCShutter::find(1);
+        $shutter = factory(BasswoodShutter::class)->make();
+        $shutter->price = 200;
+        $shutter->save();
         $orderItem = new OrderItem();
         $orderItem->product_type = get_class($shutter);
         $orderItem->product_id = $shutter->id;
-        $orderItem->price = 100;
-        $orderItem->notes = 'test';
+       
+        $orderItem->order()->associate($order);
+        $orderItem->save();
 
+    
         $order = new Order();
         $order->notes = 'test';
         $order->total = 100;
+        $order->product_type = PVCShutter::NAME;
         $order->quote_id = $quote->id;
         $order->save();
 
+        $shutter = factory(PVCShutter::class)->make();
+        $shutter->price = 100;
+        $shutter->save();
+        $orderItem = new OrderItem();
+        $orderItem->product_type = get_class($shutter);
+        $orderItem->product_id = $shutter->id;
         $orderItem->order()->associate($order);
-
         $orderItem->save();
     }
 }

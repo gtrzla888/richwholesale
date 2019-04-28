@@ -15,6 +15,7 @@ class CreateRollerBlindsTable extends Migration
     {
         Schema::create('roller_blinds', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedInteger('order_id');
             $table->string('name');
             $table->integer('width');
             $table->integer('drop');
@@ -30,6 +31,8 @@ class CreateRollerBlindsTable extends Migration
             $table->string('motor_type');
             $table->string('charger')->nullable();
             $table->string('wifi_hub');
+            $table->decimal('price'); 
+            $table->string('notes')->nullable();  
             $table->timestamps();
         });
     }

@@ -30,7 +30,17 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     Route::get('companies', 'CompanyController@index');
     Route::get('invoices', 'InvoiceController@index');
+
     Route::get('quotes', 'QuoteController@index');
+    Route::get('quotes/{quote}', 'QuoteController@show');
+    Route::post('quotes', 'QuoteController@store');
+
+    Route::post('quotes/{quote}/customer-quotes', 'CustomerQuoteController@store');
+
+    Route::get('customer-quotes', 'CustomerQuoteController@index');
+    Route::put('customer-quotes/{customerQuote}', 'CustomerQuoteController@update');
+    Route::delete('customer-quotes/{customerQuote}', 'CustomerQuoteController@delete');
+
 });
 
 Route::group(['middleware' => 'guest:api'], function () {

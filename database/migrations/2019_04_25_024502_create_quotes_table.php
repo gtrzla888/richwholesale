@@ -19,9 +19,8 @@ class CreateQuotesTable extends Migration
             $table->string('customer_name');
             $table->string('po_reference');
             $table->string('status');
-            $table->boolean('is_customer_quote')->default(false);
-            $table->decimal('mark_up')->nullable();
-            $table->string('mark_up_type')->nullable();
+            $table->decimal('total');
+            $table->string('notes')->nullable();
             $table->timestamps();
         });
     }

@@ -1,8 +1,8 @@
 import * as types from '../mutation-types'
 import axios from 'axios'
 
-// state
-export const state = {
+const order = {
+  id: '',
   company_id: '',
   po_reference: '',
   notes: '',
@@ -11,13 +11,17 @@ export const state = {
   au_pvc_shutters: [],
   aluminium_shutters: [],
   roller_blinds: [],
-  total: 0,
+  total: 0
+}
+// state
+export const state = {
+  ...order
 }
 
 // mutations
 export const mutations = {
   [types.SAVE_ORDER] (state, { order }) {
-    state.order = order
+    Object.assign(state, { ...order })
   },
   [types.SAVE_ORDER_PO_REFERENCE] (state, poReference) {
     state.po_reference = poReference
@@ -32,8 +36,8 @@ export const mutations = {
     state[payload.selectedTabKey].splice(payload.index, 1)
   },
   [types.COPY_ORDER_PRODUCT] (state, payload) {
-    let targetObj = state[payload.selectedTabKey][payload.index]
-    let newObj = {...targetObj};
+    const targetObj = state[payload.selectedTabKey][payload.index]
+    const newObj = { ...targetObj }
     Object.keys(newObj).map((key, index) => {
       switch (key) {
         case 'name':
@@ -57,23 +61,20 @@ export const mutations = {
         default:
           break
       }
-    });
+    })
     state[payload.selectedTabKey].push(newObj)
   },
   [types.UPDATE_ORDER_PRODUCT] (state, payload) {
     state[payload.selectedTabKey][payload.index][payload.field] = payload.value
   },
   [types.FETCH_ORDER_SUCCESS] (state, { order }) {
-    state.order = order
+    Object.assign(state, { ...order })
   },
   [types.FETCH_ORDER_FAILURE] (state) {
-    state.order = null
-  },
-  [types.UPDATE_ORDER] (state, { order }) {
-    state.order = order
+    Object.assign(state, { ...order })
   },
   [types.CLEAR_ORDER] (state) {
-    state.order = null
+    Object.assign(state, { ...order })
   },
   [types.CALCULATE_ORDER_SQM] (state, payload) {
     if (payload.field === 'width') {
@@ -83,12 +84,12 @@ export const mutations = {
       state[payload.selectedTabKey][payload.index]['sqm'] = payload.value * state[payload.selectedTabKey][payload.index]['width']
     }
   },
-  [types.FETCH_ORDER_TOTALPRICE_SUCCESS] (state, {price}) {
+  [types.FETCH_ORDER_TOTALPRICE_SUCCESS] (state, { price }) {
     state.total = price
   },
   [types.FETCH_ORDER_TOTALPRICE_FAILURE] (state) {
     state.total = 0
-  },
+  }
 }
 
 // actions
@@ -102,9 +103,6 @@ export const actions = {
   updateCompanyId ({ commit }, payload) {
     commit(types.SAVE_ORDER_COMPANY_ID, payload)
   },
-  getOrder ({ commit }, payload) {
-    commit(types.GET_ORDER, payload)
-  },
   saveOrderProduct ({ commit }, payload) {
     commit(types.SAVE_ORDER_PRODUCT, payload)
   },
@@ -114,13 +112,16 @@ export const actions = {
   removeOrderProduct ({ commit }, payload) {
     commit(types.REMOVE_ORDER_PRODUCT, payload)
   },
-  copyOrderProduct({ commit }, payload) {
+  copyOrderProduct ({ commit }, payload) {
     commit(types.COPY_ORDER_PRODUCT, payload)
   },
   calculateSQM ({ commit }, payload) {
     commit(types.CALCULATE_ORDER_SQM, payload)
   },
-  async getTotalPrice({ commit }) {
+  clearOrder ({ commit }) {
+    commit(types.CLEAR_ORDER)
+  },
+  async getTotalPrice ({ commit }) {
     try {
       const { data } = await axios.get('/api/order/companies')
       commit(types.FETCH_ORDER_TOTALPRICE_SUCCESS, { price: data })
@@ -128,9 +129,9 @@ export const actions = {
       commit(types.FETCH_ORDER_TOTALPRICE_FAILURE)
     }
   },
-  async fetchOrder ({ commit }) {
+  async fetchOrder ({ commit }, payload) {
     try {
-      const { data } = await axios.get('/api/order/companies')
+      const { data } = await axios.get('/api/quotes/' + payload.id)
       commit(types.FETCH_ORDER_SUCCESS, { order: data })
     } catch (e) {
       commit(types.FETCH_ORDER_FAILURE)
@@ -139,7 +140,19 @@ export const actions = {
 
   async submitOrder ({ commit }, payload) {
     try {
-      const { data } = await axios.post('/api/orders', payload)
+      const { data } = await axios.post('/api/quotes?orders=true', payload)
+      commit(types.RESPONSE_MSG, {
+        type: 'error',
+        text: data.errors
+      })
+    } catch (e) {
+      console.log('iam here')
+    }
+  },
+
+  async submitQuote ({ commit }, payload) {
+    try {
+      const { data } = await axios.post('/api/quotes', payload)
       commit(types.RESPONSE_MSG, {
         type: 'error',
         text: data.errors

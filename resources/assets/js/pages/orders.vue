@@ -157,7 +157,6 @@
           { params: { company: this.company, created_at: this.createdAt } },
         )
         this.orders = data
-        console.log(data)
       },
       async saveStatus (item) {
         const { data } = await axios.put('/api/orders/' + item.id, { status: item.status })
@@ -167,7 +166,6 @@
       },
       async loadCompanies () {
         const { data } = await axios.get('/api/companies')
-        console.log(data)
         this.companies = data
       },
     },
@@ -181,7 +179,6 @@
     },
     created () {
       // fetch the companies
-      //this.$store.dispatch('fetchOrders')
       this.loadOrders()
       this.loadCompanies()
     },

@@ -11,6 +11,6 @@ class RollerBlindsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(\App\RollerBlind::class, 10)->create();
+        //factory(\App\RollerBlind::class, 10)->create();
     }
 }

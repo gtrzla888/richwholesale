@@ -13,17 +13,10 @@ abstract class Shutter extends Product
 
     protected $guarded = [];
 
-
-    public static function create($attributes): Product
-    {
-        $attributes = $attributes + ['type' => static::NAME];
-
-        return parent::create($attributes);
-    }
-
     public static function rules()
     {
         return [
+            'id' => 'integer',
             'name' => 'required|max:255',
             'width' => 'required|integer',
             'drop' => 'required|integer',
