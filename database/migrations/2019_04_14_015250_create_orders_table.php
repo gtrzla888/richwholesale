@@ -18,6 +18,7 @@ class CreateOrdersTable extends Migration
             $table->unsignedInteger('quote_id');
             $table->string('status')->default('submitted');
             $table->timestamp('eta')->nullable();
+            $table->string('product_type');
             $table->decimal('total');
             $table->string('notes')->nullable();
             $table->timestamps();

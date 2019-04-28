@@ -181,7 +181,6 @@
     },
     created () {
       // fetch the companies
-      //this.$store.dispatch('fetchOrders')
       this.loadOrders()
       this.loadCompanies()
     },

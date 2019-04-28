@@ -19,7 +19,11 @@ $factory->define(RollerBlind::class, function (Faker $faker) {
         'motor_brand' => 'Acemda',
         'motor_type' => 'hard_wired',
         'charger' => 'no',
-        'wifi_hub' => 'Yes'
+        'wifi_hub' => 'Yes',
+        'note' => '',
+        'order_id' => function() {
+            
+        }
     ];
 });
 

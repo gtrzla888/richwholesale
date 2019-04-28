@@ -90,10 +90,10 @@
           <v-container grid-list-md>
             <v-layout wrap>
               <v-flex xs12 sm6 md6>
-                <v-text-field label="Fix mark up*" required></v-text-field>
+                <v-text-field label="Fixed markup*" required v-model="fixedMarkup"></v-text-field>
               </v-flex>
               <v-flex xs12 sm6 md6>
-                <v-text-field label="Legal middle name" hint="example of helper text only on focus"></v-text-field>
+                <v-text-field label="Percentage markup" hint="example of helper text only on focus" v-model="percentageMarkup"></v-text-field>
               </v-flex>
             </v-layout>
           </v-container>
@@ -101,7 +101,7 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="blue darken-1" flat @click="dialog = false">Close</v-btn>
-          <v-btn color="blue darken-1" flat @click="dialog = false">Save</v-btn>
+          <v-btn color="blue darken-1" flat @click="OnCreateCustomerQuote()">Save</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -111,12 +111,15 @@
 <script>
   import axios from 'axios'
   import moment from 'moment'
+import { async } from 'q';
 
   export default {
     data () {
       return {
         dialog: false,
         search: '',
+        fixedMarkup: '',
+        percentageMarkup: '',
         headers: [
           {
             text: 'Order #',
@@ -135,6 +138,7 @@
         companies: [],
         company: '',
         createdAt: '',
+        selectedQuoteId: '',
         dates: [
           {
             'value': moment().add(-30, 'days').format('YYYY-MM-DD'),
@@ -156,15 +160,24 @@
         const { data } = await axios.get('/api/user/companies')
         this.companies = data
       },
-      createCustomerQuote () {
+      createCustomerQuote (quote) {
         this.dialog = true
+        this.selectedQuoteId = quote.id
       },
-      edit () {
-
+      edit (quote) {
+          this.selectedQuoteId = quote.id
+          this.$store.dispatch('fetchOrder', {id: quote.id})
+          this.$router.push('home');
       },
       remove () {
 
       },
+      async OnCreateCustomerQuote() {
+          this.dialog = false;
+          await axios.post('api/quotes/' + this.selectedQuoteId + '/customer-quotes', {
+            fixedMarkup: this.fixedMarkup, percentageMarkup: this.percentageMarkup
+          })
+      }
     },
     watch: {
       company () {

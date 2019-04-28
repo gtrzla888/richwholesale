@@ -14,10 +14,17 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         $user = new User();
-        $user->name = 'Richard Thompson';
-        $user->email = 'richard@thompsontech.com.au';
+        $user->name = 'Wholesale Admin';
+        $user->email = 'wholesale.admin@thompsontech.com.au';
         $user->password = bcrypt('secretsecret');
         $user->role = User::ROLE_WHOLESALE_ADMIN;
+        $user->save();
+
+        $user = new User();
+        $user->name = 'Wholesale User';
+        $user->email = 'wholesale.user@thompsontech.com.au';
+        $user->password = bcrypt('secretsecret');
+        $user->role = User::ROLE_WHOLESALE_USER;
         $user->save();
 
         $company = new Company();
@@ -28,14 +35,21 @@ class UsersTableSeeder extends Seeder
         $user->save();
 
         $user = new User();
-        $user->name = 'Richard Thompson';
-        $user->email = 'richard+company@thompsontech.com.au';
+        $user->name = 'Company Admin';
+        $user->email = 'company.admin@thompsontech.com.au';
         $user->password = bcrypt('secretsecret');
         $user->role = User::ROLE_COMPANY_ADMIN;
         $user->save();
 
+        $user = new User();
+        $user->name = 'Company User';
+        $user->email = 'company.user@thompsontech.com.au';
+        $user->password = bcrypt('secretsecret');
+        $user->role = User::ROLE_COMPANY_USER;
+        $user->save();
+
         $company = new Company();
-        $company->name = 'Thompson Tech ';
+        $company->name = 'Thompson Tech';
         $company->abn = '2039929922';
         $company->save();
         $user->companies()->attach($company);

@@ -57,6 +57,7 @@
         <v-flex xs12 sm3 d-flex>
             <v-text-field
                     class="mx-3"
+                    v-model="customer_name"
                     outline
                     label="Customer Name"
                     prepend-inner-icon="people"
@@ -94,7 +95,7 @@
                     </v-tooltip>
                     <v-tooltip top>
                         <template v-slot:activator="{ on }">
-                            <v-btn fab small color="#748C5D" dark v-on="on">
+                            <v-btn fab small color="#748C5D" dark v-on="on" @click="submitQuote">
                                 <v-icon>save</v-icon>
                             </v-btn>
                         </template>
@@ -190,7 +191,6 @@
           this.$store.dispatch('calculateSQM', payload)
         }
         this.$store.dispatch('updateOrderProduct', payload)
-        console.log(this.selectedProduct)
         // this.$store.dispatch('updateAddItemDialogStatus', {status: true});
       },
       onRemove(index) {
@@ -199,17 +199,15 @@
       submitOrder() {
           this.$store.dispatch('submitOrder', this.order)
       },
+      submitQuote() {
+          this.$store.dispatch('submitQuote', this.order)
+      },
       addProduct() {
         this.$store.dispatch('addProduct', {selectedTabKey: this.selectedTabKey})
       }
     },
     computed: {
-      ...mapGetters(['products']),
-      companies: {
-        get() {
-            return this.$store.state.auth.user.companies;
-        },
-      },
+      ...mapGetters(['products', 'companies']),
       order: {
         get() {
           return this.$store.state.order;
@@ -235,6 +233,14 @@
           this.$store.dispatch('updatePoReference', value)
         }
       },
+      customer_name: {
+         get () {
+           return this.$store.state.order.customer_name
+        },
+        set (value) {
+          this.$store.dispatch('updatePoReference', value)
+        }
+      },
       company_id: {
          get () {
             return this.$store.state.order.company_id
@@ -253,6 +259,7 @@
     created () {
       // fetch the companies
       this.$store.dispatch('fetchProducts')
+      this.$store.dispatch('fetchCompanies')
     }
   }
 </script>

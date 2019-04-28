@@ -10,7 +10,7 @@
 </template>
 <script>
     export default {
-        name: 'shutter_color',
+        name: 'colour',
         data: () => ({
         }),
         props: {
@@ -44,7 +44,7 @@
                     return this.value;
                 },
                 set(value) {
-                    this.$emit('productChanged', {field: 'shutter_color', value, index: this.index})
+                    this.$emit('productChanged', {field: 'colour', value, index: this.index})
                 }
             }
         }

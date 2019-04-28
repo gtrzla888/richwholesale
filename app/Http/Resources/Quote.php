@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Resources\Shutter as ShutterResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class Quote extends JsonResource
@@ -17,8 +18,13 @@ class Quote extends JsonResource
         return [
             'id' => $this->id,
             'company_id' => $this->company->id,
-            'basswood_shutters' => [],
-            'customer_name' => [],
+            'customer_name' => $this->customer_name,
+            'notes' => $this->notes,
+            'basswood_shutters' => $this->basswood_shutters,
+            'pvc_shutters' => $this->pvc_shutters,
+            'au_pvc_shutters' => $this->au_pvc_shutters,
+            'aluminium_shutters' => $this->aluminium_shutters,
+            'roller_blinds' => $this->roller_blinds
         ];
     }
 }
