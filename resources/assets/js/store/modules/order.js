@@ -140,7 +140,7 @@ export const actions = {
 
   async submitOrder ({ commit }, payload) {
     try {
-      const { data } = await axios.post('/api/quotes?orders=true', payload)
+      const { data } = await axios.post('/api/quotes?order=true', payload)
       commit(types.RESPONSE_MSG, {
         type: 'error',
         text: data.errors
