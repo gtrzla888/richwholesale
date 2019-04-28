@@ -13,6 +13,16 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
+        $company1 = new Company();
+        $company1->name = 'Company Two';
+        $company1->abn = '1111111111';
+        $company1->save();
+
+        $company2 = new Company();
+        $company2->name = 'Company One';
+        $company2->abn = '2222222222';
+        $company2->save();
+
         $user = new User();
         $user->name = 'Wholesale Admin';
         $user->email = 'wholesale.admin@thompsontech.com.au';
@@ -27,19 +37,13 @@ class UsersTableSeeder extends Seeder
         $user->role = User::ROLE_WHOLESALE_USER;
         $user->save();
 
-        $company = new Company();
-        $company->name = 'Rich WholeSale';
-        $company->abn = '2039929922';
-        $company->save();
-        $user->companies()->attach($company);
-        $user->save();
-
         $user = new User();
         $user->name = 'Company Admin';
         $user->email = 'company.admin@thompsontech.com.au';
         $user->password = bcrypt('secretsecret');
         $user->role = User::ROLE_COMPANY_ADMIN;
         $user->save();
+        $user->companies()->saveMany([$company1, $company2]);
 
         $user = new User();
         $user->name = 'Company User';
@@ -47,12 +51,6 @@ class UsersTableSeeder extends Seeder
         $user->password = bcrypt('secretsecret');
         $user->role = User::ROLE_COMPANY_USER;
         $user->save();
-
-        $company = new Company();
-        $company->name = 'Thompson Tech';
-        $company->abn = '2039929922';
-        $company->save();
-        $user->companies()->attach($company);
-        $user->save();
+        $user->companies()->saveMany([$company1, $company2]);
     }
 }
