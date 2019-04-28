@@ -1,12 +1,13 @@
 <?php
 
-use Illuminate\Database\Seeder;
-use App\OrderItem;
-use App\BasswoodShutter;
-use App\PVCShutter;
 use App\Order;
-use App\Company;
 use App\Quote;
+use App\Company;
+use App\Invoice;
+use App\OrderItem;
+use App\PVCShutter;
+use App\BasswoodShutter;
+use Illuminate\Database\Seeder;
 
 class OrdersTableSeeder extends Seeder
 {
@@ -67,5 +68,11 @@ class OrdersTableSeeder extends Seeder
         $orderItem->product_id = $shutter->id;
         $orderItem->order()->associate($order);
         $orderItem->save();
+
+
+        $invoice = new Invoice();
+        $invoice->order_id = $order->id;
+        $invoice->status = 'Issued';
+        $invoice->save();
     }
 }

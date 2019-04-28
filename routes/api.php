@@ -43,6 +43,10 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::put('customer-quotes/{customerQuote}', 'CustomerQuoteController@update');
     Route::delete('customer-quotes/{customerQuote}', 'CustomerQuoteController@delete');
 
+
+    Route::post('orders/{order}/invoices', 'InvoiceController@store');
+    Route::post('invoices/{invoice}', 'InvoiceController@update');
+
 });
 
 Route::group(['middleware' => 'guest:api'], function () {

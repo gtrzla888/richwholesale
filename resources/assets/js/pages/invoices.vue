@@ -46,13 +46,12 @@
             :headers="headers"
             :items="invoices"
             :search="search"
-            select-all
             class="elevation-1"
           >
             <template v-slot:items="props">
               <td>{{ props.item.id }}</td>
-              <td class="text-xs-left">{{ props.item.company.name }}</td>
-              <td class="text-xs-left">{{ props.item.po_reference }}</td>
+              <td class="text-xs-left">{{ props.item.order.quote.company.name }}</td>
+              <td class="text-xs-left">{{ props.item.order.quote.po_reference }}</td>
               <td class="text-xs-left">{{ props.item.updated_at }}</td>
               <td class="text-xs-left">{{ props.item.status }}</td>
               <td class="text-xs-left">{{ props.item.created_at }}</td>
@@ -82,7 +81,7 @@
           { text: 'Company', value: 'company.name' },
           { text: 'PO / Reference', value: 'po_reference' },
           { text: 'Last modifired', value: 'updated_at' },
-          { text: 'Statue', value: 'status' },
+          { text: 'Status', value: 'status' },
           { text: 'Order Date', value: 'created_at' },
         ],
         invoices: [],
