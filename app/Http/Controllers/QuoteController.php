@@ -19,6 +19,7 @@ class QuoteController extends Controller
 {
     public function index(Request $request)
     {
+        
          /** @var User $user */
          $user = request()->user();
 
@@ -26,6 +27,8 @@ class QuoteController extends Controller
  
          if ($company = $request->get('company')) {
              $query->where('company_id', $company);
+         } else {
+            $query->whereIn('company_id', $user->companies->pluck('id'));
          }
  
          if ($createdAt = $request->get('created_at')) {

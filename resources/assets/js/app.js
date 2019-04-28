@@ -5,13 +5,12 @@ import router from '~/router'
 import { i18n } from '~/plugins'
 import App from '~/components/App'
 import '~/components'
-import acl from './acl'
 
 export const eventBus = new Vue({
   data: () => ({
     selectedProudctIndex: 0
   })
-});
+})
 
 Vue.use(Vuetify)
 
@@ -22,6 +21,5 @@ new Vue({
   i18n,
   store,
   router,
-  acl,
   ...App
 })

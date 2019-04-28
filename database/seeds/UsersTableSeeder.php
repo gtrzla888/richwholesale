@@ -14,12 +14,12 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         $company1 = new Company();
-        $company1->name = 'Company Two';
+        $company1->name = 'Company One';
         $company1->abn = '1111111111';
         $company1->save();
 
         $company2 = new Company();
-        $company2->name = 'Company One';
+        $company2->name = 'Company Two';
         $company2->abn = '2222222222';
         $company2->save();
 

@@ -74,7 +74,7 @@
         search: '',
         headers: [
           {
-            text: 'Order #',
+            text: 'Invoice #',
             align: 'left',
             sortable: false,
             value: 'id',
@@ -103,7 +103,7 @@
     },
     methods: {
       async loadInvoices () {
-        const { data } = await axios.get('/api/invoices')
+        const { data } = await axios.get('/api/invoices', { params: { company: this.company, created_at: this.createdAt }})
         this.invoices = data
       },
       async loadCompanies () {

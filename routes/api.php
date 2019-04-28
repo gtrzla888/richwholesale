@@ -36,6 +36,10 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('quotes', 'QuoteController@store');
 
     Route::post('quotes/{quote}/customer-quotes', 'CustomerQuoteController@store');
+
+    Route::get('customer-quotes', 'CustomerQuoteController@index');
+    Route::put('customer-quotes/{customerQuote}', 'CustomerQuoteController@update');
+
 });
 
 Route::group(['middleware' => 'guest:api'], function () {

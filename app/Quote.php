@@ -45,4 +45,9 @@ class Quote extends Model
     {
         return $this->orders()->where('product_type', RollerBlind::NAME)->with('items.product')->get()->pluck('items')->flatten(1)->pluck('product');
     }
+
+    public function customerQuote()
+    {
+        return $this->hasOne(CustomerQuote::class);
+    }
 }
