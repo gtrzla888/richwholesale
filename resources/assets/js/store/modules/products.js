@@ -25,8 +25,8 @@ const productLines = [
       { text: 'HingeType', value: 'hinge_type', sortable: false },
       { text: 'HingeColor', value: 'hinge_color', sortable: false },
       { text: 'Notes', value: 'notes', sortable: false },
-      { text: 'Actions', value: 'actions', sortable: false },
-    ],
+      { text: 'Actions', value: 'actions', sortable: false }
+    ]
   },
   {
     name: 'PVC Shutters',
@@ -47,9 +47,8 @@ const productLines = [
       { text: 'Colour', value: 'colour', sortable: false },
       { text: 'Frame', value: 'frame', sortable: false },
       { text: 'Notes', value: 'notes', sortable: false },
-      { text: 'Actions', value: 'actions', sortable: false },
-    ],
-    items: [],
+      { text: 'Actions', value: 'actions', sortable: false }
+    ]
   },
   {
     name: 'AU PVC Shutters',
@@ -70,9 +69,8 @@ const productLines = [
       { text: 'Colour', value: 'colour', sortable: false },
       { text: 'Frame', value: 'frame', sortable: false },
       { text: 'Notes', value: 'notes', sortable: false },
-      { text: 'Actions', value: 'actions', sortable: false },
-    ],
-    items: [],
+      { text: 'Actions', value: 'actions', sortable: false }
+    ]
   },
   {
     name: 'Aluminium  Shutters',
@@ -93,8 +91,8 @@ const productLines = [
       { text: 'Colour', value: 'colour', sortable: false },
       { text: 'Frame', value: 'frame', sortable: false },
       { text: 'Notes', value: 'notes', sortable: false },
-      { text: 'Actions', value: 'actions', sortable: false },
-    ],
+      { text: 'Actions', value: 'actions', sortable: false }
+    ]
   },
   {
     name: 'Roller Blinds',
@@ -118,9 +116,9 @@ const productLines = [
       { text: 'Remote', value: 'remote', sortable: false },
       { text: 'Bracket Options', value: 'bracket_options', sortable: false },
       { text: 'Notes', value: 'notes', sortable: false },
-      { text: 'Actions', value: 'actions', sortable: false },
-    ],
-  },
+      { text: 'Actions', value: 'actions', sortable: false }
+    ]
+  }
 ]
 
 // state
@@ -145,7 +143,7 @@ export const actions = {
   },
   fetchProducts ({ commit }) {
     commit(types.FETCH_PRODUCTS)
-  },
+  }
 }
 
 // getters
