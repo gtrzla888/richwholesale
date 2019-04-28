@@ -118,6 +118,9 @@ export const actions = {
   calculateSQM ({ commit }, payload) {
     commit(types.CALCULATE_ORDER_SQM, payload)
   },
+  clearOrder ({ commit }) {
+    commit(types.CLEAR_ORDER)
+  },
   async getTotalPrice ({ commit }) {
     try {
       const { data } = await axios.get('/api/order/companies')

@@ -10,6 +10,7 @@
                     label="Company Name (Select)"
                     class="mx-3"
                     v-model="company_id"
+                    required
             ></v-select>
         </v-flex>
         <v-spacer></v-spacer>
@@ -61,6 +62,7 @@
                     outline
                     label="Customer Name"
                     prepend-inner-icon="people"
+                    required
             ></v-text-field>
         </v-flex>
 
@@ -109,6 +111,14 @@
                         </template>
                         <span>Submit order</span>
                     </v-tooltip>
+                  <v-tooltip top>
+                    <template v-slot:activator="{ on }">
+                      <v-btn fab small color="#748C5D" dark v-on="on" @click="clearOrder">
+                        <v-icon>clear</v-icon>
+                      </v-btn>
+                    </template>
+                    <span>Clear</span>
+                  </v-tooltip>
                 </v-toolbar-items>
             </v-toolbar>
         </v-flex>
@@ -204,6 +214,9 @@
       },
       addProduct() {
         this.$store.dispatch('addProduct', {selectedTabKey: this.selectedTabKey})
+      },
+      clearOrder() {
+        this.$store.dispatch('clearOrder')
       }
     },
     computed: {
