@@ -350,7 +350,7 @@
         this.product.sqm = this.product.width * this.product.drop;
       },
       calculatePQTY() {
-        this.product.panel_qty = (this.product.panel_layout.toUpperCase().match(/L/g) || []).length + (this.product.panel_layout.toUpperCase().match(/R/g) || []).length
+        this.product.panel_qty = (this.product.panel_layout.match(/(L|l|R|r)/g) || []).length
       }
     },
     computed: {
