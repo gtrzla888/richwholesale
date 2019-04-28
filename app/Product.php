@@ -19,12 +19,24 @@ abstract class Product extends Model
      */
     public static function create($attributes): Product
     {
+        $product = static::make($attributes);
+        $product->save();
+
+        return $product;
+    }
+
+    /**
+     * @param $attributes
+     *
+     * @return Product
+     */
+    public static function make($attributes): Product
+    {
         $product = new static();
         if (isset($attributes['id'])) {
             $product = static::find($attributes['id']);
         }
         $product->fill($attributes);
-        $product->save();
 
         return $product;
     }

@@ -84,8 +84,8 @@ export const mutations = {
       state[payload.selectedTabKey][payload.index]['sqm'] = payload.value * state[payload.selectedTabKey][payload.index]['width']
     }
   },
-  [types.FETCH_ORDER_TOTALPRICE_SUCCESS] (state, { price }) {
-    state.total = price
+  [types.FETCH_ORDER_TOTALPRICE_SUCCESS] (state, { total }) {
+    state.total = total
   },
   [types.FETCH_ORDER_TOTALPRICE_FAILURE] (state) {
     state.total = 0
@@ -121,10 +121,10 @@ export const actions = {
   clearOrder ({ commit }) {
     commit(types.CLEAR_ORDER)
   },
-  async getTotalPrice ({ commit }) {
+  async getTotalPrice ({ commit }, payload) {
     try {
-      const { data } = await axios.get('/api/order/companies')
-      commit(types.FETCH_ORDER_TOTALPRICE_SUCCESS, { price: data })
+      const { data } = await axios.post('/api/quotes/price', payload)
+      commit(types.FETCH_ORDER_TOTALPRICE_SUCCESS, { total: data })
     } catch (e) {
       commit(types.FETCH_ORDER_TOTALPRICE_FAILURE)
     }
@@ -140,7 +140,7 @@ export const actions = {
 
   async submitOrder ({ commit }, payload) {
     try {
-      const { data } = await axios.post('/api/quotes?orders=true', payload)
+      const { data } = await axios.post('/api/quotes?order=true', payload)
       commit(types.RESPONSE_MSG, {
         type: 'error',
         text: data.errors

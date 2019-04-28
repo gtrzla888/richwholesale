@@ -11,6 +11,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Quote extends Model
 {
+    const STATUS_PENDING = 'Pending';
+    const STATUS_ORDERED = 'Ordered';
+
     public function orders()
     {
         return $this->hasMany(Order::class);

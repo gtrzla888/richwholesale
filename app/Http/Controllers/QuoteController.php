@@ -46,6 +46,12 @@ class QuoteController extends Controller
         } else {
             $quote = new Quote();
         }
+
+        if ($request->get('order')) {
+            $quote->status = Quote::STATUS_ORDERED;
+        } else {
+            $quote->status = Quote::STATUS_PENDING;
+        }
         $quote->company_id = $validated['company_id'];
         $quote->po_reference = $validated['po_reference'];
         $quote->customer_name = $validated['customer_name'];
@@ -56,6 +62,7 @@ class QuoteController extends Controller
             $order = new Order();
             $order->product_type = BasswoodShutter::NAME;
             $order->total = 0;
+            $order->status = $quote->status;
             $quote->orders()->save($order);
             $order->save();
             foreach ($validated['basswood_shutters'] as $shutter) {
@@ -72,6 +79,7 @@ class QuoteController extends Controller
             $order = new Order();
             $order->product_type = PVCShutter::NAME;
             $order->total = 0;
+            $order->status = $quote->status;
             $quote->orders()->save($order);
             $order->save();
             foreach ($validated['pvc_shutters'] as $shutter) {
@@ -88,6 +96,7 @@ class QuoteController extends Controller
             $order = new Order();
             $order->product_type = AUPVCShutter::NAME;
             $order->total = 0;
+            $order->status = $quote->status;
             $quote->orders()->save($order);
             $order->save();
             foreach ($validated['au_pvc_shutters'] as $shutter) {
@@ -105,6 +114,7 @@ class QuoteController extends Controller
             $order = new Order();
             $order->product_type = AluminiumShutter::NAME;
             $order->total = 0;
+            $order->status = $quote->status;
             $quote->orders()->save($order);
             $order->save();
             foreach ($validated['aluminium_shutters'] as $shutter) {
@@ -121,6 +131,7 @@ class QuoteController extends Controller
             $order = new Order();
             $order->product_type = RollerBlind::NAME;
             $order->total = 0;
+            $order->status = $quote->status;
             $quote->orders()->save($order);
             $order->save();
             foreach ($validated['roller_blinds'] as $rollerBlind) {
@@ -138,9 +149,47 @@ class QuoteController extends Controller
         return $quote;
     }
 
-    public function price()
+    public function price(Request $request)
     {
+        $validated = $request->all();
+        $price = 0;
+        if (!empty($validated['basswood_shutters'])) {
+            foreach ($validated['basswood_shutters'] as $shutter) {
+                $product = BasswoodShutter::make($shutter);
+                $price += $product->getPrice();
+            }
+        }
 
+        if (!empty($validated['pvc_shutters'])) {
+            foreach ($validated['pvc_shutters'] as $shutter) {
+                $product = PVCShutter::make($shutter);
+                $price += $product->getPrice();
+            }
+        }
+
+        if (!empty($validated['au_pvc_shutters'])) {
+            foreach ($validated['au_pvc_shutters'] as $shutter) {
+                $product = AUPVCShutter::make($shutter);
+                $price += $product->getPrice();
+            }
+        }
+
+
+        if (!empty($validated['aluminium_shutters'])) {
+            foreach ($validated['aluminium_shutters'] as $shutter) {
+                $product = AluminiumShutter::make($shutter);
+                $price += $product->getPrice();
+            }
+        }
+
+        if (!empty($validated['roller_blinds'])) {
+            foreach ($validated['roller_blinds'] as $shutter) {
+                $product = AluminiumShutter::make($shutter);
+                $price += $product->getPrice();
+            }
+        }
+
+        return $price;
     }
 
     public function show(Quote $quote)

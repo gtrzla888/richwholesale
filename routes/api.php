@@ -32,8 +32,10 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('invoices', 'InvoiceController@index');
 
     Route::get('quotes', 'QuoteController@index');
+    Route::post('quotes/price', 'QuoteController@price');
     Route::get('quotes/{quote}', 'QuoteController@show');
     Route::post('quotes', 'QuoteController@store');
+   
 
     Route::post('quotes/{quote}/customer-quotes', 'CustomerQuoteController@store');
 

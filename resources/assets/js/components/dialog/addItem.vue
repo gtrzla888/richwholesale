@@ -261,7 +261,7 @@
             :items="colours"
             label="Color"
             :rules="[v => !!v || 'Color is required']"
-            v-model="product.shutter_color"
+            v-model="product.colour"
           ></v-select>
 
           <v-select
