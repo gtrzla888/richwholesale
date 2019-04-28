@@ -138,9 +138,47 @@ class QuoteController extends Controller
         return $quote;
     }
 
-    public function price()
+    public function price(Request $request)
     {
+        $validated = $request->all();
+        $price = 0;
+        if (!empty($validated['basswood_shutters'])) {
+            foreach ($validated['basswood_shutters'] as $shutter) {
+                $product = BasswoodShutter::make($shutter);
+                $price += $product->getPrice();
+            }
+        }
 
+        if (!empty($validated['pvc_shutters'])) {
+            foreach ($validated['pvc_shutters'] as $shutter) {
+                $product = PVCShutter::make($shutter);
+                $price += $product->getPrice();
+            }
+        }
+
+        if (!empty($validated['au_pvc_shutters'])) {
+            foreach ($validated['au_pvc_shutters'] as $shutter) {
+                $product = AUPVCShutter::make($shutter);
+                $price += $product->getPrice();
+            }
+        }
+
+
+        if (!empty($validated['aluminium_shutters'])) {
+            foreach ($validated['aluminium_shutters'] as $shutter) {
+                $product = AluminiumShutter::make($shutter);
+                $price += $product->getPrice();
+            }
+        }
+
+        if (!empty($validated['roller_blinds'])) {
+            foreach ($validated['roller_blinds'] as $shutter) {
+                $product = AluminiumShutter::make($shutter);
+                $price += $product->getPrice();
+            }
+        }
+
+        return $price;
     }
 
     public function show(Quote $quote)

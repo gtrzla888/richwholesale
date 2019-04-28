@@ -187,6 +187,7 @@
       onProductSubmit (product) {
         this.$store.dispatch('saveOrderProduct', {product, selectedTabKey: this.selectedTabKey})
         this.selectedProduct = {}
+        this.$store.dispatch('getTotalPrice', this.order)
       },
       onEdit(fieldObj) {
         this.selectedProductIndex = fieldObj.index
@@ -205,6 +206,7 @@
       },
       onRemove(index) {
           this.$store.dispatch('removeOrderProduct', {selectedTabKey: this.selectedTabKey, index: index})
+          this.$store.dispatch('getTotalPrice', this.order)
       },
       submitOrder() {
           this.$store.dispatch('submitOrder', this.order)
@@ -214,6 +216,7 @@
       },
       addProduct() {
         this.$store.dispatch('addProduct', {selectedTabKey: this.selectedTabKey})
+        this.$store.dispatch('getTotalPrice', this.order)
       },
       clearOrder() {
         this.$store.dispatch('clearOrder')
@@ -227,7 +230,7 @@
         },
         set(newOrder) {
           this.$store.dispatch('saveOrder', { order: newOrder })
-          this.$store.dispatch('getTotalPrice')
+         
         }
       },
       notes: {
