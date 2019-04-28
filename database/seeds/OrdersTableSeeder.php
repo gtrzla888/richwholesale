@@ -19,7 +19,7 @@ class OrdersTableSeeder extends Seeder
     public function run()
     {
         $quote = new Quote();
-        $quote->status = 'Pending';
+        $quote->status = Quote::STATUS_ORDERED;
         $quote->company()->associate(Company::find(2));
         $quote->customer_name = 'Richard Thompson';
         $quote->po_reference = uniqid();
@@ -30,6 +30,7 @@ class OrdersTableSeeder extends Seeder
         $order->notes = 'test';
         $order->total = 300;
         $order->quote_id = $quote->id;
+        $order->status = Order::STATUS_CONFIRMED;
         $order->product_type = BasswoodShutter::NAME;
         $order->save();
 
@@ -58,6 +59,7 @@ class OrdersTableSeeder extends Seeder
         $order->total = 100;
         $order->product_type = PVCShutter::NAME;
         $order->quote_id = $quote->id;
+        $order->status = Order::STATUS_MANUFACTURING;
         $order->save();
 
         $shutter = factory(PVCShutter::class)->make();
@@ -72,7 +74,7 @@ class OrdersTableSeeder extends Seeder
 
         $invoice = new Invoice();
         $invoice->order_id = $order->id;
-        $invoice->status = 'Issued';
+        $invoice->status = Invoice::STATUS_INVOICED;
         $invoice->save();
     }
 }
