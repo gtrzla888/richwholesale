@@ -36,6 +36,7 @@
             type = "number"
             min="0"
             required
+            @blur="calculateSqm"
           ></v-text-field>
 
           <v-text-field
@@ -347,7 +348,10 @@
         this.$store.dispatch('updateAddItemDialogStatus', {status: false})
       },
       calculateSqm() {
-        this.product.sqm = this.product.width * this.product.drop;
+        this.product.sqm = 0
+        if (this.product.width && this.product.drop) {
+          this.product.sqm = this.product.width * this.product.drop
+        }
       },
       calculatePQTY() {
         this.product.panel_qty = (this.product.panel_layout.match(/(L|l|R|r)/g) || []).length

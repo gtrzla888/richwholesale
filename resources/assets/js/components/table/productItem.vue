@@ -9,10 +9,9 @@
     >
       <template v-slot:items="props">
         <tr>
-          <td v-for="header in headers" v-if="header.value !== 'actions'" v-bind:key="header.value">
+          <td v-for="header in headers" v-if="header.value !== 'actions'" :key="header.value">
             <v-edit-dialog
                     :return-value="props.item[header.value]"
-                    
                     lazy
                     persistent
                     @save="onEdit(props.index, header.value, props.item[header.value])"
