@@ -348,9 +348,9 @@
         this.$store.dispatch('updateAddItemDialogStatus', {status: false})
       },
       calculateSqm() {
-        this.product.sqm = 0;
+        this.product.sqm = 0
         if (this.product.width && this.product.drop) {
-          this.product.sqm = this.product.width * this.product.drop;
+          this.product.sqm = this.product.width * this.product.drop
         }
       },
       calculatePQTY() {
