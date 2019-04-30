@@ -97,7 +97,7 @@
                     </v-tooltip>
                     <v-tooltip top>
                         <template v-slot:activator="{ on }">
-                            <v-btn fab small color="#748C5D" dark v-on="on" @click="submitQuote">
+                            <v-btn fab small color="#748C5D" dark v-on="on" @click="submitQuote" :disabled="!hasOrder">
                                 <v-icon>save</v-icon>
                             </v-btn>
                         </template>
@@ -105,7 +105,7 @@
                     </v-tooltip>
                     <v-tooltip top>
                         <template v-slot:activator="{ on }">
-                            <v-btn fab small color="#748C5D" dark v-on="on"  @click="submitOrder">
+                            <v-btn fab small color="#748C5D" dark v-on="on"  @click="submitOrder" :disabled="!hasOrder">
                                 <v-icon>send</v-icon>
                             </v-btn>
                         </template>
@@ -113,7 +113,7 @@
                     </v-tooltip>
                   <v-tooltip top>
                     <template v-slot:activator="{ on }">
-                      <v-btn fab small color="#748C5D" dark v-on="on" @click="clearOrder">
+                      <v-btn fab small color="#748C5D" dark v-on="on" @click="clearOrder" :disabled="!hasOrder">
                         <v-icon>clear</v-icon>
                       </v-btn>
                     </template>
@@ -173,7 +173,7 @@
       active: null,
       selectedTabKey: '',
       selectedProduct: {},
-      selectedProductIndex: null
+      selectedProductIndex: null,
     }),
     methods: {
       openAddItemWindow() {
@@ -226,11 +226,19 @@
       ...mapGetters(['products', 'companies']),
       order: {
         get() {
-          return this.$store.state.order;
+          return this.$store.state.order
         },
         set(newOrder) {
           this.$store.dispatch('saveOrder', { order: newOrder })
-         
+        }
+      },
+      hasOrder: {
+        get() {
+          if (this.$store.state.order.aluminium_shutters.length > 0 || this.$store.state.order.au_pvc_shutters.length > 0 || this.$store.state.order.basswood_shutters.length > 0 || this.$store.state.order.pvc_shutters.length > 0 || this.$store.state.order.roller_blinds.length > 0) {
+            return true
+          } else {
+            return false
+          }
         }
       },
       notes: {
