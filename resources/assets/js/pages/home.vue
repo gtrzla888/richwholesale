@@ -237,6 +237,7 @@
           if (this.$store.state.order.aluminium_shutters.length > 0 || this.$store.state.order.au_pvc_shutters.length > 0 || this.$store.state.order.basswood_shutters.length > 0 || this.$store.state.order.pvc_shutters.length > 0 || this.$store.state.order.roller_blinds.length > 0) {
             return true
           } else {
+            this.$store.dispatch('clearTotalPrice')
             return false
           }
         }

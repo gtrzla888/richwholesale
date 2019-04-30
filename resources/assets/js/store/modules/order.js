@@ -129,6 +129,9 @@ export const actions = {
       commit(types.FETCH_ORDER_TOTALPRICE_FAILURE)
     }
   },
+  async clearTotalPrice({ commit }) {
+    commit(types.FETCH_ORDER_TOTALPRICE_FAILURE)
+  },
   async fetchOrder ({ commit }, payload) {
     try {
       const { data } = await axios.get('/api/quotes/' + payload.id)
