@@ -263,7 +263,7 @@
            return this.$store.state.order.customer_name
         },
         set (value) {
-          this.$store.dispatch('updatePoReference', value)
+          this.$store.dispatch('updateCustomerName', value)
         }
       },
       company_id: {

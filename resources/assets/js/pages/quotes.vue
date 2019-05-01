@@ -93,7 +93,7 @@
                 <v-text-field label="Fixed markup*" required v-model="fixedMarkup"></v-text-field>
               </v-flex>
               <v-flex xs12 sm6 md6>
-                <v-text-field label="Percentage markup" hint="example of helper text only on focus" v-model="percentageMarkup"></v-text-field>
+                <v-text-field label="Percentage markup" required v-model="percentageMarkup"></v-text-field>
               </v-flex>
             </v-layout>
           </v-container>
@@ -175,7 +175,7 @@ import { async } from 'q';
       async OnCreateCustomerQuote() {
           this.dialog = false;
           await axios.post('api/quotes/' + this.selectedQuoteId + '/customer-quotes', {
-            fixedMarkup: this.fixedMarkup, percentageMarkup: this.percentageMarkup
+            fixed_markup: this.fixedMarkup, percentage_markup: this.percentageMarkup
           })
       }
     },

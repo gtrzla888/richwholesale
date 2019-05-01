@@ -11,6 +11,7 @@ use App\OrderItem;
 use App\PVCShutter;
 use App\RollerBlind;
 use App\User;
+use PDF;
 use Illuminate\Http\Request;
 use App\Http\Requests\UpdateOrder;
 
@@ -145,6 +146,17 @@ class OrderController extends Controller
         $order->save();
 
         return $order;
+    }
+
+    public function show(Order $order, Request $request)
+    {
+        $pdf = PDF::loadView('pdf.order',  compact('order'));
+
+        if ($request->get('format') == 'pdf') {
+            return $pdf->download('order.pdf');
+        }
+
+        return view('pdf.order', compact('order'));
     }
 
 }
