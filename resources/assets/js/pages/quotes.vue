@@ -101,7 +101,7 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="blue darken-1" flat @click="dialog = false">Close</v-btn>
-          <v-btn color="blue darken-1" flat @click="OnCreateCustomerQuote()">Save</v-btn>
+          <v-btn color="blue darken-1" flat @click="onCreateCustomerQuote()">Save</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -149,16 +149,22 @@ import { async } from 'q';
     },
     name: 'home-view',
     metaInfo () {
-      //return { title: this.$t('Orders') }
+      return { title: this.$t('Quotes') }
     },
     methods: {
       async loadQuotes () {
-        const { data } = await axios.get('/api/quotes', { params: { company: this.company, created_at: this.createdAt }})
-        this.quotes = data
+        try {
+          const { data } = await axios.get('/api/quotes', { params: { company: this.company, created_at: this.createdAt }})
+          this.quotes = data
+        } catch (e) {
+        }
       },
       async loadCompanies () {
-        const { data } = await axios.get('/api/user/companies')
-        this.companies = data
+        try {
+          const { data } = await axios.get('/api/user/companies')
+          this.companies = data
+        } catch (e) {
+        }
       },
       createCustomerQuote (quote) {
         this.dialog = true
@@ -172,11 +178,14 @@ import { async } from 'q';
       remove () {
 
       },
-      async OnCreateCustomerQuote() {
+      async onCreateCustomerQuote() {
+        try {
           this.dialog = false;
           await axios.post('api/quotes/' + this.selectedQuoteId + '/customer-quotes', {
             fixed_markup: this.fixedMarkup, percentage_markup: this.percentageMarkup
           })
+        } catch (e) {
+        }
       }
     },
     watch: {
