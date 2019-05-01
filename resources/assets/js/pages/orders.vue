@@ -171,30 +171,46 @@
     },
     methods: {
       async loadOrders () {
-        const { data } = await axios.get('/api/orders',
-          { params: { company: this.company, created_at: this.createdAt } },
-        )
-        this.orders = data
+        try {
+          const { data } = await axios.get('/api/orders',
+            { params: { company: this.company, created_at: this.createdAt } },
+          )
+          this.orders = data
+        } catch (e) {
+        }
       },
       async saveStatus (item) {
-        const { data } = await axios.put('/api/orders/' + item.id, { status: item.status })
+        try {
+          const { data } = await axios.put('/api/orders/' + item.id, { status: item.status })
+        } catch (e) {
+        }
+
       },
       async saveEta (item) {
-        const { data } = await axios.put('/api/orders/' + item.id, { eta: item.eta })
+        try {
+          const { data } = await axios.put('/api/orders/' + item.id, { eta: item.eta })
+        } catch (e) {
+        }
       },
       async loadCompanies () {
-        const { data } = await axios.get('/api/companies')
-        this.companies = data
+        try {
+          const { data } = await axios.get('/api/companies')
+          this.companies = data
+        } catch(e) {}
+
       },
       async view (item) {
-        const { data } = await axios.get('/api/orders/' + item.id, { params : { format: 'pdf' }, responseType: 'blob'})
-        const url = window.URL.createObjectURL(new Blob([data]));
-        const link = document.createElement('a');
-        link.href = url;
-        link.setAttribute('download', 'file.pdf'); //or any other extension
-        document.body.appendChild(link);
-        link.click();
-        console.log(data);
+        try {
+          const { data } = await axios.get('/api/orders/' + item.id, { params : { format: 'pdf' }, responseType: 'blob'})
+          const url = window.URL.createObjectURL(new Blob([data]));
+          const link = document.createElement('a');
+          link.href = url;
+          link.setAttribute('download', 'file.pdf'); //or any other extension
+          document.body.appendChild(link);
+          link.click();
+          console.log(data);
+        } catch (e) {
+        }
       }
     },
     watch: {

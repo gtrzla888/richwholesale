@@ -98,16 +98,24 @@
     },
     name: 'home-view',
     metaInfo () {
-      //return { title: this.$t('Orders') }
+      return { title: this.$t('Invoices') }
     },
     methods: {
       async loadInvoices () {
-        const { data } = await axios.get('/api/invoices', { params: { company: this.company, created_at: this.createdAt }})
-        this.invoices = data
+        try {
+          const { data } = await axios.get('/api/invoices', { params: { company: this.company, created_at: this.createdAt }})
+          this.invoices = data
+        } catch(e) {}
+
       },
       async loadCompanies () {
-        const { data } = await axios.get('/api/companies')
-        this.companies = data
+        try {
+          const { data } = await axios.get('/api/companies')
+          this.companies = data
+        } catch (e) {
+          
+        }
+      
       },
     },
     watch: {
