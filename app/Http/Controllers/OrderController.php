@@ -152,15 +152,7 @@ class OrderController extends Controller
     {
         $pdf = PDF::loadView('pdf.order',  compact('order'));
 
-        if ($request->expectsJson()) {
-            if ($request->get('format') == 'pdf') {
-
-            }
-
-        }
-
         if ($request->get('format') == 'pdf') {
-            $pdf->save(storage_path('app/public/order.pdf'));
             return $pdf->download('order.pdf');
         }
 

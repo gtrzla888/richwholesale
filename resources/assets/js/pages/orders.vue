@@ -98,6 +98,20 @@
                   </template>
                 </v-edit-dialog>
               </td>
+              <td class="text-xs-center">
+                <v-menu offset-x left bottom>
+                  <v-btn
+                    icon
+                    slot="activator">
+                    <v-icon>more_vert</v-icon>
+                  </v-btn>
+                  <v-list>
+                    <v-list-tile @click="view(props.item)">
+                      <v-list-tile-title>View</v-list-tile-title>
+                    </v-list-tile>
+                  </v-list>
+                </v-menu>
+              </td>
             </template>
             <v-alert v-slot:no-results :value="true" color="error" icon="warning">
               Your search for "{{ search }}" found no results.
@@ -136,6 +150,7 @@
           { text: 'Status', value: 'status' },
           { text: 'Order Date', value: 'created_at' },
           { text: 'ETA', value: 'eta' },
+          { text: 'Actions', value: 'actions' },
         ],
         orders: [],
         companies: [],
@@ -171,6 +186,16 @@
         const { data } = await axios.get('/api/companies')
         this.companies = data
       },
+      async view (item) {
+        const { data } = await axios.get('/api/orders/' + item.id, { params : { format: 'pdf' }, responseType: 'blob'})
+        const url = window.URL.createObjectURL(new Blob([data]));
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', 'file.pdf'); //or any other extension
+        document.body.appendChild(link);
+        link.click();
+        console.log(data);
+      }
     },
     watch: {
       company () {
