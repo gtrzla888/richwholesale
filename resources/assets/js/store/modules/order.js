@@ -26,6 +26,9 @@ export const mutations = {
   [types.SAVE_ORDER_PO_REFERENCE] (state, poReference) {
     state.po_reference = poReference
   },
+  [types.SAVE_ORDER_CUSTOMER_NAME] (state, customerName) {
+    state.customer_name = customerName
+  },
   [types.SAVE_ORDER_COMPANY_ID] (state, companyId) {
     state.company_id = companyId
   },
@@ -99,6 +102,9 @@ export const actions = {
   },
   updatePoReference ({ commit }, payload) {
     commit(types.SAVE_ORDER_PO_REFERENCE, payload)
+  },
+  updateCustomerName ({ commit }, payload) {
+    commit(types.SAVE_ORDER_CUSTOMER_NAME, payload)
   },
   updateCompanyId ({ commit }, payload) {
     commit(types.SAVE_ORDER_COMPANY_ID, payload)

@@ -60,6 +60,7 @@
               </td>
               <td>{{ props.item.id }}</td>
               <td class="text-xs-left">{{ props.item.quote.company.name }}</td>
+              <td class="text-xs-left">{{ props.item.product_type }}</td>
               <td class="text-xs-left">{{ props.item.quote.po_reference }}</td>
               <td class="text-xs-left">{{ props.item.updated_at }}</td>
               <td class="text-xs-left">{{ props.item.total }}</td>
@@ -127,6 +128,8 @@
             value: 'id',
           },
           { text: 'Company', value: 'quote.company.name' },
+          
+          { text: 'Product Type', value: 'product_type' },
           { text: 'PO / Reference', value: 'quote.po_reference' },
           { text: 'Last modifired', value: 'updated_at' },
           { text: 'Total', value: 'total' },
