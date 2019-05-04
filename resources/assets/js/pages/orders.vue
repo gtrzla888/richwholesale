@@ -98,7 +98,7 @@
                   </template>
                 </v-edit-dialog>
               </td>
-              <td class="text-xs-center">
+              <td class="text-xs-left">
                 <v-menu offset-x left bottom>
                   <v-btn
                     icon
@@ -150,7 +150,7 @@
           { text: 'Status', value: 'status' },
           { text: 'Order Date', value: 'created_at' },
           { text: 'ETA', value: 'eta' },
-          { text: 'Actions', value: 'actions' },
+          { text: 'Actions', value: 'actions', sortable: false,},
         ],
         orders: [],
         companies: [],
