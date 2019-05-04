@@ -55,7 +55,7 @@
               <td class="text-xs-left">{{ props.item.updated_at }}</td>
               <td class="text-xs-left">{{ props.item.status }}</td>
               <td class="text-xs-left">{{ props.item.created_at }}</td>
-              <td class="text-xs-center">
+              <td class="text-xs-lef">
                 <v-menu offset-x left bottom>
                   <v-btn
                     icon
@@ -132,7 +132,7 @@ import { async } from 'q';
           { text: 'Last modifired', value: 'updated_at' },
           { text: 'Status', value: 'status' },
           { text: 'Order Date', value: 'created_at' },
-          { text: 'Actions', value: 'actions' },
+          { text: 'Actions', value: 'actions', zzssortable: false, },
         ],
         quotes: [],
         companies: [],

@@ -55,6 +55,20 @@
               <td class="text-xs-left">{{ props.item.updated_at }}</td>
               <td class="text-xs-left">{{ props.item.status }}</td>
               <td class="text-xs-left">{{ props.item.created_at }}</td>
+              <td class="text-xs-left">
+                <v-menu offset-x left bottom>
+                  <v-btn
+                    icon
+                    slot="activator">
+                    <v-icon>more_vert</v-icon>
+                  </v-btn>
+                  <v-list>
+                    <v-list-tile @click="view(props.item)">
+                      <v-list-tile-title>View</v-list-tile-title>
+                    </v-list-tile>
+                  </v-list>
+                </v-menu>
+              </td>
             </template>
           </v-data-table>
         </v-card-text>
@@ -83,6 +97,7 @@
           { text: 'Last modifired', value: 'updated_at' },
           { text: 'Status', value: 'status' },
           { text: 'Order Date', value: 'created_at' },
+          { text: 'Actions', value: 'actions',  sortable: false},
         ],
         invoices: [],
         companies: [],
