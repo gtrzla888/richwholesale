@@ -35,7 +35,7 @@ import BaseRail from './product/shutter/BaseRail'
 import Remote from './product/shutter/Remote'
 import Fabric from './product/shutter/Fabric'
 import ComponentColor from './product/shutter/ComponentColor'
-import WiFIHub from './product/shutter/WiFIHub'
+import WifiHub from './product/shutter/WifiHub'
 import RollDirection from './product/shutter/RollDirection'
 
 Vue.component(Icon.name, Icon)
@@ -76,5 +76,5 @@ Vue.component(HingeType.name, HingeType)
 Vue.component(Remote.name, Remote)
 Vue.component(StileType.name, StileType)
 Vue.component(Notes.name, Notes)
-Vue.component(WiFIHub.name, WiFIHub)
+Vue.component(WifiHub.name, WifiHub)
 Vue.component(RollDirection.name, RollDirection)
