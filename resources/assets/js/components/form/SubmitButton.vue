@@ -1,11 +1,11 @@
 <template>
-  <v-btn v-if="block" block :loading="form.busy" :disabled="form.busy" type="submit">
+  <v-btn large color="primary" v-if="block" block :loading="form.busy" :disabled="form.busy" type="submit">
     {{ label }}
   </v-btn>
-  <v-btn v-else-if="flat" flat :color="color" :loading="form.busy" :disabled="form.busy" type="submit">
+  <v-btn large v-else-if="flat" flat :color="color" :loading="form.busy" :disabled="form.busy" type="submit">
     {{ label }}
   </v-btn>
-  <v-btn v-else :loading="form.busy" :disabled="form.busy" type="submit">
+  <v-btn large depressed :color="color" v-else :loading="form.busy" :disabled="form.busy" type="submit">
     {{ label }}
   </v-btn>
 </template>
