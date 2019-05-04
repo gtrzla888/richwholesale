@@ -181,7 +181,7 @@ return [
                 'unit'  => 'sqm',
             ],
         ],
-        'color'        => [
+        'colour'        => [
             'W100 Snow'       => [
                 'price' => 0,
                 'unit'  => 'order',
@@ -279,7 +279,7 @@ return [
                 'unit'  => 'sqm',
             ],
         ],
-        'color'        => [
+        'colour'        => [
             'White'     => [
                 'price' => 0,
                 'unit'  => 'order',
@@ -345,21 +345,17 @@ return [
                 'unit'  => 'sqm',
             ],
         ],
-        'color'        => [
-            'W100 Snow'  => [
+        'colour'        => [
+            'White'  => [
                 'price' => 0,
                 'unit'  => 'order',
             ],
-            'W101 Dove'  => [
+            'Cream'  => [
                 'price' => 0,
                 'unit'  => 'order',
             ],
-            'W104 China' => [
+            'Silver' => [
                 'price' => 0,
-                'unit'  => 'order',
-            ],
-            'W00 Custom' => [
-                'price' => 150,
                 'unit'  => 'order',
             ],
         ],
@@ -386,8 +382,5 @@ return [
             ],
         ],
 
-    ],
-    'Roller Blind'      => [
-
-    ],
+    ]
 ];

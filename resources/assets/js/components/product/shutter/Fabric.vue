@@ -15,7 +15,8 @@
         }),
         props: {
             value: String,
-            index: Number
+            index: Number,
+            productType: String,
         },
         computed: {
             fabrics() {

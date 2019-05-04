@@ -1,12 +1,11 @@
 <template>
      <v-select
-            :items="corner"
+            :items="corners"
             label="Corner"
             :rules="[v => !!v || 'Corner is required']"
             required
             :value="value"
             v-model="corner"
-            @change="onChange"
     ></v-select>
 </template>
 <script>
@@ -16,19 +15,24 @@
         }),
         props: {
             value: String,
-            index: String
+            index: Number
         },
         computed: {
              corners() {
                 return [
                     'No',
-                    90,
-                    135
+                    '90',
+                    '135'
                 ]
             },
-        },
-        methods: {
-
+            corner: {
+                get() {
+                    return this.value
+                },
+                set(value) {
+                    this.$emit('productChanged', {field: 'corner', value, index: this.index}) 
+                }
+            }
         }
     }
 </script>

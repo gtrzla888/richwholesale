@@ -15,22 +15,43 @@
         }),
         props: {
             value: String,
-            index: Number
+            index: Number,
+            productType: String,
         },
         computed: {
             frames() {
-                return [
-                'No Frame',
-                'FL50-B9',
-                'LRBL50-B10T',
-                'BC65-B14A',
-                'BC50-B14',
-                'Z35-C7',
-                'Z20-C6',
-                'CZ25-D1',
-                'CZ25-D2',
-                'BL65-B10A'
-                ]
+              console.log(this.productType);
+              switch (this.productType) {
+                case 'aluminium_shutters':
+                  return [
+                    'No Frame',
+                    'L',
+                    'U Channel',
+                    'Bi Fold',
+                    'Sliding'
+                  ]
+                case 'basswood_shutters':
+                  return [
+                    'No Frame',
+                    'FL50-B9',
+                    'BL50-B10',
+                    'BC65-B14A',
+                    'BC50-B14',
+                    'Z35-C7',
+                    'Z20-C6',
+                    'CZ25-D1',
+                    'CZ25-D2',
+                    'BL65-B10A']
+                case 'pvc_shutters':
+                case 'au_pvc_shutters':
+                  return [
+                    'No Frame',
+                    'Z20-C6',
+                    'BL50-B10',
+                    'BL65-B10A',
+                  ]
+              }
+
             },
             frame: {
                 get() {
