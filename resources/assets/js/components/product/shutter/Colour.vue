@@ -250,7 +250,7 @@
               ]
               break
           }
-        } else if (this.productType == 'au_pvc_shutters') {
+        } else if (this.productType === 'au_pvc_shutters') {
           colors = [
             'W100 Snow',
             'W101 Dove',
@@ -263,6 +263,12 @@
             'W401 Eggshell',
             'W402 Palm Beach',
             'W00 Custom',
+          ]
+        } else if (this.productType === 'aluminium_shutters') {
+          colors = [
+            'White',
+            'Cream',
+            'Silver'
           ]
         } else {
           colors = [

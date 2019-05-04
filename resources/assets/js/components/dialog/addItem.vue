@@ -180,7 +180,7 @@
           ></v-select>
 
           <v-select
-            v-if="productType==='basswood_shutters' || productType==='pvc_shutters' || productType==='au_pvc_shutters'"
+            v-if="productType==='basswood_shutters' || productType==='pvc_shutters' || productType==='au_pvc_shutters' || productType === 'aluminium_shutters'"
             :items="corners"
             label="Corner"
             v-model="product.corner"
@@ -404,12 +404,36 @@
         ]
       },
       frame () {
-        return [
-          'No Frame',
-          'Z20-C6',
-          'BL50-B10',
-          'BL65-B10A',
-        ]
+        switch (this.productType) {
+          case 'aluminium_shutters':
+            return [
+              'No Frame',
+              'L',
+              'U Channel',
+              'Bi Fold',
+              'Sliding'
+            ]
+          case 'basswood_shutters':
+            return [
+              'No Frame',
+              'FL50-B9',
+              'BL50-B10',
+              'BC65-B14A',
+              'BC50-B14',
+              'Z35-C7',
+              'Z20-C6',
+              'CZ25-D1',
+              'CZ25-D2',
+              'BL65-B10A']
+          case 'pvc_shutters':
+          case 'au_pvc_shutters':
+            return [
+              'No Frame',
+              'Z20-C6',
+              'BL50-B10',
+              'BL65-B10A',
+            ]
+        }
       },
       frameOptions () {
         return [
@@ -429,7 +453,7 @@
       },
       fabrics () {
         let options = []
-        switch (this.selectedProduct.type) {
+        switch (this.product.type) {
           case 'Blockout':
             options = [
               'Solitaire',

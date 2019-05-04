@@ -20,8 +20,8 @@
         computed: {
             controlTypes() {
                 return [
-                'Chain',
-                'Motor'
+                    'Chain',
+                    'Motor'
                 ]
             },
             controlType: {
