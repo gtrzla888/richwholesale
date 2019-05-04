@@ -12,6 +12,7 @@
           <td v-for="header in headers" v-if="header.value !== 'actions'" :key="header.value">
             <v-edit-dialog
                     :return-value="props.item[header.value]"
+                    large
                     lazy
                     persistent
                     @save="onEdit(props.index, header.value, props.item[header.value])"
@@ -21,7 +22,12 @@
             >
               {{props.item[header.value]}}
               <template v-slot:input>
-                <component v-bind:is="header.value" :value="props.item[header.value]"  v-on:productChanged="productChanged" :index="props.index"></component>
+                <component v-bind:is="header.value" 
+                      :value="props.item[header.value]"  
+                      v-on:productChanged="productChanged" 
+                      :index="props.index"
+                      :productType = "productType"
+                ></component>
               </template>
             </v-edit-dialog>
           </td>

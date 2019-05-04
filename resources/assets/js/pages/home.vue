@@ -147,8 +147,8 @@
                 </v-tab-item>
             </v-tabs>
         </v-flex>
-        <app-add-item @clicked="onProductSubmit" :type="selectedTabKey" :selectedProduct.sync="selectedProduct"></app-add-item>
-        <app-copy-item :type="selectedTabKey" :selectedProduct.sync="selectedProduct"></app-copy-item>
+        <app-add-item @clicked="onProductSubmit" :productType="selectedTabKey" :selectedProduct.sync="selectedProduct"></app-add-item>
+        <app-copy-item :productType="selectedTabKey" :selectedProduct.sync="selectedProduct"></app-copy-item>
     </v-layout>
     </v-form>
 </template>

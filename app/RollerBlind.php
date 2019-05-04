@@ -18,9 +18,50 @@ class RollerBlind extends Product
         return parent::rules() + [
             'type' => [
                 'required',
-                Rule::in(['Blockout', 'Screen', 'Light Filter'])
+                 Rule::in(['Blockout', 'Screen', 'Light Filter'])
             ],
+            'fabric' => [
+                'required'
+            ],
+            'colour' => [
+                'required'
+            ],
+            'control_type' => [
+                'required'
+            ],
+            'control_side' => [
+                'required'
+            ],
+            'chain_length' => [
+                'required'
+            ],
+            'component_colour' => [
+                'required'
+            ],
+            'base_rail' => [
+                'required'
+            ],
+            'roll_direction' => [
+                'required'
+            ],
+            'motor_type' => [
+                'required'
+            ],
+            'charger' => [
+                'required'
+            ],
+            'wifi_hub' => [
+                'required'
+            ],
+            'remote' => [
+                'required'
+            ],
+            'bracket_options' => [
+                'required'
+            ],
+            'notes' => [
 
+            ]
         ];
     }
 

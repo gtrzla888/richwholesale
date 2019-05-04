@@ -34,7 +34,7 @@ class CreateShuttersTable extends Migration
             $table->string('install_method')->nullable();
             $table->string('hinge_type')->nullable();
             $table->string('hinge_colour')->nullable();
-            $table->decimal('price'); 
+            $table->decimal('price')->nullable();
             $table->string('notes')->nullable();  
             $table->timestamps();
         });

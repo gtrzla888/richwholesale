@@ -1,16 +1,16 @@
 <template>
     <v-select
-            :items="wifiHubs"
-            v-model="wifiHub"
+            :items="rollDirections"
+            v-model="rollDirection"
             :value="value"
-            label="WiFi Hub"
-            :rules="[v => !!v || 'WiFi Hub is required']"
+            label="Roll Direction"
+            :rules="[v => !!v || 'Roll Direction is required']"
             required
     ></v-select>
 </template>
 <script>
     export default {
-        name: 'wifi_hub',
+        name: 'roll_direction',
         data: () => ({
         }),
         props: {
@@ -18,18 +18,18 @@
             index: Number
         },
         computed: {
-            wifiHubs() {
+            rollDirections() {
                 return [
-                    'na',
-                    'Acmeda Pulse',
+                    'Standard',
+                    'Reverse',
                 ]
             },
-            wifiHub: {
+            rollDirection: {
                 get() {
                     return this.value;
                 },
                 set(value) {
-                    this.$emit('productChanged', {field: 'wifi_hub', value, index: this.index})
+                    this.$emit('productChanged', {field: 'roll_direction', value, index: this.index})
                 }
             }
         }

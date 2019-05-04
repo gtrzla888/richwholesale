@@ -16,4 +16,14 @@ class Company extends Model
     {
         return $this->hasMany(Order::class);
     }
+
+    public function billingAddress()
+    {
+        return $this->hasOne(BillingAddress::class);
+    }
+
+    public function deliveryAddress()
+    {
+        return $this->hasOne(DeliveryAddress::class);
+    }
 }
