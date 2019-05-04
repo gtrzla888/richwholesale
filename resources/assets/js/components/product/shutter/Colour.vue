@@ -113,16 +113,6 @@
                 'Cassis',
               ]
               break
-            case product.type === 'Blockout' && product.fabric === 'Jersey':
-              colors = [
-                'Cannes',
-                'Nice',
-                'La Palme',
-                'St Marie',
-                'Monte Carlo',
-                'Cassis',
-              ]
-              break
             case product.type === 'Blockout' && product.fabric === 'Tusk':
               colors = [
                 'Mushroom',
@@ -250,7 +240,7 @@
               ]
               break
           }
-        } else if (this.productType === 'au_pvc_shutters') {
+        } else if (this.productType === 'pvc_shutters') {
           colors = [
             'W100 Snow',
             'W101 Dove',
@@ -264,13 +254,7 @@
             'W402 Palm Beach',
             'W00 Custom',
           ]
-        } else if (this.productType === 'aluminium_shutters') {
-          colors = [
-            'White',
-            'Cream',
-            'Silver'
-          ]
-        } else {
+        } else if (this.productType === 'basswood_shutters') {
           colors = [
             'W100 Snow',
             'W101 Dove',
@@ -289,6 +273,18 @@
             'S604 Aged Teak',
             'S606 Mahogan',
             'S701 Walnut',
+          ]
+        } else if (this.productType === 'au_pvc_shutters') {
+          colors = [
+            'White',
+            'Off White',
+            'Custom'
+          ]
+        } else if (this.productType === 'aluminium_shutters') {
+          colors = [
+            'White',
+            'Cream',
+            'Silver'
           ]
         }
 

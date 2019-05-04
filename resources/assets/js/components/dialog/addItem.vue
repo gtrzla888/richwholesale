@@ -248,8 +248,8 @@
           <v-select
             v-if="productType==='basswood_shutters' || productType==='pvc_shutters' || productType==='aluminium_shutters' || productType==='au_pvc_shutters'"
             :items="tiltRod"
-            label="Tile Rod"
-            :rules="[v => !!v || 'Tile Rod is required']"
+            label="Tilt Rod"
+            :rules="[v => !!v || 'Tilt Rod is required']"
             v-model="product.tilt_rod"
           ></v-select>
 
@@ -576,16 +576,6 @@
                 'Cassis',
               ]
               break
-            case this.product.type === 'Blockout' && this.product.fabric === 'Jersey':
-              colors = [
-                'Cannes',
-                'Nice',
-                'La Palme',
-                'St Marie',
-                'Monte Carlo',
-                'Cassis',
-              ]
-              break
             case this.product.type === 'Blockout' && this.product.fabric === 'Tusk':
               colors = [
                 'Mushroom',
@@ -713,7 +703,7 @@
               ]
               break
           }
-        } else if (this.productType == 'au_pvc_shutters') {
+        } else if (this.productType === 'pvc_shutters') {
           colors = [
             'W100 Snow',
             'W101 Dove',
@@ -727,7 +717,7 @@
             'W402 Palm Beach',
             'W00 Custom',
           ]
-        } else {
+        } else if (this.productType === 'basswood_shutters') {
           colors = [
             'W100 Snow',
             'W101 Dove',
@@ -746,6 +736,18 @@
             'S604 Aged Teak',
             'S606 Mahogan',
             'S701 Walnut',
+          ]
+        } else if (this.productType === 'au_pvc_shutters') {
+          colors = [
+            'White',
+            'Off White',
+            'Custom'
+          ]
+        } else if (this.productType === 'aluminium_shutters') {
+          colors = [
+            'White',
+            'Cream',
+            'Silver'
           ]
         }
 
