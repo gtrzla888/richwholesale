@@ -23,7 +23,10 @@ class OrderController extends Controller
         /** @var User $user */
         $user = request()->user();
 
-        $query = Order::with('quote.company')->with('items.product');
+        $query = Order::with('quote.company')->with('items.product')->whereIn('status', [
+                Order::STATUS_ORDERED, Order::STATUS_CONFIRMED, 
+                Order::STATUS_MANUFACTURING, Order::STATUS_COMPLETED
+                ]);
 
         if ($company = $request->get('company')) {
             $query->where('quote.company_id', $company);

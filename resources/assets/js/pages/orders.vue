@@ -131,7 +131,7 @@
     data () {
       return {
         selected: [],
-        items: ['Completed', 'Confirmed', 'Manufactoring'],
+        items: ['Ordered', 'Completed', 'Confirmed', 'Manufactoring'],
         search: '',
         status: '',
         headers: [
