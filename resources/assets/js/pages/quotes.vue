@@ -53,7 +53,21 @@
               <td class="text-xs-left">{{ props.item.company.name }}</td>
               <td class="text-xs-left">{{ props.item.po_reference }}</td>
               <td class="text-xs-left">{{ props.item.updated_at }}</td>
-              <td class="text-xs-left">{{ props.item.status }}</td>
+              <td class="text-xs-left"> 
+                <v-edit-dialog
+                  :return-value.sync="props.item.status"
+                  large
+                  lazy
+                  @save="saveStatus(props.item)"
+                >
+                  {{ props.item.status }}
+                  <v-select
+                    slot="input"
+                    v-model="props.item.status"
+                    :items="items"
+                  ></v-select>
+                </v-edit-dialog>
+                </td>
               <td class="text-xs-left">{{ props.item.created_at }}</td>
               <td class="text-xs-lef">
                 <v-menu offset-x left bottom>
@@ -117,6 +131,7 @@ import { async } from 'q';
     data () {
       return {
         dialog: false,
+        items: ['Ordered', 'Pending'],
         search: '',
         fixedMarkup: '',
         percentageMarkup: '',
@@ -170,10 +185,21 @@ import { async } from 'q';
         this.dialog = true
         this.selectedQuoteId = quote.id
       },
+      async saveStatus (item) {
+        try {
+          const { data } = await axios.put('/api/quotes/' + item.id, { status: item.status })
+        } catch (e) {
+        }
+      },
       edit (quote) {
           this.selectedQuoteId = quote.id
-          this.$store.dispatch('fetchOrder', {id: quote.id})
-          this.$route.push('home');
+          try {
+            this.$store.dispatch('fetchOrder', {id: quote.id})
+            this.$router.push('home');
+          } catch (e) {
+
+          }
+          
       },
       remove () {
 

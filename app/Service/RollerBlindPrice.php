@@ -33,15 +33,18 @@ class RollerBlindPrice
     {
         $group = $this->config['base'][$this->priceGroup()];
 
-        foreach ($group as $price => $condition)
-        {
-            if (reset($condition['width']) < $this->criteria['width']
-                && $this->criteria['width'] <= end($condition['width'])
-                && reset($condition['drop']) < $this->criteria['drop']
-                && $this->criteria['drop'] <= end($condition['drop']))  {
-                return $price;
+        foreach ($group as $line) {
+            foreach ($line as $price => $condition)
+            {
+                if (reset($condition['width']) < $this->criteria['width']
+                    && $this->criteria['width'] <= end($condition['width'])
+                    && reset($condition['drop']) < $this->criteria['drop']
+                    && $this->criteria['drop'] <= end($condition['drop']))  {
+                    return $price;
+                }
             }
         }
+
 
         return null;
     }

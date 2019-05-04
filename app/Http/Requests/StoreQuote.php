@@ -29,7 +29,7 @@ class StoreQuote extends FormRequest
     public function rules()
     {
         $rules = [
-            'id' => 'integer',
+            'id' => 'nullable|integer',
             'company_id' => 'required',
             'po_reference' => 'required',
             'customer_name' => 'max:255',

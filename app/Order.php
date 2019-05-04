@@ -6,9 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
+    const STATUS_ORDERED = 'Ordered';
     const STATUS_CONFIRMED = 'Confirmed';
     const STATUS_MANUFACTURING = 'Manufacturing';
-    const STATUS_COMPLETED = 'COMPLETED';
+    const STATUS_COMPLETED = 'Completed';
 
     protected $guarded = [];
 

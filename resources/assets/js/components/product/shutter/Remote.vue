@@ -3,8 +3,8 @@
             :items="remotes"
             v-model="remote"
             :value="value"
-            label="Remotes"
-            :rules="[v => !!v || 'Remotes is required']"
+            label="Remote"
+            :rules="[v => !!v || 'Remote is required']"
             required
     ></v-select>
 </template>
@@ -20,10 +20,9 @@
         computed: {
             remotes() {
                 return [
-                'Single',
-                'Slim Combo Top Front',
-                'Slim Combo Top Back',
-                'Double Bracket'
+                    'na',
+                    '1 Channel',
+                    '15 Channel',
                 ]
             },
             remote: {
@@ -31,7 +30,7 @@
                     return this.value;
                 },
                 set(value) {
-                    this.$emit('productChanged', {field: 'bracket_options', value, index: this.index})
+                    this.$emit('productChanged', {field: 'remote', value, index: this.index})
                 }
             }
         }

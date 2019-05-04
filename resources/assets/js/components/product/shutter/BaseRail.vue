@@ -10,7 +10,7 @@
 </template>
 <script>
     export default {
-        name: 'blade_size',
+        name: 'base_rail',
         data: () => ({
         }),
         props: {
@@ -20,10 +20,8 @@
         computed: {
             baseRails() {
                 return [
-                '47mm',
-                '89mm',
-                '64mm',
-                '114mm'
+                    'Silver',
+                    'Black',
                 ]
             },
             baseRail: {

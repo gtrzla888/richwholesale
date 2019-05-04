@@ -37,6 +37,7 @@ abstract class Product extends Model
             $product = static::find($attributes['id']);
         }
         $product->fill($attributes);
+        $product->price = $product->getPrice();
 
         return $product;
     }
@@ -47,7 +48,7 @@ abstract class Product extends Model
             'id' => 'integer',
             'name' => 'required|max:255',
             'width' => 'required|integer',
-            'drop' => 'require|integer',
+            'drop' => 'required|integer',
         ];
     }
 

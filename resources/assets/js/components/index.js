@@ -31,10 +31,12 @@ import ChainLength from './product/shutter/ChainLength'
 import BracketOptions from './product/shutter/BracketOptions'
 import Charger from './product/shutter/Chargers'
 import MotorType from './product/shutter/MotorType'
-import BaseRail from './product/shutter/BaseRail'   
-import Remote from './product/shutter/Remotes'
+import BaseRail from './product/shutter/BaseRail'
+import Remote from './product/shutter/Remote'
 import Fabric from './product/shutter/Fabric'
 import ComponentColor from './product/shutter/ComponentColor'
+import WifiHub from './product/shutter/WifiHub'
+import RollDirection from './product/shutter/RollDirection'
 
 Vue.component(Icon.name, Icon)
 Vue.component(EmailInput.name, EmailInput)
@@ -74,4 +76,5 @@ Vue.component(HingeType.name, HingeType)
 Vue.component(Remote.name, Remote)
 Vue.component(StileType.name, StileType)
 Vue.component(Notes.name, Notes)
-
+Vue.component(WifiHub.name, WifiHub)
+Vue.component(RollDirection.name, RollDirection)

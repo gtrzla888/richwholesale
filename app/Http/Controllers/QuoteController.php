@@ -13,6 +13,7 @@ use App\BasswoodShutter;
 use App\AluminiumShutter;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreQuote;
+use App\Http\Requests\UpdateQuote;
 use App\Http\Resources\Quote as QuoteResource;
 
 class QuoteController extends Controller
@@ -23,12 +24,12 @@ class QuoteController extends Controller
          /** @var User $user */
          $user = request()->user();
 
-         $query = Quote::with('orders')->with('company')->with('orders.items.product');
+         $query = Quote::with('orders')->with('company')->with('orders.items.product')->where('status', Quote::STATUS_PENDING);
  
          if ($company = $request->get('company')) {
              $query->where('company_id', $company);
          } else {
-            $query->whereIn('company_id', $user->companies->pluck('id'));
+             $query->whereIn('company_id', $user->companies->pluck('id'));
          }
  
          if ($createdAt = $request->get('created_at')) {
@@ -184,7 +185,7 @@ class QuoteController extends Controller
 
         if (!empty($validated['roller_blinds'])) {
             foreach ($validated['roller_blinds'] as $shutter) {
-                $product = AluminiumShutter::make($shutter);
+                $product = RollerBlind::make($shutter);
                 $price += $product->getPrice();
             }
         }
@@ -197,9 +198,21 @@ class QuoteController extends Controller
         return new QuoteResource($quote);
     }
 
-    public function getTotalPriceAttribute()
+    /**
+     * @param Quote       $quote
+     * @param UpdateQuote $request
+     *
+     * @return Quote
+     */
+    public function update(Quote $quote, UpdateQuote $request)
     {
-        
-    }
+        $validated = $request->validated();
+        if (isset($validated['status'])) {
+            $quote->status = $validated['status'];
+        }
 
+        $quote->save();
+
+        return $quote;
+    }
 }
