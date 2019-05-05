@@ -198,7 +198,7 @@
               <text-input
                 :form="form"
                 :v-errors="errors"
-                v-validate="'required|numeric|max:10'"
+                v-validate="'numeric|max:10'"
                 :value.sync="form.contact_number"
                 label="Contact Number"
                 name="contact"
@@ -278,7 +278,7 @@ export default {
         this.form[key] = this.user[key]
       }
     })
-    this.form.company = this.user.companies[0]
+    this.form.company = {...this.user.companies[0]}
   },
   mixins: [validateMixin],
   methods: {
