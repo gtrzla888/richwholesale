@@ -11,9 +11,9 @@ use App\Http\Resources\Company as CompanyResource;
 
 class UserController
 {
-    public function index()
+    public function index(Request $request)
     {
-        return new UserResource(request()->user());
+        return new UserResource($request->user());
     }
 
     public function companies(Request $request)

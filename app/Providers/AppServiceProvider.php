@@ -21,6 +21,7 @@ class AppServiceProvider extends ServiceProvider
         }
 
         Resource::withoutWrapping();
+        Schema::enableForeignKeyConstraints();
     }
 
     /**

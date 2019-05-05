@@ -6,11 +6,12 @@
         <v-layout row>
           <v-flex d-flex md6>
               <v-select
-                :items="companies"
+                :items="user.companies"
                 item-text="name"
                 item-value="id"
                 label="Company Name"
                 outline
+                v-model="form.company.id"
               >
               </v-select>
           </v-flex>
@@ -29,9 +30,10 @@
         <v-layout row>
           <v-flex md6>
             <v-text-field
+              :form="form"
               label="ABN"
               outline
-              :value.sync="form.abn"
+              v-model="form.company.abn"
             ></v-text-field>
           </v-flex>
           <v-flex d-flex md6>
@@ -42,57 +44,64 @@
         <v-layout row>
           <v-flex md6>
             <v-text-field
+              :form="form"
               label="Attention"
               outline
-              :value.sync="form.companyName"
+              v-model="form.company.billingAddress.attention"
             ></v-text-field>
           </v-flex>
           <v-flex d-flex md6>
             <v-text-field
+              :form="form"
               label="Contact Number"
               outline
-              :value.sync="form.companyContactNo"
+              v-model="form.company.billingAddress.contact_number"
             ></v-text-field>
           </v-flex>
         </v-layout>
         <v-layout row>
           <v-flex d-flex md6>
             <v-text-field
+              :form="form"
               label="Address line 1"
               outline
-              :value.sync="form.address1"
+              v-model="form.company.billingAddress.address1"
             ></v-text-field>
           </v-flex>
           <v-flex d-flex md6>
             <v-text-field
+              :form="form"
               label="Address line 2"
               outline
-              :value.sync="form.address2"
+              v-model="form.company.billingAddress.address2"
             ></v-text-field>
           </v-flex>
         </v-layout>
         <v-layout row>
           <v-flex d-flex md6>
             <v-text-field
+              :form="form"
               label="City"
               outline
-              :value.sync="form.city"
+              v-model="form.company.billingAddress.city"
             ></v-text-field>
           </v-flex>
           <v-flex d-flex md6>
             <v-text-field
+              :form="form"
               label="State/Territory"
               outline
-              :value.sync="form.stateTerritory"
+              v-model="form.company.billingAddress.state"
             ></v-text-field>
           </v-flex>
         </v-layout>
         <v-layout row>
           <v-flex d-flex md6>
             <v-text-field
+              :form="form"
               label="Postcode"
               outline
-              :value.sync="form.postcode"
+              v-model="form.company.billingAddress.postcode"
             ></v-text-field>
           </v-flex>
         </v-layout>
@@ -100,57 +109,64 @@
         <v-layout row>
           <v-flex d-flex md6>
             <v-text-field
+              :form="form"
               label="Name"
               outline
-              :value.sync="form.deliveryName"
+              v-model="form.company.deliveryAddress.name"
             ></v-text-field>
           </v-flex>
           <v-flex d-flex md6>
             <v-text-field
+              :form="form"
               label="Contact Number"
               outline
-              :value.sync="form.deliveryContactNo"
+              v-model="form.company.deliveryAddress.contact_number"
             ></v-text-field>
           </v-flex>
         </v-layout>
         <v-layout row>
           <v-flex d-flex md6>
              <v-text-field
+               :form="form"
               label="Address line 1"
               outline
-              :value.sync="form.deliveryAddress1"
+              v-model="form.company.deliveryAddress.address1"
             ></v-text-field>
           </v-flex>
            <v-flex d-flex md6>
              <v-text-field
+               :form="form"
               label="Address line 2"
               outline
-              :value.sync="form.deliveryAddress2"
+               v-model="form.company.deliveryAddress.address2"
             ></v-text-field>
           </v-flex>
         </v-layout>
         <v-layout row>
           <v-flex d-flex md6>
              <v-text-field
+               :form="form"
               label="City"
               outline
-              :value.sync="form.deliveryCity"
+               v-model="form.company.deliveryAddress.city"
             ></v-text-field>
           </v-flex>
            <v-flex d-flex md6>
              <v-text-field
-              label="Sate/Territory"
-              outline
-              :value.sync="form.deliveryStateTerritory"
+               :form="form"
+                label="Sate/Territory"
+                outline
+               v-model="form.company.deliveryAddress.state"
             ></v-text-field>
           </v-flex>
         </v-layout>
         <v-layout row>
           <v-flex d-flex md6>
              <v-text-field
-              label="Postcode"
-              outline
-              :value.sync="form.deliveryPostcode"
+               :form="form"
+                label="Postcode"
+                outline
+                v-model="form.company.deliveryAddress.postcode"
             ></v-text-field>
           </v-flex> 
         </v-layout>
@@ -183,7 +199,7 @@
                 :form="form"
                 :v-errors="errors"
                 v-validate="'required|numeric|max:10'"
-                :value.sync="form.contactNumber"
+                :value.sync="form.contact_number"
                 label="Contact Number"
                 name="contact"
               ></text-input>
@@ -219,41 +235,50 @@ import moment from 'moment'
 export default {
   name: 'profile-view',
   data: () => ({
+    selectedCompanyId: '',
     form: new Form({
       name: '',
       email: '',
       role: '',
-      contactNumber: '',
-      abn: '',
-      companyName: '',
-      companyContactNo: '',
-      address1: '',
-      address2: '',
-      city: '',
-      stateTerritory: '',
-      postcode: '',
-      deliveryName: '',
-      deliveryContactNo: '',
-      deliveryAddress1: '',
-      deliveryAddress2: '',
-      deliveryCity: '',
-      deliveryStateTerritory: '',
-      deliveryPostcode: ''
+      contact_number: '',
+      company: {
+        id: '',
+        abn: '',
+        billingAddress: {
+          attention: '',
+          contact_number: '',
+          address1: '',
+          address2: '',
+          city: '',
+          state: '',
+          postcode: ''
+        },
+        deliveryAddress: {
+          name: '',
+          contact_number: '',
+          address1: '',
+          address2: '',
+          city: '',
+          state: '',
+          postcode: ''
+        }
+      },
     }),
     today: moment().format('YYYY-MM-DD')
   }),
 
   computed: mapGetters({
     user: 'authUser',
-    companies: 'companies'
   }),
 
   created () {
     // Fill the form with user data.
     this.form.keys().forEach(key => {
-      this.form[key] = this.user[key]
+      if (key !== 'companies') {
+        this.form[key] = this.user[key]
+      }
     })
-    this.$store.dispatch('fetchCompanies')
+    this.form.company = this.user.companies[0]
   },
   mixins: [validateMixin],
   methods: {

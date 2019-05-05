@@ -201,8 +201,14 @@ import { async } from 'q';
           }
           
       },
-      remove () {
+      async remove (quote) {
+          this.selectedQuoteId = quote.id
+          try {
+            await  axios.delete('api/quotes/' + this.selectedQuoteId)
+            this.quotes.splice(1, this.selectedQuoteId)
+          } catch (e) {
 
+          }
       },
       async onCreateCustomerQuote() {
         try {

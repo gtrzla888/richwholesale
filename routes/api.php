@@ -37,7 +37,8 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('quotes/{quote}', 'QuoteController@show');
     Route::put('quotes/{quote}', 'QuoteController@update');
     Route::post('quotes', 'QuoteController@store');
-   
+    Route::delete('quotes/{quote}', 'QuoteController@delete');
+
 
     Route::post('quotes/{quote}/customer-quotes', 'CustomerQuoteController@store');
 
