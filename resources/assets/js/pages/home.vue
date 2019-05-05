@@ -1,4 +1,5 @@
 <template>
+
     <v-form ref="form" lazy-validation>
     <v-layout row wrap align-center>
         <v-flex xs12 sm3 d-flex>
@@ -79,6 +80,7 @@
         </v-flex>
 
         <v-flex xs12 sm12 d-flex>
+
             <v-toolbar
                     dark
                     color = "#748C5D"
@@ -124,6 +126,7 @@
         </v-flex>
 
         <v-flex xs12 sm12 d-flex>
+
             <v-tabs
                     v-model="active"
                     color="#748C5D"
@@ -174,6 +177,7 @@
       selectedTabKey: '',
       selectedProduct: {},
       selectedProductIndex: null,
+      busy: true,
     }),
     methods: {
       openAddItemWindow() {
