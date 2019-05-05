@@ -185,9 +185,11 @@
         this.selectedTabKey = this.products[index].key;
       },
       onProductSubmit (product) {
+        
         this.$store.dispatch('saveOrderProduct', {product, selectedTabKey: this.selectedTabKey})
         this.selectedProduct = {}
         this.$store.dispatch('getTotalPrice', this.order)
+        
       },
       onEdit(fieldObj) {
         this.selectedProductIndex = fieldObj.index
@@ -208,11 +210,37 @@
           this.$store.dispatch('removeOrderProduct', {selectedTabKey: this.selectedTabKey, index: index})
           this.$store.dispatch('getTotalPrice', this.order)
       },
-      submitOrder() {
-          this.$store.dispatch('submitOrder', this.order)
+      async submitOrder() {
+         this.$emit('busy', true)
+         try {
+            await this.$store.dispatch('submitOrder', this.order)
+            this.$store.dispatch('responseMessage', {
+                type: 'success',
+                text: this.$t('Order created')
+            })
+         } catch (e) {
+           this.$store.dispatch('responseMessage', {
+            type: 'error',
+            text: e.response.data.message
+          })
+         }
+        
       },
-      submitQuote() {
-          this.$store.dispatch('submitQuote', this.order)
+      async submitQuote() {
+        try {
+          await this.$store.dispatch('submitQuote', this.order)
+
+          this.$store.dispatch('responseMessage', {
+            type: 'success',
+            text: this.$t('Quoate Created')
+          })
+        } catch (e) {
+          this.$store.dispatch('responseMessage', {
+            type: 'error',
+            text: e.response.data.message
+          })
+        }
+     
       },
       addProduct() {
         this.$store.dispatch('addProduct', {selectedTabKey: this.selectedTabKey})

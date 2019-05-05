@@ -135,7 +135,7 @@ export const actions = {
       commit(types.FETCH_ORDER_TOTALPRICE_FAILURE)
     }
   },
-  async clearTotalPrice({ commit }) {
+  async clearTotalPrice ({ commit }) {
     commit(types.FETCH_ORDER_TOTALPRICE_FAILURE)
   },
   async fetchOrder ({ commit }, payload) {
@@ -148,27 +148,11 @@ export const actions = {
   },
 
   async submitOrder ({ commit }, payload) {
-    try {
-      const { data } = await axios.post('/api/quotes?order=true', payload)
-      commit(types.RESPONSE_MSG, {
-        type: 'error',
-        text: data.errors
-      })
-    } catch (e) {
-      console.log('iam here')
-    }
+    return await axios.post('/api/quotes?order=true', payload)
   },
 
   async submitQuote ({ commit }, payload) {
-    try {
-      const { data } = await axios.post('/api/quotes', payload)
-      commit(types.RESPONSE_MSG, {
-        type: 'error',
-        text: data.errors
-      })
-    } catch (e) {
-      console.log('iam here')
-    }
+    return await axios.post('/api/quotes', payload)
   }
 }
 

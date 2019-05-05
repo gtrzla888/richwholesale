@@ -34,7 +34,7 @@
             type="number"
             min="0"
             required
-            @blur="calculateSqm"
+            @input="calculateSqm"
           ></v-text-field>
 
           <v-text-field
@@ -44,7 +44,7 @@
             :rules="[v => !!v || 'Drop is required']"
             min="0"
             required
-            @blur="calculateSqm"
+            @input="calculateSqm"
           >
           </v-text-field>
 
@@ -195,7 +195,7 @@
             :rules="[v => !!v || 'Panel layout is required', v =>  /[LTRDltrd-]/gm.test(v) || 'Panel Layout is not valid']"
             required
             type="text"
-            @blur="calculatePQTY"
+            @input="calculatePQTY"
           ></v-text-field>
 
           <v-text-field
@@ -297,7 +297,7 @@
             :items="hingeColour"
             label="Hinge Colour"
             :rules="[v => !!v || 'Hinge Colour is required']"
-            v-model="product.hinge_color"
+            v-model="product.hinge_colour"
           ></v-select>
 
           <v-text-field
@@ -349,7 +349,7 @@
       calculateSqm () {
         this.product.sqm = 0
         if (this.product.width && this.product.drop) {
-          this.product.sqm = this.product.width * this.product.drop / 10000
+          this.product.sqm = this.product.width * this.product.drop / 1000000
         }
       },
       calculatePQTY () {
@@ -379,21 +379,45 @@
       corners () {
         return [
           'No',
-          90,
-          135,
+          '90',
+          '135',
         ]
       },
       tiltRod () {
-        return [
-          'Clear View',
-          'Central',
-        ]
+        switch (this.productType) {
+          case 'aluminium_shutters':
+          case 'au_pvc_shutters':
+            return [
+              'Clear View'
+            ]
+          case 'pvc_shutters':
+          case 'basswood_shutters':
+            return [
+              'Clear View',
+              'Central',
+            ]
+        }
       },
       bladeSize () {
-        return [
-          '64mm',
-          '89mm',
-        ]
+        switch (this.productType) {
+          case 'aluminium_shutters':
+          case 'au_pvc_shutters':
+            return [
+              '89mm',
+            ]
+          case 'pvc_shutters':
+            return [
+              '64mm',
+              '89mm',
+            ]
+          case 'basswood_shutters':
+            return [
+              '47mm',
+              '89mm',
+              '64mm',
+              '114mm',
+            ]
+        }
       },
       midRail () {
         return [
@@ -424,7 +448,8 @@
               'Z20-C6',
               'CZ25-D1',
               'CZ25-D2',
-              'BL65-B10A']
+              'BL65-B10A'
+            ]
           case 'pvc_shutters':
           case 'au_pvc_shutters':
             return [
@@ -444,12 +469,20 @@
         ]
       },
       stileType () {
-        return [
-          '50b',
-          '60b',
-          '50f',
-          '60f',
-        ]
+        switch (this.productType) {
+          case 'au_pvc_shutters':
+          case 'pvc_shutters':
+            return [
+              '50b',
+            ]
+          case 'basswood_shutters':
+            return [
+              '50b',
+              '60b',
+              '50f',
+              '60f',
+            ]
+        }
       },
       fabrics () {
         let options = []
@@ -760,19 +793,46 @@
         return ['Chain', 'Motor']
       },
       hingeType () {
-        return [
-          'na',
-          'Non Mortised',
-          'Pivot',
-        ]
+        switch (this.productType) {
+          case 'basswood_shutters':
+            return [
+              'na',
+              'Non Mortised',
+              'Pivot',
+              'Hang strip'
+            ]
+          case 'au_pvc_shutters':
+          case 'pvc_shutters':
+            return [
+              'na',
+              'Non Mortised',
+              'Pivot',
+            ]
+        }
       },
       hingeColour () {
-        return [
-          'white',
-          'Nickel',
-          'Stainless',
-          'Colour Match',
-        ]
+        switch (this.productType) {
+          case 'basswood_shutters':
+            return [
+              'White',
+              'Bright Brass',
+              'Nickel',
+              'Black',
+              'Stainless',
+              'Colour Match'
+            ]
+          case 'pvc_shutters':
+            return [
+              'white',
+              'Nickel',
+              'Stainless',
+              'Colour Match',
+            ]
+          case 'au_pvc_shutters':
+            return [
+              'White',
+            ]
+        }
       },
       types () {
         return [

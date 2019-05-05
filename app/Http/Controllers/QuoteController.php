@@ -101,7 +101,6 @@ class QuoteController extends Controller
             $quote->orders()->save($order);
             $order->save();
             foreach ($validated['au_pvc_shutters'] as $shutter) {
-                $order = new Order();
                 $item = new OrderItem();
                 $product = AUPVCShutter::create($shutter);
                 $product->price = $product->getPrice();

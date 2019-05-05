@@ -21,9 +21,9 @@ const productLines = [
       { text: 'Colour', value: 'colour', sortable: false },
       { text: 'Stile Type', value: 'stile_type', sortable: false },
       { text: 'Frame', value: 'frame', sortable: false },
-      { text: 'FrameOptions', value: 'frame_options', sortable: false },
-      { text: 'HingeType', value: 'hinge_type', sortable: false },
-      { text: 'HingeColor', value: 'hinge_color', sortable: false },
+      { text: 'Frame Options', value: 'frame_options', sortable: false },
+      { text: 'Hinge Type', value: 'hinge_type', sortable: false },
+      { text: 'Hinge Colour', value: 'hinge_colour', sortable: false },
       { text: 'Notes', value: 'notes', sortable: false },
       { text: 'Actions', value: 'actions', sortable: false }
     ]
@@ -45,8 +45,12 @@ const productLines = [
       { text: 'Mid Rail Height', value: 'mid_rail_height', sortable: false },
       { text: 'Blade Size', value: 'blade_size', sortable: false },
       { text: 'Tilt Rod', value: 'tilt_rod', sortable: false },
+      { text: 'Stile Type', value: 'stile_type', sortable: false },
       { text: 'Colour', value: 'colour', sortable: false },
       { text: 'Frame', value: 'frame', sortable: false },
+      { text: 'Frame Options', value: 'frame_options', sortable: false },
+      { text: 'Hinge Type', value: 'hinge_type', sortable: false },
+      { text: 'Hinge Colour', value: 'hinge_colour', sortable: false },
       { text: 'Notes', value: 'notes', sortable: false },
       { text: 'Actions', value: 'actions', sortable: false }
     ]
@@ -68,8 +72,12 @@ const productLines = [
       { text: 'Mid Rail Height', value: 'mid_rail_height', sortable: false },
       { text: 'Blade Size', value: 'blade_size', sortable: false },
       { text: 'Tilt Rod', value: 'tilt_rod', sortable: false },
+      { text: 'Stile Type', value: 'stile_type', sortable: false },
       { text: 'Colour', value: 'colour', sortable: false },
       { text: 'Frame', value: 'frame', sortable: false },
+      { text: 'Frame Options', value: 'frame_options', sortable: false },
+      { text: 'Hinge Type', value: 'hinge_type', sortable: false },
+      { text: 'Hinge Colour', value: 'hinge_colour', sortable: false },
       { text: 'Notes', value: 'notes', sortable: false },
       { text: 'Actions', value: 'actions', sortable: false }
     ]

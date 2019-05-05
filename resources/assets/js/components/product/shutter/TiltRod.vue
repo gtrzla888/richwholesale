@@ -15,14 +15,24 @@
         }),
         props: {
             value: String,
-            index: Number
+            index: Number,
+            productType: String,
         },
         computed: {
             tiltRod() {
-                return [
-                'Clear View',
-                'Central'
-                ]
+              switch (this.productType) {
+                case 'aluminium_shutters':
+                case 'au_pvc_shutters':
+                  return [
+                    'Clear View'
+                  ]
+                case 'pvc_shutters':
+                case 'basswood_shutters':
+                  return [
+                    'Clear View',
+                    'Central',
+                  ]
+              }
             },
             tRod: {
                 get() {
