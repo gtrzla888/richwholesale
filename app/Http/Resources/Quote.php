@@ -19,6 +19,7 @@ class Quote extends JsonResource
             'id' => $this->id,
             'company_id' => $this->company->id,
             'customer_name' => $this->customer_name,
+            'po_reference' => $this->po_reference,
             'notes' => $this->notes,
             'basswood_shutters' => $this->basswood_shutters,
             'pvc_shutters' => $this->pvc_shutters,
