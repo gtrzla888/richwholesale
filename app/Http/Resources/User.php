@@ -24,7 +24,7 @@ class User extends JsonResource
           'isWholesaleUser' => $this->isWholesaleUser,
           'isCompanyUser' => $this->isCompanyUser,
           'isCompanyAdmin' => $this->isCompanyAdmin,
-          'companies' => CompanyResource::collection($this->whenLoaded('companies')),
+          'companies' => CompanyResource::collection($this->companies),
         ];
     }
 }

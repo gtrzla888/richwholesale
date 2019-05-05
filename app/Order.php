@@ -3,9 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Order extends Model
 {
+    use SoftDeletes;
+
     const STATUS_ORDERED = 'Ordered';
     const STATUS_CONFIRMED = 'Confirmed';
     const STATUS_MANUFACTURING = 'Manufacturing';

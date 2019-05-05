@@ -215,4 +215,12 @@ class QuoteController extends Controller
 
         return $quote;
     }
+
+    public function delete(Quote $quote)
+    {
+        $quote->orders()->delete();
+        $quote->delete();
+
+        return response()->json();
+    }
 }

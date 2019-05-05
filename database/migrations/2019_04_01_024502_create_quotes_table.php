@@ -21,6 +21,7 @@ class CreateQuotesTable extends Migration
             $table->string('status');
             $table->decimal('total');
             $table->string('notes')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

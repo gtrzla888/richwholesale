@@ -16,8 +16,10 @@ class CreateOrderItemsTable extends Migration
         Schema::create('order_items', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->morphs('product');
-            $table->unsignedInteger('order_id');
-      
+            $table->unsignedBigInteger('order_id');
+            $table->foreign('order_id')
+                  ->references('id')->on('orders')
+                  ->onDelete('cascade');
         });
     }
 

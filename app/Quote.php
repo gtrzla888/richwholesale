@@ -8,9 +8,12 @@ use App\AUPVCShutter;
 use App\BasswoodShutter;
 use App\AluminiumShutter;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Quote extends Model
 {
+    use SoftDeletes;
+
     const STATUS_PENDING = 'Pending';
     const STATUS_ORDERED = 'Ordered';
 
