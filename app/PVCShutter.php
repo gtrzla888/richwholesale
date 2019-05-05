@@ -38,13 +38,13 @@ class PVCShutter extends Shutter
                 ],
                 'blade_size' => [
                     'required',
-                    Rule::in('89mm')
+                    Rule::in('89mm', '64mm')
                 ],
                 'tilt_rod' => [
                     'required',
-                    Rule::in('Clear View')
+                    Rule::in('Clear View', 'Central')
                 ],
-                'color' => [
+                'colour' => [
                     'required',
                     Rule::in('W100 Snow', 'W101 Dove', 'W104 China', 'W105 Soft Pearl', 'W107 Pearl', 'W109 Linen Wash', 'W115 Clay', 'W118 Wheat', 'W401 Eggshell', 'W402 Palm Beach', 'W00 Custom')
                 ],
@@ -66,7 +66,7 @@ class PVCShutter extends Shutter
                 ],
                 'hinge_colour' => [
                     'required',
-                    Rule::in('White')
+                    Rule::in('White', 'Nickel', 'Stainless', 'Colour Match')
                 ]
             ];
     }

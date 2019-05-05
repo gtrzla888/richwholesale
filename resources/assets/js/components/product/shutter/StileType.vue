@@ -15,16 +15,25 @@
         }),
         props: {
             value: String,
-            index: Number
+            index: Number,
+            productType: String,
         },
         computed: {
             stileType() {
-                return  [
+              switch (this.productType) {
+                case 'au_pvc_shutters':
+                case 'pvc_shutters':
+                  return [
+                    '50b',
+                  ]
+                case 'basswood_shutters':
+                  return [
                     '50b',
                     '60b',
                     '50f',
                     '60f',
-                ]
+                  ]
+              }
             },
             sType: {
                 get() {

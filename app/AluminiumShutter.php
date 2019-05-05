@@ -18,7 +18,7 @@ class AluminiumShutter extends Shutter
                 ],
                 'corner' => [
                     'required',
-                    Rule::in('No', 90, 135)
+                    Rule::in('No', '90', '135')
                 ],
                 'panel_layout' => [
                     'required',
@@ -37,36 +37,25 @@ class AluminiumShutter extends Shutter
                 ],
                 'blade_size' => [
                     'required',
-                    Rule::in('89mm')
+                     Rule::in('89mm')
                 ],
                 'tilt_rod' => [
                     'required',
-                    Rule::in('Clear View')
+                    Rule::in('Clear view')
                 ],
-                'color' => [
-                    'required',
-                    Rule::in('W100 Snow', 'W101 Dove', 'W104 China', 'W00 Custom')
-                ],
-                'stile_type' => [
-                    'required',
-                    Rule::in('50b')
-                ],
-                'frame' => [
-                    'required',
-                    Rule::in('No Frame','Z20-C6', 'BL50-B10', 'BL65-B10A')
-                ],
-                'frame_options' => [
-                    'required',
-                    Rule::in('na','LRTB', 'LRT', 'LRB')
-                ],
-                'hinge_type' => [
-                    'required',
-                    Rule::in('na', 'Non Mortised', 'Pivot')
-                ],
-                'hinge_colour' => [
+                'colour' => [
                     'required',
                     Rule::in('White', 'Cream', 'Silver')
-                ]
+                ],
+//                'stile_type' => [
+//                    'required',
+//                    Rule::in('50b')
+//                ],
+                'frame' => [
+                    'required',
+                    Rule::in('No Frame','L', 'U Channel', 'Bi Fold')
+                ],
+
             ];
     }
 }

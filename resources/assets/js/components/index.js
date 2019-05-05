@@ -21,7 +21,7 @@ import TiltRod from './product/shutter/TiltRod'
 import ShutterColor from './product/shutter/Colour'
 import FrameOptions from './product/shutter/FrameOptions'
 import Frame from './product/shutter/Frame'
-import HingeColor from './product/shutter/HingeColor'
+import HingeColour from './product/shutter/HingeColour'
 import HingeType from './product/shutter/HingeType'
 import StileType from './product/shutter/StileType'
 import Type from './product/shutter/Type'
@@ -71,7 +71,7 @@ Vue.component(ShutterColor.name, ShutterColor)
 Vue.component(PanelLayout.name, PanelLayout)
 Vue.component(FrameOptions.name, FrameOptions)
 Vue.component(Frame.name, Frame)
-Vue.component(HingeColor.name, HingeColor)
+Vue.component(HingeColour.name, HingeColour)
 Vue.component(HingeType.name, HingeType)
 Vue.component(Remote.name, Remote)
 Vue.component(StileType.name, StileType)

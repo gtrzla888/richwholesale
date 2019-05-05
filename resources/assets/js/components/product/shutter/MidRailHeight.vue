@@ -1,12 +1,11 @@
 <template>
-    <v-select
-            :items="midRailHeight"
+    <v-text-field
             :value="value"
             v-model="mdh"
             label="Mid Rail Height"
             :rules="[v => !!v || 'Mid rail Height is required']"
-            required
-    ></v-select>
+            type="text"
+    ></v-text-field>
 </template>
 <script>
     export default {
@@ -18,14 +17,6 @@
             index: Number
         },
         computed: {
-            midRailHeight() {
-                return [
-                'Centre',
-                '1',
-                '2',
-                '3'
-                ]
-            },
             mdh: {
                 get() {
                     return this.value

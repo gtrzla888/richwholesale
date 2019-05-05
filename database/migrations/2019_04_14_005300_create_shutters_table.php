@@ -28,7 +28,7 @@ class CreateShuttersTable extends Migration
             $table->string('blade_size');
             $table->string('tilt_rod');
             $table->string('colour');
-            $table->string('stile_type');
+            $table->string('stile_type')->nullable();
             $table->string('frame');
             $table->string('frame_options')->nullable();
             $table->string('install_method')->nullable();

@@ -15,16 +15,27 @@
         }),
         props: {
             value: String,
-            index: Number
+            index: Number,
+            productType: String,
         },
         computed: {
             hingeTypes() {
-                return [
-                'na',
-                'Non Mortised',
-                'Hang Strip',
-                'Pivot'
-                ]
+              switch (this.productType) {
+                case 'basswood_shutters':
+                  return [
+                    'na',
+                    'Non Mortised',
+                    'Pivot',
+                    'Hang strip'
+                  ]
+                case 'au_pvc_shutters':
+                case 'pvc_shutters':
+                  return [
+                    'na',
+                    'Non Mortised',
+                    'Pivot',
+                  ]
+              }
             },
             hingeType: {
                 get() {

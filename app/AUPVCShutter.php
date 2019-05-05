@@ -42,9 +42,13 @@ class AUPVCShutter extends Shutter
                     'required',
                     Rule::in('Clear View')
                 ],
-                'color' => [
+                'colour' => [
                     'required',
-                     Rule::in('W100 Snow', 'W101 Dove', 'W104 China', 'W105 Soft Pearl', 'W107 Pearl', 'W109 Linen Wash', 'W115 Clay', 'W118 Wheat', 'W401 Eggshell', 'W402 Palm Beach', 'W00 Custom')
+                     Rule::in(
+                         'White',
+                         'Off White',
+                         'Custom'
+                     )
                 ],
                 'stile_type' => [
                     'required',
@@ -64,7 +68,7 @@ class AUPVCShutter extends Shutter
                 ],
                 'hinge_colour' => [
                     'required',
-                    Rule::in('White')
+                    Rule::in(  'White')
                 ]
             ];
     }

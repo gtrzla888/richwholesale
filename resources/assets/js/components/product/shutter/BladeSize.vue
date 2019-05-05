@@ -15,16 +15,30 @@
         }),
         props: {
             value: String,
-            index: Number
+            index: Number,
+            productType: String,
         },
         computed: {
             bladeSize() {
-                return [
-                '47mm',
-                '89mm',
-                '64mm',
-                '114mm'
-                ]
+              switch (this.productType) {
+                case 'aluminium_shutters':
+                case 'au_pvc_shutters':
+                  return [
+                    '89mm',
+                  ]
+                case 'pvc_shutters':
+                  return [
+                    '64mm',
+                    '89mm',
+                  ]
+                case 'basswood_shutters':
+                  return [
+                    '47mm',
+                    '89mm',
+                    '64mm',
+                    '114mm',
+                  ]
+              }
             },
             bSize: {
                 get() {
