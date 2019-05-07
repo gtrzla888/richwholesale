@@ -67,7 +67,7 @@ class BasswoodShutter extends Shutter
                     'S602 Maple',
                     'S604 Aged Teak',
                     'S606 Mahogan',
-                    'S701 Walnut',
+                    'S701 Walnut'
                 )
             ],
             'stile_type' => [
