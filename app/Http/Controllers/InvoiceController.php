@@ -15,10 +15,11 @@ class InvoiceController extends Controller
         /** @var User $user */
         $user = request()->user();
 
-        $query = Invoice::join('orders', 'orders.id', '=', 'invoices.order_id')->with('order.quote.company');
+        $query = Invoice::join('orders', 'orders.id', '=', 'invoices.order_id')
+                        ->join('quotes', 'orders.quotes_id', '=' . 'quotes.id')->with('order.quote.company');
 
         if ($company = $request->get('company')) {
-            $query->where('order.quote.company_id', $company);
+            $query->where('quotes.company_id', $company);
         }
 
         if ($createdAt = $request->get('created_at')) {

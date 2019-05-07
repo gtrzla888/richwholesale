@@ -24,7 +24,7 @@ class OrderController extends Controller
         /** @var User $user */
         $user = request()->user();
 
-        $query = Order::with('quote.company')->with('items.product')->whereIn('status', [
+        $query = Order::join('quotes', 'orders.quote_id', '=', 'quotes.id')->with('quote.company')->with('items.product')->whereIn('status', [
                 Order::STATUS_ORDERED, Order::STATUS_CONFIRMED, 
                 Order::STATUS_MANUFACTURING, Order::STATUS_COMPLETED
                 ]);
