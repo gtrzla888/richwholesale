@@ -21,6 +21,7 @@ class Company extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'abn' => $this->abn,
             'billingAddress' => new BillingAddressResource($this->billingAddress ?: new BillingAddress()),
             'deliveryAddress' => new DeliveryAddressResource($this->deliveryAddress ?: new DeliveryAddress())
         ];

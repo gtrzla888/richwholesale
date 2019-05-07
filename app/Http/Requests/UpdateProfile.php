@@ -25,8 +25,8 @@ class UpdateProfile extends FormRequest
     {
         return [
             'name' => 'required',
-            'email' => 'required|email|unique:users,email',
-            'contact_number' => 'required',
+//            'email' => 'required|email|unique:users,email',
+            'contact_number' => 'nullable|numeric',
             'company.id' => 'required',
             'company.abn' => 'required',
             'company.billingAddress' => 'required',

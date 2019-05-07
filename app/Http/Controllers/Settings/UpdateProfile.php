@@ -27,11 +27,14 @@ class UpdateProfile extends Controller
 
 
         $user->name = $validated['name'];
-        $user->email = $validated['email'];
-        $user->contact_number = $validated['contact_number'];
+//        $user->email = $validated['email'];
+        if (isset($validated['contact_number'])) {
+            $user->contact_number = $validated['contact_number'];
+        }
+
         $user->save();
         $company = Company::findOrFail($validated['company']['id']);
-        $company->abn = $validated['abn'];
+        $company->abn = $validated['company']['abn'];
         $company->save();
 
         unset($validated['company']['billingAddress']['id']);

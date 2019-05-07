@@ -11,7 +11,8 @@
                 item-value="id"
                 label="Company Name"
                 outline
-                v-model="form.company.id"
+                :value="form.company.id"
+                @change="changeCompany"
               >
               </v-select>
           </v-flex>
@@ -231,10 +232,12 @@ import Form from 'vform'
 import { mapGetters } from 'vuex'
 import { validateMixin } from '~/plugins/validation'
 import moment from 'moment'
+import _ from 'lodash'
 
 export default {
   name: 'profile-view',
   data: () => ({
+    companies: {},
     selectedCompanyId: '',
     form: new Form({
       name: '',
@@ -270,7 +273,6 @@ export default {
   computed: mapGetters({
     user: 'authUser',
   }),
-
   created () {
     // Fill the form with user data.
     this.form.keys().forEach(key => {
@@ -278,7 +280,7 @@ export default {
         this.form[key] = this.user[key]
       }
     })
-    this.form.company = {...this.user.companies[0]}
+    this.form.company =  JSON.parse(JSON.stringify(this.user.companies[0]))
   },
   mixins: [validateMixin],
   methods: {
@@ -296,6 +298,9 @@ export default {
         type: 'success',
         text: this.$t('info_updated')
       })
+    },
+    changeCompany(value) {
+      this.form.company = _.find(JSON.parse(JSON.stringify(this.user.companies)), (company) => company.id === value)
     }
   }
 }
