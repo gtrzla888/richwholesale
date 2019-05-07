@@ -14,6 +14,7 @@ use App\User;
 use PDF;
 use Illuminate\Http\Request;
 use App\Http\Requests\UpdateOrder;
+use App\Invoice;
 
 class OrderController extends Controller
 {
@@ -144,6 +145,13 @@ class OrderController extends Controller
 
         if (isset($validated['eta'])) {
             $order->eta = $validated['eta'];
+        }
+
+        if ($order->status === Order::STATUS_COMPLETED && !$order->invoice) {
+            $invoice = new Invoice();
+            $invoice->order_id = $order->id;
+            $invoice->status = Invoice::STATUS_INVOICED;
+            $invoice->save();
         }
 
         $order->save();
