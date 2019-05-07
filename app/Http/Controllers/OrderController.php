@@ -30,11 +30,11 @@ class OrderController extends Controller
                 ]);
 
         if ($company = $request->get('company')) {
-            $query->where('quote.company_id', $company);
+            $query->where('quotes.company_id', $company);
         }
 
         if ($createdAt = $request->get('created_at')) {
-            $query->where('quote.created_at', '>=', $createdAt);
+            $query->where('orders.created_at', '>=', $createdAt);
         }
 
         return $query->get();
