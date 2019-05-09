@@ -41,7 +41,7 @@ class AluminiumShutter extends Shutter
                 ],
                 'tilt_rod' => [
                     'required',
-                    Rule::in('Clear view')
+                    Rule::in('Clear View')
                 ],
                 'colour' => [
                     'required',
