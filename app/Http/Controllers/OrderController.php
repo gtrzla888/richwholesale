@@ -37,7 +37,7 @@ class OrderController extends Controller
             $query->where('orders.created_at', '>=', $createdAt);
         }
 
-        return $query->get();
+        return $query->get('orders.*');
     }
 
     public function store(StoreQuote $request)

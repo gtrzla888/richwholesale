@@ -3,7 +3,6 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
 class Invoice extends Model
 {
     const STATUS_PAID = 'Paid';
@@ -13,6 +12,6 @@ class Invoice extends Model
 
     public function order()
     {
-        return $this->belongsTo(order::class);
+        return $this->belongsTo(Order::class);
     }
 }

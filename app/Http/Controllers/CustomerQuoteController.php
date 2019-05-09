@@ -27,7 +27,7 @@ class CustomerQuoteController extends Controller
             $query->where('created_at', '>=', $createdAt);
         }
 
-        return $query->get();
+        return $query->get('customer_quotes.*');
     }
 
     public function store(Quote $quote, Request $request)

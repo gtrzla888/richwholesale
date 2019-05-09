@@ -36,7 +36,7 @@ class QuoteController extends Controller
              $query->where('created_at', '>=', $createdAt);
          }
  
-         return $query->get();
+         return $query->get('quotes.*');
     }
 
     public function store(StoreQuote $request)
