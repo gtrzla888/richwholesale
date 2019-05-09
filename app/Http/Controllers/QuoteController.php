@@ -74,6 +74,8 @@ class QuoteController extends Controller
                 $item->product()->associate($product);
                 $order->items()->save($item);
             }
+            $quote->total += $order->total;
+            $order->save();
         }
 
         if (!empty($validated['pvc_shutters'])) {
@@ -91,6 +93,8 @@ class QuoteController extends Controller
                 $item->product()->associate($product);
                 $order->items()->save($item);
             }
+            $quote->total += $order->total;
+            $order->save();
         }
 
         if (!empty($validated['au_pvc_shutters'])) {
@@ -108,6 +112,8 @@ class QuoteController extends Controller
                 $item->product()->associate($product);
                 $order->items()->save($item);
             }
+            $quote->total += $order->total;
+            $order->save();
         }
 
         if (!empty($validated['aluminium_shutters'])) {
@@ -125,6 +131,8 @@ class QuoteController extends Controller
                 $item->product()->associate($product);
                 $order->items()->save($item);
             }
+            $quote->total += $order->total;
+            $order->save();
         }
 
         if (!empty($validated['roller_blinds'])) {
@@ -142,6 +150,8 @@ class QuoteController extends Controller
                 $item->product()->associate($product);
                 $order->items()->save($item);
             }
+            $quote->total += $order->total;
+            $order->save();
         }
 
         $quote->save();

@@ -147,7 +147,7 @@ class OrderController extends Controller
             $order->eta = $validated['eta'];
         }
 
-        if ($order->status === Order::STATUS_COMPLETED && !$order->invoice) {
+        if ($order->status === Order::STATUS_COMPLETED && !$order->invoice->id) {
             $invoice = new Invoice();
             $invoice->order_id = $order->id;
             $invoice->status = Invoice::STATUS_INVOICED;
