@@ -53,7 +53,21 @@
               <td class="text-xs-left">{{ props.item.order.quote.company.name }}</td>
               <td class="text-xs-left">{{ props.item.order.quote.po_reference }}</td>
               <td class="text-xs-left">{{ props.item.updated_at }}</td>
-              <td class="text-xs-left">{{ props.item.status }}</td>
+              <td class="text-xs-left">
+                <v-edit-dialog
+                  :return-value.sync="props.item.status"
+                  large
+                  lazy
+                  @save="saveStatus(props.item)"
+                >
+                  {{ props.item.status }}
+                  <v-select
+                    slot="input"
+                    v-model="props.item.status"
+                    :items="items"
+                  ></v-select>
+                </v-edit-dialog>
+              </td>
               <td class="text-xs-left">{{ props.item.created_at }}</td>
               <td class="text-xs-left">
                 <v-menu offset-x left bottom>
@@ -85,6 +99,7 @@
     data () {
       return {
         search: '',
+        items: ['Invoiced', 'Paid'],
         headers: [
           {
             text: 'Invoice #',
@@ -130,7 +145,16 @@
         } catch (e) {
           
         }
-      
+      },
+      async saveStatus (item) {
+        try {
+          const { data } = await axios.put('/api/invoices/' + item.id, { status: item.status })
+          this.$store.dispatch('responseMessage', {
+            type: 'success',
+            text: this.$t('Invoice Updated')
+          })
+        } catch (e) {
+        }
       },
     },
     watch: {

@@ -197,9 +197,7 @@ import { async } from 'q';
             this.$store.dispatch('fetchOrder', {id: quote.id})
             this.$router.push('home');
           } catch (e) {
-
           }
-          
       },
       async remove (quote) {
           this.selectedQuoteId = quote.id

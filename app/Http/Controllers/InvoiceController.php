@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Order;
+use App\Http\Requests\UpdateInvoice;
 use App\Invoice;
 use App\User;
 use Illuminate\Http\Request;
-use App\Http\Resources\Invoice as InvoiceResource;
 
 class InvoiceController extends Controller
 {
@@ -29,16 +28,15 @@ class InvoiceController extends Controller
         return $query->get('invoices.*');
     }
 
-    public function store(Request $request, Order $order)
+    public function update(UpdateInvoice $request, Invoice $invoice)
     {
-        $invoice = new Invoice();
-        $invoice->order_id = $order->id;
+        $validated = $request->validated();
+        if (isset($validated['status'])) {
+            $invoice->status = $validated['status'];
+        }
+
         $invoice->save();
 
-    }
-
-    public function update(Request $request, Invoice $invoice) 
-    {
-
+        return $invoice;
     }
 }

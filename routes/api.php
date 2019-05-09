@@ -48,7 +48,7 @@ Route::group(['middleware' => 'auth:api'], function () {
 
 
     Route::post('orders/{order}/invoices', 'InvoiceController@store');
-    Route::post('invoices/{invoice}', 'InvoiceController@update');
+    Route::put('invoices/{invoice}', 'InvoiceController@update');
 
 });
 

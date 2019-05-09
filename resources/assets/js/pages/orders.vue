@@ -182,13 +182,20 @@
       async saveStatus (item) {
         try {
           const { data } = await axios.put('/api/orders/' + item.id, { status: item.status })
+          this.$store.dispatch('responseMessage', {
+            type: 'success',
+            text: this.$t('Order Updated')
+          })
         } catch (e) {
         }
-
       },
       async saveEta (item) {
         try {
           const { data } = await axios.put('/api/orders/' + item.id, { eta: item.eta })
+          this.$store.dispatch('responseMessage', {
+            type: 'success',
+            text: this.$t('Order Updated')
+          })
         } catch (e) {
         }
       },
