@@ -220,6 +220,13 @@ class QuoteController extends Controller
             $quote->status = $validated['status'];
         }
 
+        if ($quote->status == Quote::STATUS_ORDERED) {
+            foreach ($quote->orders as $order) {
+                $order->status = Order::STATUS_ORDERED;
+                $order->save();
+            }
+        }
+
         $quote->save();
 
         return $quote;

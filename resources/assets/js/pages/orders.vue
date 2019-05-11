@@ -47,7 +47,6 @@
             :headers="headers"
             :items="orders"
             :search="search"
-            select-all
             class="elevation-1"
           >
             <template v-slot:items="props">
