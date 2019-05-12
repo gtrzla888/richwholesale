@@ -340,12 +340,12 @@
         this.product.product_type = this.productType
         this.$emit('clicked', this.product)
         this.product = {}
-        this.$refs.form.resetValidation()
         this.$store.dispatch('updateAddItemDialogStatus', { status: false })
+        this.$refs.form.reset()
       },
       onCancel () {
-        this.$refs.form.reset()
         this.$store.dispatch('updateAddItemDialogStatus', { status: false })
+        this.$refs.form.reset()
       },
       calculateSqm () {
         this.product.sqm = 0
