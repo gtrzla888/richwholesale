@@ -340,7 +340,7 @@
         this.product.product_type = this.productType
         this.$emit('clicked', this.product)
         this.product = {}
-        this.$refs.form.reset()
+        this.$refs.form.resetValidation()
         this.$store.dispatch('updateAddItemDialogStatus', { status: false })
       },
       onCancel () {
