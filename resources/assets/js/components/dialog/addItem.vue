@@ -341,7 +341,7 @@
         this.$emit('clicked', this.product)
         this.product = {}
         this.$store.dispatch('updateAddItemDialogStatus', { status: false })
-        this.$refs.form.reset()
+        this.$refs.form.resetValidation()
       },
       onCancel () {
         this.$store.dispatch('updateAddItemDialogStatus', { status: false })
