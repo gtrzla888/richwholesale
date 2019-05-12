@@ -231,7 +231,7 @@
             v-if="productType==='basswood_shutters' || productType==='pvc_shutters' || productType==='aluminium_shutters' || productType==='au_pvc_shutters'"
             v-model="product.mid_rail_height"
             label="Mid Rail Height"
-            :rules="[v => !!v || 'Mid Rail Height is required']"
+            :rules="midRailHeightRules"
             type="number"
             min="0"
             required
@@ -354,8 +354,8 @@
         }
       },
       calculatePQTY () {
-          if (this.product.panel_layout) {
-              this.product.panel_qty = (
+        if (this.product.panel_layout) {
+          this.product.panel_qty = (
             this.product.panel_layout.match(/(L|l|R|r)/g) || []
           ).length
         }
@@ -363,70 +363,77 @@
     },
     computed: {
       ...mapGetters(['isAddDialogOpen']),
-      dropRules() {
-        switch(this.productType) {
+      dropRules () {
+        switch (this.productType) {
           case 'pvc_shutters':
           case 'au_pvc_shutters':
             return [
-               v => !!v || 'Drop is required',
-                v => (
-                 v && v <= 2440 && v >= 250
-               ) || 'Drop must be less than 2440mm and greater than 250mm',
+              v => !!v || 'Drop is required',
+              v => (
+                     v && v <= 2440 && v >= 250
+                   ) || 'Drop must be less than 2440mm and greater than 250mm',
             ]
-            case 'aluminium_shutters':
+          case 'aluminium_shutters':
             return [
-                v => !!v || 'Drop is required',
-                v => (
-                 v && v <= 3050 && v >= 250
-               ) || 'Drop must be less than 3050mm and greater than 250mm',
+              v => !!v || 'Drop is required',
+              v => (
+                     v && v <= 3050 && v >= 250
+                   ) || 'Drop must be less than 3050mm and greater than 250mm',
             ]
-            case 'basswood_shutters':
+          case 'basswood_shutters':
             return [
-                v => !!v || 'Drop is required',
-                v => (
-                 v  && v >= 300
-               ) || 'Drop must be greater than 300mm',
+              v => !!v || 'Drop is required',
+              v => (
+                     v && v >= 300
+                   ) || 'Drop must be greater than 300mm',
             ]
           case 'roller_blinds':
             return [
-                v => !!v || 'Drop is required',
-                v => (
-                 v  && v <= 3300
-               ) || 'Drop must be less than 3300mm',
+              v => !!v || 'Drop is required',
+              v => (
+                     v && v <= 3300
+                   ) || 'Drop must be less than 3300mm',
             ]
         }
       },
-      widthRules() {
-        switch(this.productType) {
+      widthRules () {
+        switch (this.productType) {
           case 'pvc_shutters':
           case 'au_pvc_shutters':
             return [
-               v => !!v || 'Width is required',
-                v => (
-                 v && v >= 250
-               ) || 'Width must be greater than 250mm',
+              v => !!v || 'Width is required',
+              v => (
+                     v && v >= 250
+                   ) || 'Width must be greater than 250mm',
             ]
-            case 'aluminium_shutters':
+          case 'aluminium_shutters':
             return [
-                v => !!v || 'Width is required',
-                v => (
-                 v && v >= 250
-               ) || 'Width must be greater than 250mm',
+              v => !!v || 'Width is required',
+              v => (
+                     v && v >= 250
+                   ) || 'Width must be greater than 250mm',
             ]
-            case 'basswood_shutters':
+          case 'basswood_shutters':
             return [
-                v => !!v || 'Width is required',
-                v => (
-                 v  && v >= 300
-               ) || 'Width must be greater than 300mm',
+              v => !!v || 'Width is required',
+              v => (
+                     v && v >= 300
+                   ) || 'Width must be greater than 300mm',
             ]
           case 'roller_blinds':
             return [
-                v => !!v || 'Width is required',
-                v => (
-                 v  && v <= 3010
-               ) || 'Width must be less than 3010mm',
+              v => !!v || 'Width is required',
+              v => (
+                     v && v <= 3010
+                   ) || 'Width must be less than 3010mm',
             ]
+        }
+      },
+      midRailHeightRules () {
+        if (this.product.drop >= 1599) {
+          return [
+            v => !!v || 'Mid Rail Height is required',
+          ]
         }
       },
       product: {
@@ -457,7 +464,7 @@
           case 'aluminium_shutters':
           case 'au_pvc_shutters':
             return [
-              'Clear View'
+              'Clear View',
             ]
           case 'pvc_shutters':
           case 'basswood_shutters':
@@ -489,12 +496,45 @@
         }
       },
       midRail () {
-        return [
-          'Centre',
-          '1',
-          '2',
-          '3',
-        ]
+        switch (this.productType) {
+          case 'aluminium_shutters':
+            if (this.product.drop <= 2299 && this.product.drop >= 1800) {
+              return [
+                'Centre',
+                '1',
+              ]
+            } else if (this.product.drop <= 2599 && this.product.drop >= 2300) {
+              return [
+                '2',
+              ]
+            } else if (this.product.drop <= 2600 && this.product.drop >= 3000) {
+              return [
+                '3',
+              ]
+            }
+            break
+          case 'pvc_shutters':
+          case 'au_pvc_shutters':
+            if (this.product.drop <= 1999 && this.product.drop >= 1600) {
+              return [
+                'Centre',
+                '1',
+              ]
+            } else if (this.product.drop <= 2440 && this.product.drop >= 2000) {
+              return [
+                '2',
+              ]
+            }
+            break
+          case 'basswood_shutters':
+            return [
+              'Centre',
+              '1',
+              '2',
+              '3',
+            ]
+        }
+
       },
       frame () {
         switch (this.productType) {
@@ -504,7 +544,7 @@
               'L',
               'U Channel',
               'Bi Fold',
-              'Sliding'
+              'Sliding',
             ]
           case 'basswood_shutters':
             return [
@@ -517,7 +557,7 @@
               'Z20-C6',
               'CZ25-D1',
               'CZ25-D2',
-              'BL65-B10A'
+              'BL65-B10A',
             ]
           case 'pvc_shutters':
           case 'au_pvc_shutters':
@@ -843,13 +883,13 @@
           colors = [
             'White',
             'Off White',
-            'Custom'
+            'Custom',
           ]
         } else if (this.productType === 'aluminium_shutters') {
           colors = [
             'White',
             'Cream',
-            'Silver'
+            'Silver',
           ]
         }
 
@@ -868,7 +908,7 @@
               'na',
               'Non Mortised',
               'Pivot',
-              'Hang strip'
+              'Hang strip',
             ]
           case 'au_pvc_shutters':
           case 'pvc_shutters':
@@ -888,7 +928,7 @@
               'Nickel',
               'Black',
               'Stainless',
-              'Colour Match'
+              'Colour Match',
             ]
           case 'pvc_shutters':
             return [
