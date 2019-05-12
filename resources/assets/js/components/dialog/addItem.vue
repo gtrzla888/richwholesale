@@ -41,7 +41,7 @@
             v-model="product.drop"
             label="Drop(mm)"
             type="number"
-            :rules="[v => !!v || 'Drop is required']"
+            :rules="dropRules"
             min="0"
             required
             @input="calculateSqm"
@@ -340,10 +340,11 @@
         this.product.product_type = this.productType
         this.$emit('clicked', this.product)
         this.product = {}
-
+        this.$refs.form.reset()
         this.$store.dispatch('updateAddItemDialogStatus', { status: false })
       },
       onCancel () {
+        this.$refs.form.reset()
         this.$store.dispatch('updateAddItemDialogStatus', { status: false })
       },
       calculateSqm () {
@@ -353,13 +354,81 @@
         }
       },
       calculatePQTY () {
-        this.product.panel_qty = (
-          this.product.panel_layout.match(/(L|l|R|r)/g) || []
-        ).length
+          if (this.product.panel_layout) {
+              this.product.panel_qty = (
+            this.product.panel_layout.match(/(L|l|R|r)/g) || []
+          ).length
+        }
       },
     },
     computed: {
       ...mapGetters(['isAddDialogOpen']),
+      dropRules() {
+        switch(this.productType) {
+          case 'pvc_shutters':
+          case 'au_pvc_shutters':
+            return [
+               v => !!v || 'Drop is required',
+                v => (
+                 v && v <= 2440 && v >= 250
+               ) || 'Drop must be less than 2440mm and greater than 250mm',
+            ]
+            case 'aluminium_shutters':
+            return [
+                v => !!v || 'Drop is required',
+                v => (
+                 v && v <= 3050 && v >= 250
+               ) || 'Drop must be less than 3050mm and greater than 250mm',
+            ]
+            case 'basswood_shutters':
+            return [
+                v => !!v || 'Drop is required',
+                v => (
+                 v  && v >= 300
+               ) || 'Drop must be greater than 300mm',
+            ]
+          case 'roller_blinds':
+            return [
+                v => !!v || 'Drop is required',
+                v => (
+                 v  && v <= 3300
+               ) || 'Drop must be less than 3300mm',
+            ]
+        }
+      },
+      widthRules() {
+        switch(this.productType) {
+          case 'pvc_shutters':
+          case 'au_pvc_shutters':
+            return [
+               v => !!v || 'Width is required',
+                v => (
+                 v && v >= 250
+               ) || 'Width must be greater than 250mm',
+            ]
+            case 'aluminium_shutters':
+            return [
+                v => !!v || 'Width is required',
+                v => (
+                 v && v >= 250
+               ) || 'Width must be greater than 250mm',
+            ]
+            case 'basswood_shutters':
+            return [
+                v => !!v || 'Width is required',
+                v => (
+                 v  && v >= 300
+               ) || 'Width must be greater than 300mm',
+            ]
+          case 'roller_blinds':
+            return [
+                v => !!v || 'Width is required',
+                v => (
+                 v  && v <= 3010
+               ) || 'Width must be less than 3010mm',
+            ]
+        }
+      },
       product: {
         get () {
           return this.selectedProduct
