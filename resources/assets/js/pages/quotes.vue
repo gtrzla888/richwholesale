@@ -220,7 +220,7 @@ import { async } from 'q';
         try {
           this.dialog = false;
           await axios.post('api/quotes/' + this.selectedQuoteId + '/customer-quotes', {
-            fixedMarkup: this.fixedMarkup, percentageMarkup: this.percentageMarkup
+            fixed_markup: this.fixedMarkup, percentage_markup: this.percentageMarkup
           })
           this.$store.dispatch('responseMessage', {
             type: 'success',
