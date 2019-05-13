@@ -170,21 +170,37 @@
       },
 
       async updateFixedMarkup (customerQuote) {
-         const { data } = await axios.put('/api/customer-quotes/' + customerQuote.id, { fixed_markup: customerQuote.fixed_markup })
+        try {
+          const { data } = await axios.put('/api/customer-quotes/' + customerQuote.id, { fixed_markup: customerQuote.fixed_markup })
+          this.$store.dispatch('responseMessage', {
+            type: 'success',
+            text: this.$t('Customer Quote updated')
+          })
+        } catch(e) {
+        }
       },
       async updatePercentageMarkup (customerQuote) {
-         const { data } = await axios.put('/api/customer-quotes/' + customerQuote.id, { percentage_markup: customerQuote.percentage_markup })
+        try {
+            const { data } = await axios.put('/api/customer-quotes/' + customerQuote.id, { percentage_markup: customerQuote.percentage_markup })
+            this.$store.dispatch('responseMessage', {
+            type: 'success',
+            text: this.$t('Customer Quote updated')
+          })
+        } catch(e) {
+        }
       },
       async remove (customerQuote, index) {
-         await axios.delete('/api/customer-quotes/' + customerQuote.id)
-         this.quotes.splice(index, 1)
+        try {
+          await axios.delete('/api/customer-quotes/' + customerQuote.id)
+          this.quotes.splice(index, 1)
+          this.$store.dispatch('responseMessage', {
+            type: 'success',
+            text: this.$t('Customer Quote Deleted')
+          })
+        } catch (e) {
+        }
+   
       },
-      async OnCreateCustomerQuote() {
-        this.dialog = false;
-        await axios.post('api/quotes/' + this.selectedQuoteId + '/customer-quotes', {
-          fixedMarkup: this.fixedMarkup, percentageMarkup: this.percentageMarkup
-        })
-      }
     },
     watch: {
       company () {

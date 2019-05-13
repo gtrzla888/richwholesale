@@ -78,7 +78,7 @@
                   </v-btn>
                   <v-list>
                     <v-list-tile @click="createCustomerQuote(props.item)">
-                      <v-list-tile-title>Create Custom Quote</v-list-tile-title>
+                      <v-list-tile-title>Create Customer</v-list-tile-title>
                     </v-list-tile>
                     <v-list-tile @click="remove(props.item)">
                       <v-list-tile-title>Remove</v-list-tile-title>
@@ -188,6 +188,10 @@ import { async } from 'q';
       async saveStatus (item) {
         try {
           const { data } = await axios.put('/api/quotes/' + item.id, { status: item.status })
+           this.$store.dispatch('responseMessage', {
+            type: 'success',
+            text: this.$t('Quote Updated')
+            })
         } catch (e) {
         }
       },
@@ -204,17 +208,25 @@ import { async } from 'q';
           try {
             await  axios.delete('api/quotes/' + this.selectedQuoteId)
             this.quotes.splice(1, this.selectedQuoteId)
+            this.$store.dispatch('responseMessage', {
+            type: 'success',
+            text: this.$t('Quote Deleted')
+            })
           } catch (e) {
 
           }
       },
-      async onCreateCustomerQuote() {
+      async OnCreateCustomerQuote() {
         try {
           this.dialog = false;
           await axios.post('api/quotes/' + this.selectedQuoteId + '/customer-quotes', {
-            fixed_markup: this.fixedMarkup, percentage_markup: this.percentageMarkup
+            fixedMarkup: this.fixedMarkup, percentageMarkup: this.percentageMarkup
           })
-        } catch (e) {
+          this.$store.dispatch('responseMessage', {
+            type: 'success',
+            text: this.$t('Customer Quote Created')
+          })
+        } catch(e) {
         }
       }
     },

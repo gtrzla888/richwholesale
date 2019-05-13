@@ -236,7 +236,7 @@
 
           this.$store.dispatch('responseMessage', {
             type: 'success',
-            text: this.$t('Quoate Created')
+            text: this.$t('Quote Created')
           })
         } catch (e) {
           this.$store.dispatch('responseMessage', {

@@ -214,7 +214,6 @@
           link.setAttribute('download', 'file.pdf'); //or any other extension
           document.body.appendChild(link);
           link.click();
-          console.log(data);
         } catch (e) {
         }
       }
