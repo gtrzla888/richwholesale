@@ -216,7 +216,7 @@ import { async } from 'q';
 
           }
       },
-      async OnCreateCustomerQuote() {
+      async onCreateCustomerQuote() {
         try {
           this.dialog = false;
           await axios.post('api/quotes/' + this.selectedQuoteId + '/customer-quotes', {
