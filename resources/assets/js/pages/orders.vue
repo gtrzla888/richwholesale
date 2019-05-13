@@ -50,20 +50,13 @@
             class="elevation-1"
           >
             <template v-slot:items="props">
-              <td>
-                <v-checkbox
-                  v-model="props.selected"
-                  primary
-                  hide-details
-                ></v-checkbox>
-              </td>
               <td>{{ props.item.id }}</td>
               <td class="text-xs-left">{{ props.item.quote.company.name }}</td>
               <td class="text-xs-left">{{ props.item.product_type }}</td>
               <td class="text-xs-left">{{ props.item.quote.po_reference }}</td>
               <td class="text-xs-left">{{ props.item.updated_at }}</td>
               <td class="text-xs-left">{{ props.item.total }}</td>
-              <td class="text-xs-left">
+              <td class="text-xs-left"  v-if="user.isWholsaleAdmin | user.isWholesaleUser">
                 <v-edit-dialog
                   :return-value.sync="props.item.status"
                   large
@@ -78,8 +71,9 @@
                   ></v-select>
                 </v-edit-dialog>
               </td>
+              <td class="text-xs-left" v-if="user.isCompanyAdmin | user.isCompanyUser">{{ props.item.status }}</td>
               <td class="text-xs-left">{{ props.item.created_at }}</td>
-              <td class="text-xs-left">
+              <td class="text-xs-left" v-if="user.isWholsaleAdmin | user.isWholesaleUser">
                 <v-edit-dialog
                   :return-value.sync="props.item.eta"
                   lazy
@@ -97,6 +91,8 @@
                   </template>
                 </v-edit-dialog>
               </td>
+
+              <td class="text-xs-left" v-if="user.isCompanyAdmin | user.isCompanyUser">{{ props.item.eta }} </td>
               <td class="text-xs-left">
                 <v-menu offset-x left bottom>
                   <v-btn
@@ -129,6 +125,7 @@
   export default {
     data () {
       return {
+        user: this.$store.getters.authUser,
         selected: [],
         items: ['Ordered', 'Completed', 'Confirmed', 'Manufactoring'],
         search: '',
