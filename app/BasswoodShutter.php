@@ -12,22 +12,16 @@ class BasswoodShutter extends Shutter
     public static function rules()
     {
         return parent::rules() + [
-            'shutter_type' => [
-                'required',
-            ],
-            'corner' => [
-                'required'
-            ],
-            'panel_layout' => [
-                'required',
-                'regex:/^[C|D|L|R|T|-]+$/'
-            ],
-            'in_or_out' => [
-                'required',
-                Rule::in('In', 'Out')
-            ],
+            'width' => 'required|integer|min:300',
+            'drop' => 'required|integer|min:300',
             'mid_rail' => [
-                'required'
+                'required',
+                Rule::in(
+                    'Centre',
+                    '1',
+                    '2',
+                    '3'
+                )
             ],
             'mid_rail_height' => [
 

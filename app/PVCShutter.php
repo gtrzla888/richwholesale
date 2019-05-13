@@ -13,22 +13,8 @@ class PVCShutter extends Shutter
     public static function rules()
     {
         return parent::rules() + [
-                'shutter_type' => [
-                    'required',
-                    Rule::in('Standard', 'Sliding', 'Bifold Track', 'U Channel')
-                ],
-                'corner' => [
-                    'required',
-                    Rule::in('No', 90, 135)
-                ],
-                'panel_layout' => [
-                    'required',
-                    'regex:/^[C|D|L|R|T|-]+$/'
-                ],
-                'in_or_out' => [
-                    'required',
-                    Rule::in('In', 'Out')
-                ],
+                'width' => 'required|integer|min:300',
+                'drop' => 'required|integer|min:300',
                 'mid_rail' => [
                     'required',
                     Rule::in('na', 'Centre', '1', '2')

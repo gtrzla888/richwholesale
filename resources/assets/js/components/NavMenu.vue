@@ -39,7 +39,7 @@
         name: this.$t('nav_menu_title'),
         items: [
           { title: 'Home', icon: 'dashboard', route: { name: 'home' }, permission: user.isWholesaleAdmin | user.isCompanyAdmin| user.isCompanyUser },
-          { title: 'Orders', icon: 'assignment', route:  {name: 'orders'}, permission: user.isWholesaleAdmin | user.isWholesaleUser | user.isCompanyUser },
+          { title: 'Orders', icon: 'assignment', route:  {name: 'orders'}, permission: user.isWholesaleAdmin | user.isWholesaleUser | user.isCompanyUser | user.isCompanyAdmin },
           { title: 'Quotes', icon: 'book', route:  {name: 'quotes'}, permission: user.isCompanyAdmin | user.isCompanyUser },
           { title: 'Customer Quotes', icon: 'bookmark', route:  {name: 'customer-quotes'}, permission: user.isCompanyAdmin | user.isCompanyUser },
           { title: 'Invoices', icon: 'description', route:  {name: 'invoices'}, permission: user.isCompanyAdmin | user.isWholesaleAdmin | user.isCompanyUser },

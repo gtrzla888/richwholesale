@@ -16,6 +16,8 @@ class RollerBlind extends Product
     public static function rules()
     {
         return parent::rules() + [
+            'width' => 'required|integer|max:3010',
+            'drop' => 'required|integer|max:3300',
             'type' => [
                 'required',
                  Rule::in(['Blockout', 'Screen', 'Light Filter'])

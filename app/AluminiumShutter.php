@@ -12,22 +12,8 @@ class AluminiumShutter extends Shutter
     public static function rules()
     {
         return parent::rules() + [
-                'shutter_type' => [
-                    'required',
-                    Rule::in('Standard', 'Sliding', 'Bifold Track', 'U Channel')
-                ],
-                'corner' => [
-                    'required',
-                    Rule::in('No', '90', '135')
-                ],
-                'panel_layout' => [
-                    'required',
-                    'regex:/^[C|D|L|R|T|-]+$/'
-                ],
-                'in_or_out' => [
-                    'required',
-                    Rule::in('In', 'Out')
-                ],
+                'width' => 'required|integer|min:250',
+                'drop' => 'required|integer|max:3050|min:250',
                 'mid_rail' => [
                     'required',
                     Rule::in('na', 'Centre', '1', '2')
@@ -47,10 +33,6 @@ class AluminiumShutter extends Shutter
                     'required',
                     Rule::in('White', 'Cream', 'Silver')
                 ],
-//                'stile_type' => [
-//                    'required',
-//                    Rule::in('50b')
-//                ],
                 'frame' => [
                     'required',
                     Rule::in('No Frame','L', 'U Channel', 'Bi Fold')
