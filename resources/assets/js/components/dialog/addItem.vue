@@ -190,7 +190,7 @@
             v-if="productType==='basswood_shutters' || productType==='pvc_shutters' || productType==='au_pvc_shutters' || productType === 'aluminium_shutters'"
             :items="corners"
             label="Corner"
-            v-model="defaultProduct.corner"
+            v-model="product.corner"
             :rules="[v => !!v || 'Corner is required']"
             required
           ></v-select>
@@ -229,7 +229,7 @@
             v-if="productType==='basswood_shutters' || productType==='pvc_shutters' || productType==='aluminium_shutters' || productType==='au_pvc_shutters'"
             :items="midRail"
             label="Mid Rail"
-            v-model="defaultProduct.mid_rail"
+            v-model="product.mid_rail"
             :rules="[v => !!v || 'Mid Rail is required']"
             required
           ></v-select>
@@ -330,10 +330,6 @@
                  v && v.length <= 10
                ) || 'Name must be less than 10 characters',
         ],
-        defaultProduct: {
-          corner: 'No',
-          mid_rail: 'NA'
-        }
       }
     ),
     methods: {
@@ -442,6 +438,10 @@
       },
       product: {
         get () {
+          this.selectedProduct.corner = 'No'
+          this.selectedProduct.mid_rail = 'NA'
+          this.selectedProduct.frame_options = 'NA'
+          this.selectedProduct.hinge_type = 'NA'
           return this.selectedProduct
         },
         set () {
@@ -518,6 +518,12 @@
             }
             break
           case 'pvc_shutters':
+            return [
+                'NA',
+                'Centre',
+                '1',
+              ]
+            break
           case 'au_pvc_shutters':
             if (this.product.drop <= 1999 && this.product.drop >= 1600) {
               return [
