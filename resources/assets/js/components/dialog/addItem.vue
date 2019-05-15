@@ -15,11 +15,6 @@
         </v-card-title>
         <v-card-text>
           <v-text-field
-            v-model="product.product_type"
-            v-show="false"
-          ></v-text-field>
-
-          <v-text-field
             v-model="product.name"
             :counter="10"
             :rules="nameRules"
@@ -65,8 +60,8 @@
 
           <v-select
             :items="colours"
-            label="Color"
-            :rules="[v => !!v || 'Color is required']"
+            label="Colour"
+            :rules="[v => !!v || 'Colour is required']"
             v-model="product.colour"
           ></v-select>
 
@@ -337,7 +332,6 @@
         if (!this.$refs.form.validate()) {
           return
         }
-        this.product.product_type = this.productType
         this.$emit('clicked', this.product)
         this.product = {}
         this.$store.dispatch('updateAddItemDialogStatus', { status: false })
