@@ -432,6 +432,7 @@
       },
       product: {
         get () {
+          console.log(this.productType);
           switch(this.productType) {
             case 'basswood_shutters':
             case 'pvc_shutters':
@@ -454,6 +455,13 @@
                 charger: 'NA',
                 wifi_hub: 'NA',
                 remote: 'NA'
+              }
+            default:
+              return {
+                corner: 'No',
+                mid_rail: 'NA',
+                frame_options: 'NA',
+                hinge_type: 'NA'
               }
           }
         },
