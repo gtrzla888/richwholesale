@@ -17,6 +17,7 @@ class BasswoodShutter extends Shutter
             'mid_rail' => [
                 'required',
                 Rule::in(
+                    'NA',
                     'Centre',
                     '1',
                     '2',
@@ -90,11 +91,11 @@ class BasswoodShutter extends Shutter
             ],
             'frame_options' => [
                 'required',
-                Rule::in('na','LRTB', 'LRT', 'LRB')
+                Rule::in('NA','LRTB', 'LRT', 'LRB')
             ],
             'hinge_type' => [
                 'required',
-                Rule::in('na', 'Non Mortised', 'Pivot', 'Hang strip')
+                Rule::in('NA', 'Non Mortised', 'Pivot', 'Hang strip')
             ],
             'hinge_colour' => [
                 'required',

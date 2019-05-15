@@ -438,11 +438,30 @@
       },
       product: {
         get () {
-          this.selectedProduct.corner = 'No'
-          this.selectedProduct.mid_rail = 'NA'
-          this.selectedProduct.frame_options = 'NA'
-          this.selectedProduct.hinge_type = 'NA'
-          return this.selectedProduct
+          switch(this.productType) {
+            case 'basswood_shutters':
+            case 'pvc_shutters':
+            case 'au_pvc_shutters':
+              return {
+                corner: 'No',
+                mid_rail: 'NA',
+                frame_options: 'NA',
+                hinge_type: 'NA'
+              }
+            case 'aluminium_shutters':
+              return {
+                corner: 'No',
+                mid_rail: 'NA',
+                frame: 'No Frame',
+              }
+            case 'roller_blinds': 
+              return {
+                motor_type: 'NA',
+                charger: 'NA',
+                wifi_hub: 'NA',
+                remote: 'NA'
+              }
+          }
         },
         set () {
         },
