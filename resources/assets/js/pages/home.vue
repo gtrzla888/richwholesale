@@ -89,7 +89,7 @@
           <!--          <v-toolbar-side-icon></v-toolbar-side-icon>-->
           <v-toolbar-title>Total price ${{order.total}}</v-toolbar-title>
           <v-spacer></v-spacer>
-          <v-toolbar-items class="hidden-sm-and-down">
+          <v-toolbar-items>
             <v-tooltip top>
               <template v-slot:activator="{ on }">
                 <v-btn fab small color="#748C5D" dark v-on="on" @click.prevent="openAddItemWindow">

@@ -4,7 +4,7 @@
 /public/storage
 /storage/*.key
 /vendor
-/.idea
+.idea
 /.vagrant
 Homestead.json
 Homestead.yaml
@@ -16,4 +16,4 @@ yarn-error.log
 /public/mix-manifest.json
 
 phpunit.dusk.xml
-.history/
+.history

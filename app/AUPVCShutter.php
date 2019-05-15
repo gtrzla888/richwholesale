@@ -15,7 +15,7 @@ class AUPVCShutter extends Shutter
                 'drop' => 'required|integer|max:2440|min:250',
                 'mid_rail' => [
                     'required',
-                    Rule::in('na', 'Centre', '1', '2')
+                    Rule::in('NA', 'Centre', '1', '2')
                 ],
                 'mid_rail_height' => [
 
@@ -46,15 +46,15 @@ class AUPVCShutter extends Shutter
                 ],
                 'frame_options' => [
                     'required',
-                    Rule::in('na','LRTB', 'LRT', 'LRB')
+                    Rule::in('NA','LRTB', 'LRT', 'LRB')
                 ],
                 'hinge_type' => [
                     'required',
-                    Rule::in('na', 'Non Mortised', 'Pivot')
+                    Rule::in('NA', 'Non Mortised', 'Pivot')
                 ],
                 'hinge_colour' => [
                     'required',
-                    Rule::in(  'White')
+                    Rule::in('White')
                 ]
             ];
     }

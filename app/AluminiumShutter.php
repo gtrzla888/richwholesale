@@ -16,7 +16,7 @@ class AluminiumShutter extends Shutter
                 'drop' => 'required|integer|max:3050|min:250',
                 'mid_rail' => [
                     'required',
-                    Rule::in('na', 'Centre', '1', '2')
+                    Rule::in('NA', 'Centre', '1', '2')
                 ],
                 'mid_rail_height' => [
 

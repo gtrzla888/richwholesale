@@ -64,6 +64,13 @@
           ></v-select>
 
           <v-select
+            :items="colours"
+            label="Color"
+            :rules="[v => !!v || 'Color is required']"
+            v-model="product.colour"
+          ></v-select>
+
+          <v-select
             v-if="productType==='roller_blinds'"
             :items="types"
             label="Type"
@@ -254,13 +261,6 @@
           ></v-select>
 
           <v-select
-            :items="colours"
-            label="Color"
-            :rules="[v => !!v || 'Color is required']"
-            v-model="product.colour"
-          ></v-select>
-
-          <v-select
             v-if="productType==='basswood_shutters' || productType==='pvc_shutters' || productType==='au_pvc_shutters'"
             :items="stileType"
             label="Stile Type"
@@ -438,10 +438,32 @@
       },
       product: {
         get () {
-          return this.selectedProduct
+          switch(this.productType) {
+            case 'basswood_shutters':
+            case 'pvc_shutters':
+            case 'au_pvc_shutters':
+              return {
+                corner: 'No',
+                mid_rail: 'NA',
+                frame_options: 'NA',
+                hinge_type: 'NA'
+              }
+            case 'aluminium_shutters':
+              return {
+                corner: 'No',
+                mid_rail: 'NA',
+                frame: 'No Frame',
+              }
+            case 'roller_blinds': 
+              return {
+                motor_type: 'NA',
+                charger: 'NA',
+                wifi_hub: 'NA',
+                remote: 'NA'
+              }
+          }
         },
         set () {
-
         },
       },
       shutterType () {
@@ -500,6 +522,7 @@
           case 'aluminium_shutters':
             if (this.product.drop <= 2299 && this.product.drop >= 1800) {
               return [
+                'NA',
                 'Centre',
                 '1',
               ]
@@ -514,9 +537,16 @@
             }
             break
           case 'pvc_shutters':
+            return [
+                'NA',
+                'Centre',
+                '1',
+              ]
+            break
           case 'au_pvc_shutters':
             if (this.product.drop <= 1999 && this.product.drop >= 1600) {
               return [
+                'NA',
                 'Centre',
                 '1',
               ]
@@ -528,6 +558,7 @@
             break
           case 'basswood_shutters':
             return [
+              'NA',
               'Centre',
               '1',
               '2',
@@ -571,7 +602,7 @@
       },
       frameOptions () {
         return [
-          'na',
+          'NA',
           'LRTB',
           'LRT',
           'LRB',
@@ -905,7 +936,7 @@
         switch (this.productType) {
           case 'basswood_shutters':
             return [
-              'na',
+              'NA',
               'Non Mortised',
               'Pivot',
               'Hang strip',
@@ -913,7 +944,7 @@
           case 'au_pvc_shutters':
           case 'pvc_shutters':
             return [
-              'na',
+              'NA',
               'Non Mortised',
               'Pivot',
             ]
@@ -970,7 +1001,7 @@
       },
       motorTypes () {
         return [
-          'na',
+          'NA',
           'Acmeda 240v',
           'Acmeda Li Ion 1.1nm',
           'Acmeda Li Ion 3.0nm',
@@ -978,19 +1009,19 @@
       },
       chargers () {
         return [
-          'na',
+          'NA',
           'Yes',
         ]
       },
       wiFiHubs () {
         return [
-          'na',
+          'NA',
           'Acmeda Pulse',
         ]
       },
       remotes () {
         return [
-          'na',
+          'NA',
           '1 Channel',
           '15 Channel',
         ]

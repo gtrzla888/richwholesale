@@ -29,37 +29,80 @@ class RollerBlind extends Product
                 'required'
             ],
             'control_type' => [
-                'required'
+                'required',
+                Rule::in(
+                    'Chain', 'Motor'
+                )
             ],
             'control_side' => [
-                'required'
+                'required',
+                Rule::in(
+                    'Left', 'Right'
+                )
             ],
             'chain_length' => [
-                'required'
+                'required',
             ],
             'component_colour' => [
-                'required'
+                'required',
+                Rule::in(
+                    'White',
+                    'Black'
+                )
             ],
             'base_rail' => [
-                'required'
+                'required',
+                Rule::in(
+                    'Silver',
+                    'Black'
+                )
             ],
             'roll_direction' => [
-                'required'
+                'required',
+                Rule::in(
+                    'Standard',
+                    'Reverse'
+                )
             ],
             'motor_type' => [
-                'required'
+                'required',
+                Rule::in(
+                    'NA',
+                    'Acmeda 240v',
+                    'Acmeda Li Ion 1.1nm',
+                    'Acmeda Li Ion 3.0nm'
+                )
             ],
             'charger' => [
-                'required'
+                'required',
+                Rule::in(
+                    'NA',
+                    'Yes'
+                )
             ],
             'wifi_hub' => [
-                'required'
+                'required',
+                Rule::in(
+                    'NA',
+                    'Acmeda Pulse'
+                )
             ],
             'remote' => [
-                'required'
+                'required',
+                Rule::in(
+                    'NA',
+                    '1 Channel',
+                    '15 Channel'
+                )
             ],
             'bracket_options' => [
-                'required'
+                'required',
+                Rule::in(
+                    'Single',
+                    'Slim Combo Top Front',
+                    'Slim Combo Top Back',
+                    'Double Bracket'
+                )
             ],
             'notes' => [
 
