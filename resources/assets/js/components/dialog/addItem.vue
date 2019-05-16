@@ -471,7 +471,7 @@
           return this.initialiseProduct();
         },
         set (product) {
-          this.product = product
+          this.product = { ...product }
         },
       },
       shutterType () {
