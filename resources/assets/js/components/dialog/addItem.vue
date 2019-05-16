@@ -470,7 +470,8 @@
           console.log(this.productType);
           return this.initialiseProduct();
         },
-        set () {
+        set (product) {
+          this.product = product
         },
       },
       shutterType () {
