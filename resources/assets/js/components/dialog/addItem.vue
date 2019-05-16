@@ -335,12 +335,12 @@
         this.$emit('clicked', this.product)
         this.$store.dispatch('updateAddItemDialogStatus', { status: false })
         this.$refs.form.resetValidation()
-        this.product()
+        this.product = this.initialiseProduct()
       },
       onCancel () {
         this.$store.dispatch('updateAddItemDialogStatus', { status: false })
         this.$refs.form.reset()
-        this.product()
+        this.product = this.initialiseProduct()
       },
       calculateSqm () {
         this.product.sqm = 0
@@ -355,6 +355,39 @@
           ).length
         }
       },
+      initialiseProduct() {
+        switch(this.productType) {
+            case 'basswood_shutters':
+            case 'pvc_shutters':
+            case 'au_pvc_shutters':
+              return {
+                corner: 'No',
+                mid_rail: 'NA',
+                frame_options: 'NA',
+                hinge_type: 'NA'
+              }
+            case 'aluminium_shutters':
+              return {
+                corner: 'No',
+                mid_rail: 'NA',
+                frame: 'No Frame',
+              }
+            case 'roller_blinds': 
+              return {
+                motor_type: 'NA',
+                charger: 'NA',
+                wifi_hub: 'NA',
+                remote: 'NA'
+              }
+            default:
+              return {
+                corner: 'No',
+                mid_rail: 'NA',
+                frame_options: 'NA',
+                hinge_type: 'NA'
+              }
+          }
+      }
     },
     computed: {
       ...mapGetters(['isAddDialogOpen']),
@@ -434,37 +467,7 @@
       product: {
         get () {
           console.log(this.productType);
-          switch(this.productType) {
-            case 'basswood_shutters':
-            case 'pvc_shutters':
-            case 'au_pvc_shutters':
-              return {
-                corner: 'No',
-                mid_rail: 'NA',
-                frame_options: 'NA',
-                hinge_type: 'NA'
-              }
-            case 'aluminium_shutters':
-              return {
-                corner: 'No',
-                mid_rail: 'NA',
-                frame: 'No Frame',
-              }
-            case 'roller_blinds': 
-              return {
-                motor_type: 'NA',
-                charger: 'NA',
-                wifi_hub: 'NA',
-                remote: 'NA'
-              }
-            default:
-              return {
-                corner: 'No',
-                mid_rail: 'NA',
-                frame_options: 'NA',
-                hinge_type: 'NA'
-              }
-          }
+          return this.initialiseProduct();
         },
         set () {
         },
