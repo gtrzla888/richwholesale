@@ -2,7 +2,6 @@
   <v-dialog
     v-model="isAddDialogOpen"
     persistent
-    scrollable
     width="50vw"
   >
     <v-form
@@ -320,7 +319,6 @@
     data: () => (
       {
         valid: false,
-        renderComponent: true,
       }
     ),
     methods: {
@@ -331,12 +329,10 @@
         this.$emit('clicked', this.product)
         this.$store.dispatch('updateAddItemDialogStatus', { status: false })
         this.$refs.form.resetValidation()
-        this.forceRerender()
       },
       onCancel () {
         this.$store.dispatch('updateAddItemDialogStatus', { status: false })
         this.$refs.form.reset()
-        this.forceRerender()
         console.log(this.product)
       },
       calculateSqm () {
@@ -351,15 +347,6 @@
             this.product.panel_layout.match(/(L|l|R|r)/g) || []
           ).length
         }
-      },
-      forceRerender() {
-        // Remove my-component from the DOM
-        this.renderComponent = false;
-        
-        this.$nextTick(() => {
-          // Add the component back in
-          this.renderComponent = true;
-        });
       },
       initialiseProduct() {
         switch(this.productType) {
