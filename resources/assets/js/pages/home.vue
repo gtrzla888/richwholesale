@@ -189,8 +189,6 @@
     methods: {
       openAddItemWindow () {
         this.$store.dispatch('updateAddItemDialogStatus', { status: true })
-        this.selectedProduct = {}
-        this.selectedProductIndex = null
       },
       getProducts (index) {
         this.selectedTabKey = this.products[index].key
@@ -216,7 +214,6 @@
           this.$store.dispatch('calculateSQM', payload)
         }
         this.$store.dispatch('updateOrderProduct', payload)
-        // this.$store.dispatch('updateAddItemDialogStatus', {status: true});
       },
       onRemove (index) {
         this.$store.dispatch('removeOrderProduct', { selectedTabKey: this.selectedTabKey, index: index })

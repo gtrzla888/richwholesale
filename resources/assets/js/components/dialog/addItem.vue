@@ -334,7 +334,6 @@
         this.$emit('cancel', this.product)
         this.$store.dispatch('updateAddItemDialogStatus', { status: false })
         this.$refs.form.reset()
-        console.log(this.product)
       },
       calculateSqm () {
         this.product.sqm = 0
@@ -468,11 +467,9 @@
       },
       product: {
         get () {
-          console.log(this.productType);
           return this.initialiseProduct();
         },
         set (product) {
-          //this.product = { ...product }
         },
       },
       shutterType () {
@@ -641,6 +638,7 @@
       },
       fabrics () {
         let options = []
+        console.log(this.product)
         switch (this.product.type) {
           case 'Blockout':
             options = [
