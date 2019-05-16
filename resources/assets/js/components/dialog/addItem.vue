@@ -333,13 +333,14 @@
           return
         }
         this.$emit('clicked', this.product)
-        this.product = {}
         this.$store.dispatch('updateAddItemDialogStatus', { status: false })
         this.$refs.form.resetValidation()
+        this.product()
       },
       onCancel () {
         this.$store.dispatch('updateAddItemDialogStatus', { status: false })
         this.$refs.form.reset()
+        this.product()
       },
       calculateSqm () {
         this.product.sqm = 0
