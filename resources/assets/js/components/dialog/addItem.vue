@@ -326,11 +326,12 @@
         if (!this.$refs.form.validate()) {
           return
         }
-        this.$emit('clicked', this.product)
+        this.$emit('submit', this.product)
         this.$store.dispatch('updateAddItemDialogStatus', { status: false })
         this.$refs.form.resetValidation()
       },
       onCancel () {
+        this.$emit('cancel', this.product)
         this.$store.dispatch('updateAddItemDialogStatus', { status: false })
         this.$refs.form.reset()
         console.log(this.product)
@@ -1045,7 +1046,6 @@
     },
     props: {
       productType: String,
-      selectedProduct: Object,
     },
   }
 </script>

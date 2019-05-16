@@ -152,8 +152,8 @@
           </v-tab-item>
         </v-tabs>
       </v-flex>
-      <app-add-item @clicked="onProductSubmit" :productType="selectedTabKey"
-                    :selectedProduct.sync="selectedProduct"></app-add-item>
+      <app-add-item @submit="onSubmit" :productType="selectedTabKey" :key="componentKey" @cancel="onCancel"
+                    ></app-add-item>
       <app-copy-item :productType="selectedTabKey" :selectedProduct.sync="selectedProduct"></app-copy-item>
     </v-layout>
   </v-form>
@@ -183,6 +183,7 @@
         selectedProduct: {},
         selectedProductIndex: null,
         busy: true,
+        componentKey: 0,
       }
     ),
     methods: {
@@ -194,10 +195,13 @@
       getProducts (index) {
         this.selectedTabKey = this.products[index].key
       },
-      onProductSubmit (product) {
+      onSubmit (product) {
         this.$store.dispatch('saveOrderProduct', { product, selectedTabKey: this.selectedTabKey })
-        this.selectedProduct = {}
         this.$store.dispatch('getTotalPrice', this.order)
+        this.componentKey += 1
+      },
+      onCancel (product) {
+        this.componentKey += 1
       },
       onEdit (fieldObj) {
         this.selectedProductIndex = fieldObj.index
