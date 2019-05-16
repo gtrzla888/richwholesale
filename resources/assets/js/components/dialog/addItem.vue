@@ -59,13 +59,6 @@
           ></v-select>
 
           <v-select
-            :items="colours"
-            label="Colour"
-            :rules="[v => !!v || 'Colour is required']"
-            v-model="product.colour"
-          ></v-select>
-
-          <v-select
             v-if="productType==='roller_blinds'"
             :items="types"
             label="Type"
@@ -81,6 +74,13 @@
             v-model="product.fabric"
             :rules="[v => !!v || 'Fabric is required']"
             required
+          ></v-select>
+
+          <v-select
+            :items="colours"
+            label="Colour"
+            :rules="[v => !!v || 'Colour is required']"
+            v-model="product.colour"
           ></v-select>
 
           <v-select
@@ -339,8 +339,9 @@
       },
       onCancel () {
         this.$store.dispatch('updateAddItemDialogStatus', { status: false })
-        this.$refs.form.reset()
+        this.$refs.form.resetValidation()
         this.product = this.initialiseProduct()
+        console.log(this.product)
       },
       calculateSqm () {
         this.product.sqm = 0
