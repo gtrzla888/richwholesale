@@ -339,7 +339,7 @@
       },
       onCancel () {
         this.$store.dispatch('updateAddItemDialogStatus', { status: false })
-        this.$refs.form.resetValidation()
+        this.$refs.form.reset()
         this.product = this.initialiseProduct()
         console.log(this.product)
       },
