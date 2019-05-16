@@ -340,6 +340,8 @@
       onCancel () {
         this.$store.dispatch('updateAddItemDialogStatus', { status: false })
         this.$refs.form.reset()
+        console.log(this.product)
+        console.log(this.initialiseProduct())
         this.product = this.initialiseProduct()
         console.log(this.product)
       },
