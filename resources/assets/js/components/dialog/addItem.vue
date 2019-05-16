@@ -335,14 +335,15 @@
         this.$emit('clicked', this.product)
         this.$store.dispatch('updateAddItemDialogStatus', { status: false })
         this.$refs.form.resetValidation()
-        this.product = this.initialiseProduct()
+        this.product = this.initialiseProduct(this.product)
       },
       onCancel () {
         this.$store.dispatch('updateAddItemDialogStatus', { status: false })
         this.$refs.form.reset()
+        this.product.corner = 'No'
         console.log(this.product)
-        console.log(this.initialiseProduct())
-        this.product = this.initialiseProduct()
+        console.log(this.initialiseProduct(this.product))
+        this.product = this.initialiseProduct(this.product)
         console.log(this.product)
       },
       calculateSqm () {
@@ -358,12 +359,15 @@
           ).length
         }
       },
-      initialiseProduct() {
+      initialiseProduct(product) {
+        product = product || {}
+
         switch(this.productType) {
             case 'basswood_shutters':
             case 'pvc_shutters':
             case 'au_pvc_shutters':
-              return {
+              return { 
+                ...product,
                 corner: 'No',
                 mid_rail: 'NA',
                 frame_options: 'NA',
@@ -371,12 +375,14 @@
               }
             case 'aluminium_shutters':
               return {
+                 ...product,
                 corner: 'No',
                 mid_rail: 'NA',
                 frame: 'No Frame',
               }
             case 'roller_blinds': 
               return {
+                 ...product,
                 motor_type: 'NA',
                 charger: 'NA',
                 wifi_hub: 'NA',
@@ -384,6 +390,7 @@
               }
             default:
               return {
+                ...product,
                 corner: 'No',
                 mid_rail: 'NA',
                 frame_options: 'NA',
