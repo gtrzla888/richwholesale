@@ -23,7 +23,7 @@
               switch (this.productType) {
                 case 'basswood_shutters':
                   return [
-                    'na',
+                    'NA',
                     'Non Mortised',
                     'Pivot',
                     'Hang strip'
@@ -31,7 +31,7 @@
                 case 'au_pvc_shutters':
                 case 'pvc_shutters':
                   return [
-                    'na',
+                    'NA',
                     'Non Mortised',
                     'Pivot',
                   ]

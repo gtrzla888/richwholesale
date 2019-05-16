@@ -17,7 +17,7 @@
     props: {
       value: String,
       index: Number,
-      prodcutType: String,
+      productType: String,
     },
     computed: {
       midRail () {
@@ -26,6 +26,7 @@
           case 'aluminium_shutters':
             if (product.drop <= 2299 && product.drop >= 1800) {
               return [
+                'NA',
                 'Centre',
                 '1',
               ]
@@ -43,6 +44,7 @@
           case 'au_pvc_shutters':
             if (product.drop <= 1999 && product.drop >= 1600) {
               return [
+                'NA',
                 'Centre',
                 '1',
               ]
@@ -54,6 +56,7 @@
             break
           case 'basswood_shutters':
             return [
+              'NA',
               'Centre',
               '1',
               '2',

@@ -20,7 +20,7 @@
         computed: {
             motorTypes() {
                 return [
-                'na',
+                'NA',
                 'Acmeda 240v',
                 'Acmeda Li Ion 1.1nm',
                 'Acmeda Li Ion 3.0nm'

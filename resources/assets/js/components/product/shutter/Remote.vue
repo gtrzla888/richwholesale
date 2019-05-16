@@ -20,7 +20,7 @@
         computed: {
             remotes() {
                 return [
-                    'na',
+                    'NA',
                     '1 Channel',
                     '15 Channel',
                 ]

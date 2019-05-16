@@ -20,7 +20,7 @@
         computed: {
             chargers() {
                 return [
-                'na',
+                'NA',
                 'Yes',
                 ]
             },

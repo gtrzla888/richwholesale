@@ -20,7 +20,7 @@
         computed: {
             frameOptions() {
                 return [
-                'na',
+                'NA',
                 'LRTB',
                 'LRT',
                 'LRB'

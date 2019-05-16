@@ -20,7 +20,7 @@
         computed: {
             wifiHubs() {
                 return [
-                    'na',
+                    'NA',
                     'Acmeda Pulse',
                 ]
             },

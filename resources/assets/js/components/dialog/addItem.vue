@@ -543,6 +543,12 @@
               return [
                 '3',
               ]
+            } else {
+               return [
+                'NA',
+                'Centre',
+                '1',
+              ]
             }
             break
           case 'pvc_shutters':
