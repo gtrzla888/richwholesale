@@ -232,7 +232,7 @@
           <v-text-field
             v-if="productType==='basswood_shutters' || productType==='pvc_shutters' || productType==='aluminium_shutters' || productType==='au_pvc_shutters'"
             v-model="product.mid_rail_height"
-            label="Mid Rail Height"
+            label="Mid Rail Height (0 for No Mid Rail)"
             :rules="midRailHeightRules"
             type="number"
             min="0"

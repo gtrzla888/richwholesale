@@ -2,7 +2,7 @@
     <v-text-field
             :value="value"
             v-model="mdh"
-            label="Mid Rail Height"
+            label="Mid Rail Height (0 for No Mid Rail)"
             :rules="[v => !!v || 'Mid rail Height is required']"
             type="text"
     ></v-text-field>
