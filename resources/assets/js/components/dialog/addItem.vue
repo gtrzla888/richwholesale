@@ -7,7 +7,7 @@
     <v-form
       ref="form"
       v-model="valid"
-      :lazy-validation="true"
+      lazy-validation
     >
       <v-card>
         <v-card-title>
@@ -319,6 +319,7 @@
     data: () => (
       {
         valid: false,
+        product: {},
       }
     ),
     methods: {
@@ -347,39 +348,6 @@
             this.product.panel_layout.match(/(L|l|R|r)/g) || []
           ).length
         }
-      },
-      initialiseProduct() {
-        switch(this.productType) {
-            case 'basswood_shutters':
-            case 'pvc_shutters':
-            case 'au_pvc_shutters':
-              return {
-                corner: 'No',
-                mid_rail: 'NA',
-                frame_options: 'NA',
-                hinge_type: 'NA'
-              }
-            case 'aluminium_shutters':
-              return {
-                corner: 'No',
-                mid_rail: 'NA',
-                frame: 'No Frame',
-              }
-            case 'roller_blinds': 
-              return {
-                motor_type: 'NA',
-                charger: 'NA',
-                wifi_hub: 'NA',
-                remote: 'NA'
-              }
-            default:
-              return {
-                corner: 'No',
-                mid_rail: 'NA',
-                frame_options: 'NA',
-                hinge_type: 'NA'
-              }
-          }
       }
     },
     computed: {
@@ -464,13 +432,6 @@
             v => !!v || 'Mid Rail Height is required',
           ]
         }
-      },
-      product: {
-        get () {
-          return this.initialiseProduct();
-        },
-        set (product) {
-        },
       },
       shutterType () {
         return [
@@ -638,7 +599,7 @@
       },
       fabrics () {
         let options = []
-        console.log(this.product)
+        console.log('frabic', this.product.type)
         switch (this.product.type) {
           case 'Blockout':
             options = [
@@ -1047,6 +1008,36 @@
           'Double Bracket',
         ]
       },
+    },
+    beforeUpdate() {
+      switch(this.productType) {
+            case 'basswood_shutters':
+            case 'pvc_shutters':
+            case 'au_pvc_shutters':
+              this.product.corner = 'No',
+              this.product.mid_rail = 'NA',
+              this.product.frame = 'No Frame'
+              this.product.frame_options = 'NA',
+              this.product.hinge_type = 'NA'
+              break
+            case 'aluminium_shutters':
+              this.product.corner = 'No',
+              this.product.mid_rail = 'NA',
+              this.product.frame = 'No Frame'
+              break
+            case 'roller_blinds': 
+              this.product.motor_type = 'NA'
+              this.product.charger=  'NA',
+              this.product.wifi_hub= 'NA',
+              this.product.remote=  'NA'
+              break
+            default:
+              this.product.corner = 'No',
+              this.product.mid_rail = 'NA',
+              this.product.frame = 'No Frame'
+              this.product.frame_options = 'NA',
+              this.product.hinge_type = 'NA'
+          }
     },
     props: {
       productType: String,
