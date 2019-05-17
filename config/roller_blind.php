@@ -4935,21 +4935,21 @@ return  [
     ],
     'addon' => [
         'motor_type' => [
-            'na' => 0,
+            'NA' => 0,
             'Acmeda 240v' => 115,
             'Acmeda Li Ion 1.1nm' => 150,
             'Acmeda Li Ion 3.0nm' => 210,
         ],
         'charger' => [
-            'na' => 0,
+            'NA' => 0,
             'Yes' => 20
         ],
         'wifi_hub' => [
-            'na' => 0,
+            'NA' => 0,
             'Acmeda Pulse' => 180,
         ],
         'remote' => [
-            'na' => 0,
+            'NA' => 0,
             '1 Channel' => 35,
             '15 Channel' => 50
         ],
