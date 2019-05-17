@@ -65,8 +65,7 @@
         ],
         "compile": [
             "php artisan clear-compiled && php artisan optimize",
-            "php artisan migrate",
-            "npm run prod"
+            "php artisan migrate"
         ]
     },
     "config": {
