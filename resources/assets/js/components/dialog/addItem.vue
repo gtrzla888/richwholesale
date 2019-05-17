@@ -56,6 +56,7 @@
             v-model="product.shutter_type"
             :rules="[v => !!v || 'Shutter Type is required']"
             required
+            validate-on-blur
           ></v-select>
 
           <v-select
@@ -65,6 +66,7 @@
             v-model="product.type"
             :rules="[v => !!v || 'Type is required']"
             required
+            validate-on-blur
           ></v-select>
 
           <v-select
@@ -74,6 +76,7 @@
             v-model="product.fabric"
             :rules="[v => !!v || 'Fabric is required']"
             required
+            validate-on-blur
           ></v-select>
 
           <v-select
@@ -81,6 +84,7 @@
             label="Colour"
             :rules="[v => !!v || 'Colour is required']"
             v-model="product.colour"
+            validate-on-blur
           ></v-select>
 
           <v-select
@@ -90,6 +94,7 @@
             v-model="product.control_type"
             :rules="[v => !!v || 'Control type is required']"
             required
+            validate-on-blur
           ></v-select>
 
           <v-select
@@ -99,6 +104,7 @@
             v-model="product.control_side"
             :rules="[v => !!v || 'Control side is required']"
             required
+            validate-on-blur
           ></v-select>
 
           <v-text-field
@@ -107,6 +113,7 @@
             label="Chain Length"
             :rules="[v => !!v || 'Chain Length is required']"
             required
+            validate-on-blur
           ></v-text-field>
 
           <v-select
@@ -116,6 +123,7 @@
             v-model="product.component_colour"
             :rules="[v => !!v || 'Component Color is required']"
             required
+            validate-on-blur
           ></v-select>
 
           <v-select
@@ -125,6 +133,7 @@
             v-model="product.base_rail"
             :rules="[v => !!v || 'Base Rail is required']"
             required
+            validate-on-blur
           ></v-select>
 
           <v-select
@@ -134,6 +143,7 @@
             v-model="product.roll_direction"
             :rules="[v => !!v || 'Roll Directions is required']"
             required
+            validate-on-blur
           ></v-select>
 
           <v-select
@@ -143,6 +153,7 @@
             v-model="product.motor_type"
             :rules="[v => !!v || 'Motor Type is required']"
             required
+            validate-on-blur
           ></v-select>
 
           <v-select
@@ -152,6 +163,7 @@
             v-model="product.charger"
             :rules="[v => !!v || 'Charger is required']"
             required
+            validate-on-blur
           ></v-select>
 
           <v-select
@@ -161,6 +173,7 @@
             v-model="product.wifi_hub"
             :rules="[v => !!v || 'WiFi Hub is required']"
             required
+            validate-on-blur
           ></v-select>
 
           <v-select
@@ -170,6 +183,7 @@
             v-model="product.remote"
             :rules="[v => !!v || 'Remote is required']"
             required
+            validate-on-blur
           ></v-select>
 
           <v-select
@@ -179,6 +193,7 @@
             v-model="product.bracket_options"
             :rules="[v => !!v || 'Bracket Options is required']"
             required
+            validate-on-blur
           ></v-select>
 
           <v-select
@@ -188,6 +203,7 @@
             v-model="product.corner"
             :rules="[v => !!v || 'Corner is required']"
             required
+            validate-on-blur
           ></v-select>
 
           <v-text-field
@@ -227,6 +243,7 @@
             v-model="product.mid_rail"
             :rules="[v => !!v || 'Mid Rail is required']"
             required
+            validate-on-blur
           ></v-select>
 
           <v-text-field
@@ -245,6 +262,7 @@
             label="Blade Size"
             :rules="[v => !!v || 'Blade Size is required']"
             v-model="product.blade_size"
+            validate-on-blur
           ></v-select>
 
           <v-select
@@ -253,6 +271,7 @@
             label="Tilt Rod"
             :rules="[v => !!v || 'Tilt Rod is required']"
             v-model="product.tilt_rod"
+            validate-on-blur
           ></v-select>
 
           <v-select
@@ -261,6 +280,7 @@
             label="Stile Type"
             :rules="[v => !!v || 'Stile Type is required']"
             v-model="product.stile_type"
+            validate-on-blur
           ></v-select>
 
           <v-select
@@ -269,6 +289,7 @@
             label="Frame"
             :rules="[v => !!v || 'Frame is required']"
             v-model="product.frame"
+            validate-on-blur
           ></v-select>
 
           <v-select
@@ -277,6 +298,7 @@
             label="Frame Options"
             :rules="[v => !!v || 'Frame Options is required']"
             v-model="product.frame_options"
+            validate-on-blur
           ></v-select>
 
           <v-select
@@ -285,6 +307,7 @@
             label="Hinge Type"
             :rules="[v => !!v || 'Hinge Type is required']"
             v-model="product.hinge_type"
+            validate-on-blur
           ></v-select>
 
           <v-select
@@ -293,6 +316,7 @@
             label="Hinge Colour"
             :rules="[v => !!v || 'Hinge Colour is required']"
             v-model="product.hinge_colour"
+            validate-on-blur
           ></v-select>
 
           <v-text-field
