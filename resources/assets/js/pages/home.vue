@@ -12,6 +12,7 @@
           v-model="company_id"
           :rules="[ v => !!v || 'Company is required']"
           required
+          validate-on-blur
         ></v-select>
       </v-flex>
       <v-spacer></v-spacer>
@@ -53,6 +54,7 @@
           label="PO Number or Reference"
           class="mx-3"
           required
+          validate-on-blur
         ></v-text-field>
       </v-flex>
       <v-spacer></v-spacer>
@@ -64,6 +66,7 @@
           :rules="[ v => !!v || 'Customer name is required']"
           label="Customer Name"
           prepend-inner-icon="people"
+          validate-on-blur
           required
         ></v-text-field>
       </v-flex>
