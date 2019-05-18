@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class UpdateCustomerQuote extends FormRequest
+class StoreCustomerQuote extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,9 +26,11 @@ class UpdateCustomerQuote extends FormRequest
     {
         return [
             'markup_type' => [
+                'required',
                 Rule::in('Fixed Markup', 'Percentage Markup')
             ],
             'markup_value' => [
+                'required',
                 'numeric'
             ]
         ];

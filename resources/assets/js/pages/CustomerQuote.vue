@@ -57,33 +57,34 @@
               <td class="text-xs-left">{{ props.item.status }}</td>
               <td class="text-xs-left">
                   <v-edit-dialog
-                  :return-value.sync="props.item.fixed_markup"
+                  :return-value.sync="props.item.markup_type"
                   large
                   lazy
-                  @save="updateFixedMarkup(props.item)"
+                  @save="updateMarkupType(props.item)"
                 >
-                  {{ props.item.fixed_markup }}
-                  <v-text-field
+                  {{ props.item.markup_type }}
+                  <v-select
                     slot="input"
-                    v-model="props.item.fixed_markup"
-                    label="Fixed Markup"
+                    v-model="props.item.markup_type"
+                    label="Markup Type"
+                    :items="items"
                     single-line
                     autofocus
-                  ></v-text-field>
+                  ></v-select>
                 </v-edit-dialog>
             </td>
               <td class="text-xs-left">
                 <v-edit-dialog
-                  :return-value.sync="props.item.percentage_markup"
+                  :return-value.sync="props.item.markup_value"
                   large
                   lazy
-                  @save="updatePercentageMarkup(props.item)"
+                  @save="updateMarkupValue(props.item)"
                 >
-               {{ props.item.percentage_markup }}
+               {{ props.item.markup_value }}
                   <v-text-field
                     slot="input"
-                    v-model="props.item.percentage_markup"
-                    label="Percentage Markup"
+                    v-model="props.item.markup_value"
+                    label="Markup Value"
                     single-line
                     autofocus
                   ></v-text-field>
@@ -123,8 +124,7 @@
       return {
         dialog: false,
         search: '',
-        fixedMarkup: '',
-        percentageMarkup: '',
+        items: ['Fixed Markup', 'Percentage Markup'],
         headers: [
           {
             text: 'Customer Quote #',
@@ -137,10 +137,10 @@
           { text: 'PO / Reference', value: 'po_reference' },
           { text: 'Last modifired', value: 'updated_at' },
           { text: 'Status', value: 'status' },
-          { text: 'Fixed Markup', value: 'fixed_markup'},
-          { text: 'Percentage Markup', value: 'percentage_markup'},
+          { text: 'Markup Type', value: 'markup_type'},
+          { text: 'Markup Value', value: 'markup_value'},
           { text: 'Order Date', value: 'created_at' },
-          { text: 'Actions', value: 'actions' },
+          { text: 'Actions', value: 'actions', sortable: false,},
         ],
         quotes: [],
         companies: [],
@@ -169,9 +169,9 @@
         this.companies = data
       },
 
-      async updateFixedMarkup (customerQuote) {
+      async updateMarkupType (customerQuote) {
         try {
-          const { data } = await axios.put('/api/customer-quotes/' + customerQuote.id, { fixed_markup: customerQuote.fixed_markup })
+          const { data } = await axios.put('/api/customer-quotes/' + customerQuote.id, { markup_type: customerQuote.markup_type })
           this.$store.dispatch('responseMessage', {
             type: 'success',
             text: this.$t('Customer Quote updated')
@@ -179,9 +179,9 @@
         } catch(e) {
         }
       },
-      async updatePercentageMarkup (customerQuote) {
+      async updateMarkupValue (customerQuote) {
         try {
-            const { data } = await axios.put('/api/customer-quotes/' + customerQuote.id, { percentage_markup: customerQuote.percentage_markup })
+            const { data } = await axios.put('/api/customer-quotes/' + customerQuote.id, { markup_value: customerQuote.markup_value })
             this.$store.dispatch('responseMessage', {
             type: 'success',
             text: this.$t('Customer Quote updated')

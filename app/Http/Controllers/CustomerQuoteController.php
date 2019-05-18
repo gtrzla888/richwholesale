@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UpdateCustomerQuote;
 use App\User;
 use App\Order;
 use App\Quote;
 use App\CustomerQuote;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreCustomerQuote;
+use App\Http\Requests\UpdateCustomerQuote;
 
 class CustomerQuoteController extends Controller
 {
@@ -30,25 +31,24 @@ class CustomerQuoteController extends Controller
         return $query->get('customer_quotes.*');
     }
 
-    public function store(Quote $quote, Request $request)
+    public function store(Quote $quote, StoreCustomerQuote $request)
     {
         $customerQuote = new CustomerQuote();
         $customerQuote->quote_id = $quote->id;
-        $customerQuote->fixed_markup = $request->get('fixed_markup');
-        $customerQuote->percentage_markup = $request->get('percentage_markup');
+        $customerQuote->markup_type = $request->get('markup_type');
+        $customerQuote->markup_value = $request->get('markup_value');
         $customerQuote->save();
-
     }
 
     public function update(CustomerQuote $customerQuote, UpdateCustomerQuote $request)
     {
         $validated = $request->validated();
-        if (isset($validated['fixed_markup'])) {
-            $customerQuote->fixed_markup = $validated['fixed_markup'];
+        if (isset($validated['markup_type'])) {
+            $customerQuote->markup_type = $validated['markup_type'];
         }
 
-        if (isset($validated['percentage_markup'])) {
-            $customerQuote->percentage_markup = $validated['percentage_markup'];
+        if (isset($validated['markup_value'])) {
+            $customerQuote->markup_value = $validated['markup_value'];
         }
 
         $customerQuote->save();

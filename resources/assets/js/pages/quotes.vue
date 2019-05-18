@@ -96,6 +96,7 @@
     </v-flex>
 
     <v-dialog v-model="dialog" persistent max-width="600px">
+      <v-form @submit.prevent="onCreateCustomerQuote" ref="form">
       <v-card>
         <v-card-title>
           <span class="headline">Create customer quote</span>
@@ -103,21 +104,32 @@
         <v-card-text>
           <v-container grid-list-md>
             <v-layout wrap>
-              <v-flex xs12 sm6 md6>
-                <v-text-field label="Fixed markup*" required v-model="fixedMarkup"></v-text-field>
+              <v-flex xs12 sm12 md12>
+                <v-radio-group v-model="markupType" :rules="[v => !!v || 'Markup Type is required']">
+                  <v-radio label="Fixed Markup" value="Fixed Markup"></v-radio>
+                  <v-radio label="Percentage Markup" value="Percentage Markup"></v-radio>
+                </v-radio-group>
+                <v-text-field 
+                label="Markup Value" 
+                required 
+                v-model="markupValue"
+                type="number"
+                min="0"
+                :rules="[v => !!v || 'Markup is required']"
+                >
+                </v-text-field>
               </v-flex>
-              <v-flex xs12 sm6 md6>
-                <v-text-field label="Percentage markup" required v-model="percentageMarkup"></v-text-field>
-              </v-flex>
+            
             </v-layout>
           </v-container>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="blue darken-1" flat @click="dialog = false">Close</v-btn>
-          <v-btn color="blue darken-1" flat @click="onCreateCustomerQuote()">Save</v-btn>
+          <v-btn color="blue darken-1" flat type="submit">Save</v-btn>
         </v-card-actions>
       </v-card>
+      </v-form>
     </v-dialog>
   </v-layout>
 </template>
@@ -133,8 +145,8 @@ import { async } from 'q';
         dialog: false,
         items: ['Ordered', 'Pending'],
         search: '',
-        fixedMarkup: '',
-        percentageMarkup: '',
+        markupType: '',
+        markupValue: '',
         headers: [
           {
             text: 'Quote #',
@@ -218,9 +230,12 @@ import { async } from 'q';
       },
       async onCreateCustomerQuote() {
         try {
+          if (!this.$refs.form.validate()) {
+            return
+          }
           this.dialog = false;
           await axios.post('api/quotes/' + this.selectedQuoteId + '/customer-quotes', {
-            fixed_markup: this.fixedMarkup, percentage_markup: this.percentageMarkup
+            markup_type: this.markupType, markup_value: this.markupValue
           })
           this.$store.dispatch('responseMessage', {
             type: 'success',

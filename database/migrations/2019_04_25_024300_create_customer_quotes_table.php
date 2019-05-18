@@ -16,8 +16,8 @@ class CreateCustomerQuotesTable extends Migration
         Schema::create('customer_quotes', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedInteger('quote_id')->unique();
-            $table->unsignedDecimal('fixed_markup')->default(0);
-            $table->unsignedDecimal('percentage_markup')->default(0);
+            $table->string('markup_type');
+            $table->unsignedDecimal('markup_value')->default(0);
             $table->timestamps();
         });
     }
