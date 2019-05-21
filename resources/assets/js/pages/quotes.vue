@@ -38,7 +38,7 @@
 
     <v-flex>
       <v-card>
-        <v-card-title class="grey lighten-4">
+        <v-card-title class="bg-dark">
           <h3 class="headline mb-0">{{ $t('Quotes') }}</h3>
           <v-spacer></v-spacer>
          <v-tooltip top>
@@ -287,3 +287,11 @@
     },
   }
 </script>
+<style lang="stylus">
+  .bg-dark
+    background-color: rgb(116, 140, 93);
+    .headline
+      color: white;
+</style>>
+
+
