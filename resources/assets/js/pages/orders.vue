@@ -37,7 +37,7 @@
 
     <v-flex>
       <v-card>
-        <v-card-title>
+        <v-card-title class="bg-dark">
           <h3 class="headline mb-0">{{ $t('Orders') }}</h3>
         </v-card-title>
 

@@ -37,7 +37,7 @@
 
     <v-flex>
       <v-card>
-        <v-card-title class="grey lighten-4">
+        <v-card-title class="bg-dark">
           <h3 class="headline mb-0">{{ $t('Invoices') }}</h3>
         </v-card-title>
         <v-divider></v-divider>
