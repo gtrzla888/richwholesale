@@ -197,7 +197,7 @@
       },
       async loadCompanies () {
         try {
-          const { data } = await axios.get('/api/companies')
+          const { data } = await axios.get('/api/user/companies')
           this.companies = data
         } catch(e) {}
 

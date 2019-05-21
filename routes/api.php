@@ -34,6 +34,7 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     Route::get('quotes', 'QuoteController@index');
     Route::post('quotes/price', 'QuoteController@price');
+    Route::post('quotes/submit', 'QuoteController@bulkSubmit');
     Route::get('quotes/{quote}', 'QuoteController@show');
     Route::put('quotes/{quote}', 'QuoteController@update');
     Route::post('quotes', 'QuoteController@store');

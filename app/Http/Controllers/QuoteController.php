@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Company;
+use App\Http\Requests\BulkSubmitQuote;
 use App\User;
 use App\Order;
 use App\Quote;
@@ -24,13 +26,19 @@ class QuoteController extends Controller
          /** @var User $user */
          $user = request()->user();
 
-         $query = Quote::with('orders')->with('company')->with('orders.items.product')->where('status', Quote::STATUS_PENDING);
- 
-         if ($company = $request->get('company')) {
-             $query->where('company_id', $company);
-         } else {
-             $query->whereIn('company_id', $user->companies->pluck('id'));
-         }
+         $query = Quote::with('orders')->with('company')->with('orders.items.product');
+
+        if ($user->hasRole(User::ROLE_WHOLESALE_ADMIN) || $user->hasRole(User::ROLE_WHOLESALE_USER)) {
+            $companies = Company::all()->pluck('id');
+        } else {
+            $companies = $user->companies->pluck('id');
+        }
+
+        if ($company = $request->get('company')) {
+            $companies = $companies->intersect([$company]);
+        }
+
+        $query->whereIn('quotes.company_id', $companies);
  
          if ($createdAt = $request->get('created_at')) {
              $query->where('created_at', '>=', $createdAt);
@@ -230,6 +238,13 @@ class QuoteController extends Controller
         $quote->save();
 
         return $quote;
+    }
+
+    public function bulkSubmit(BulkSubmitQuote $request)
+    {
+        $validated = $request->validated();
+
+        Quote::whereIn('id', $validated['quote_ids'])->update(['status' => Quote::STATUS_ORDERED]);
     }
 
     public function delete(Quote $quote)

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Company;
 use App\User;
 use App\Order;
 use App\Quote;
@@ -18,11 +19,17 @@ class CustomerQuoteController extends Controller
 
         $query = CustomerQuote::join('quotes', 'customer_quotes.id', '=', 'quotes.id')->with('quote.orders.items.product')->with('quote.company');
 
-        if ($company = $request->get('company')) {
-            $query->where('quotes.company_id', $company);
+        if ($user->hasRole(User::ROLE_WHOLESALE_ADMIN) || $user->hasRole(User::ROLE_WHOLESALE_USER)) {
+            $companies = Company::all()->pluck('id');
         } else {
-            $query->whereIn('quotes.company_id', $user->companies->pluck('id'));
+            $companies = $user->companies->pluck('id');
         }
+
+        if ($company = $request->get('company')) {
+            $companies = $companies->intersect([$company]);
+        }
+
+        $query->whereIn('quotes.company_id', $companies);
 
         if ($createdAt = $request->get('created_at')) {
             $query->where('created_at', '>=', $createdAt);

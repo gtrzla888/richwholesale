@@ -23,6 +23,11 @@ class UsersTableSeeder extends Seeder
         $company2->abn = '2222222222';
         $company2->save();
 
+        $company3 = new Company();
+        $company3->name = 'Company Three';
+        $company3->abn = '333333333';
+        $company3->save();
+
         $user = new User();
         $user->name = 'Wholesale Admin';
         $user->email = 'wholesale.admin@thompsontech.com.au';
@@ -52,5 +57,22 @@ class UsersTableSeeder extends Seeder
         $user->role = User::ROLE_COMPANY_USER;
         $user->save();
         $user->companies()->saveMany([$company1, $company2]);
+
+        $user = new User();
+        $user->name = 'Company3 Admin';
+        $user->email = 'company3.admin@thompsontech.com.au';
+        $user->password = bcrypt('secretsecret');
+        $user->role = User::ROLE_COMPANY_ADMIN;
+        $user->save();
+        $user->companies()->saveMany([$company3]);
+
+        $user = new User();
+        $user->name = 'Company3 User';
+        $user->email = 'company3.user@thompsontech.com.au';
+        $user->password = bcrypt('secretsecret');
+        $user->role = User::ROLE_COMPANY_USER;
+        $user->save();
+        $user->companies()->saveMany([$company3]);
+
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Company;
 use App\Http\Requests\UpdateInvoice;
 use App\Invoice;
 use App\User;
@@ -17,9 +18,17 @@ class InvoiceController extends Controller
         $query = Invoice::join('orders', 'orders.id', '=', 'invoices.order_id')
                         ->join('quotes', 'orders.quote_id', '=', 'quotes.id')->with('order.quote.company');
 
-        if ($company = $request->get('company')) {
-            $query->where('quotes.company_id', $company);
+        if ($user->hasRole(User::ROLE_WHOLESALE_ADMIN) || $user->hasRole(User::ROLE_WHOLESALE_USER)) {
+            $companies = Company::all()->pluck('id');
+        } else {
+            $companies = $user->companies->pluck('id');
         }
+
+        if ($company = $request->get('company')) {
+            $companies = $companies->intersect([$company]);
+        }
+
+        $query->whereIn('quotes.company_id', $companies);
 
         if ($createdAt = $request->get('created_at')) {
             $query->where('created_at', '>=', $createdAt);

@@ -44,6 +44,7 @@
           </v-text-field>
 
           <v-text-field
+            v-if="productType==='basswood_shutters' || productType==='pvc_shutters' || productType==='aluminium_shutters' || productType==='au_pvc_shutters'"
             :value="product.sqm"
             label="Sqm(auto calculated)"
             readonly

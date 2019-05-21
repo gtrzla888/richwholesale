@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\AluminiumShutter;
 use App\AUPVCShutter;
 use App\BasswoodShutter;
+use App\Company;
 use App\Http\Requests\StoreQuote;
 use App\Order;
 use App\OrderItem;
@@ -29,9 +30,17 @@ class OrderController extends Controller
                 Order::STATUS_MANUFACTURING, Order::STATUS_COMPLETED
                 ]);
 
-        if ($company = $request->get('company')) {
-            $query->where('quotes.company_id', $company);
+        if ($user->hasRole(User::ROLE_WHOLESALE_ADMIN) || $user->hasRole(User::ROLE_WHOLESALE_USER)) {
+            $companies = Company::all()->pluck('id');
+        } else {
+            $companies = $user->companies->pluck('id');
         }
+
+        if ($company = $request->get('company')) {
+            $companies = $companies->intersect([$company]);
+        }
+
+        $query->whereIn('quotes.company_id', $companies);
 
         if ($createdAt = $request->get('created_at')) {
             $query->where('orders.created_at', '>=', $createdAt);

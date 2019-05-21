@@ -112,7 +112,6 @@ const productLines = [
       { text: 'Name', value: 'name', sortable: false },
       { text: 'Width(mm)', value: 'width', sortable: false },
       { text: 'Drop(mm)', value: 'drop', sortable: false },
-      { text: 'Sqm', value: 'sqm', sortable: false },
       { text: 'Type', value: 'type', sortable: false },
       { text: 'Fabric', value: 'fabric', sortable: false },
       { text: 'Colour', value: 'colour', sortable: false },

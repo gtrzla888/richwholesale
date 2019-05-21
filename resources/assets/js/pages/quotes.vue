@@ -9,6 +9,7 @@
         outline
         hide-details
       ></v-text-field>
+  
     </v-flex>
 
     <v-flex xs4>
@@ -39,38 +40,44 @@
       <v-card>
         <v-card-title class="grey lighten-4">
           <h3 class="headline mb-0">{{ $t('Quotes') }}</h3>
+          <v-spacer></v-spacer>
+         <v-tooltip top>
+              <template v-slot:activator="{ on }">
+                <v-btn fab small color="#748C5D" dark v-on="on" @click="submitOrder" :disabled="disabled">
+                  <v-icon>send</v-icon>
+                </v-btn>
+              </template>
+              <span>Submit Order</span>
+            </v-tooltip>
         </v-card-title>
         <v-divider></v-divider>
         <v-card-text>
           <v-data-table
+            v-model="selected"
             :headers="headers"
             :items="quotes"
             :search="search"
+            select-all
             class="elevation-1"
           >
             <template v-slot:items="props">
+              <td>
+                <v-checkbox
+                  v-model="props.selected"
+                  primary
+                  hide-details
+                ></v-checkbox>
+              </td>
               <td>{{ props.item.id }}</td>
               <td class="text-xs-left">{{ props.item.company.name }}</td>
               <td class="text-xs-left">{{ props.item.po_reference }}</td>
               <td class="text-xs-left">{{ props.item.updated_at }}</td>
               <td class="text-xs-left"> 
-                <v-edit-dialog
-                  :return-value.sync="props.item.status"
-                  large
-                  lazy
-                  @save="saveStatus(props.item)"
-                >
-                  {{ props.item.status }}
-                  <v-select
-                    slot="input"
-                    v-model="props.item.status"
-                    :items="items"
-                  ></v-select>
-                </v-edit-dialog>
+                 {{ props.item.status }}
                 </td>
               <td class="text-xs-left">{{ props.item.created_at }}</td>
               <td class="text-xs-lef">
-                <v-menu offset-x left bottom>
+                <v-menu offset-x left bottom v-if="props.item.status === 'Pending'">
                   <v-btn
                     icon
                     slot="activator">
@@ -137,11 +144,13 @@
 <script>
   import axios from 'axios'
   import moment from 'moment'
-import { async } from 'q';
+  import { async } from 'q'
+  import _ from 'lodash'
 
   export default {
     data () {
       return {
+        selected: [],
         dialog: false,
         items: ['Ordered', 'Pending'],
         search: '',
@@ -207,6 +216,18 @@ import { async } from 'q';
         } catch (e) {
         }
       },
+      async submitOrder() {
+        const selectedIds = _.map(this.selected, 'id')
+        try {
+          const { data } = await axios.post('/api/quotes/submit', { quote_ids: selectedIds })
+           this.$store.dispatch('responseMessage', {
+            type: 'success',
+            text: this.$t('Quotes Submited')
+            })
+        } catch (e) {
+        }
+
+      },
       edit (quote) {
           this.selectedQuoteId = quote.id
           try {
@@ -252,6 +273,11 @@ import { async } from 'q';
       createdAt () {
         this.loadQuotes()
       },
+    },
+    computed: {
+      disabled() {
+          return this.selected.length < 1; // or === 0   
+      }
     },
     created () {
       this.loadQuotes()
