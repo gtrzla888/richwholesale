@@ -220,6 +220,8 @@
         const selectedIds = _.map(this.selected, 'id')
         try {
           const { data } = await axios.post('/api/quotes/submit', { quote_ids: selectedIds })
+            this.loadQuotes()
+            this.selected = []
            this.$store.dispatch('responseMessage', {
             type: 'success',
             text: this.$t('Quotes Submited')

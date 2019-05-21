@@ -14,6 +14,8 @@ class Quote extends Model
 {
     use SoftDeletes;
 
+    protected $guarded = [];
+
     const STATUS_PENDING = 'Pending';
     const STATUS_ORDERED = 'Ordered';
 

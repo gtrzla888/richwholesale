@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use App\Http\Resources\Shutter as ShutterResource;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\Company as CompanyResource;
 
 class Quote extends JsonResource
 {
@@ -25,7 +26,11 @@ class Quote extends JsonResource
             'pvc_shutters' => $this->pvc_shutters,
             'au_pvc_shutters' => $this->au_pvc_shutters,
             'aluminium_shutters' => $this->aluminium_shutters,
-            'roller_blinds' => $this->roller_blinds
+            'roller_blinds' => $this->roller_blinds,
+            'company' => new CompanyResource($this->company),
+            'status' => $this->status,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ];
     }
 }

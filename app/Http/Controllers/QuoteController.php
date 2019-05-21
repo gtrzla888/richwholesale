@@ -244,7 +244,13 @@ class QuoteController extends Controller
     {
         $validated = $request->validated();
 
-        Quote::whereIn('id', $validated['quote_ids'])->update(['status' => Quote::STATUS_ORDERED]);
+        $quotes = Quote::whereIn('id', $validated['quote_ids'])->get();
+
+        $quotes->each(function (Quote $quote) {
+            $quote->update(['status' => Quote::STATUS_ORDERED]);
+        });
+
+        return QuoteResource::collection($quotes);
     }
 
     public function delete(Quote $quote)
