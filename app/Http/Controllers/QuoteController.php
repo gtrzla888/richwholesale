@@ -247,6 +247,10 @@ class QuoteController extends Controller
         $quotes = Quote::whereIn('id', $validated['quote_ids'])->get();
 
         $quotes->each(function (Quote $quote) {
+            $quote->orders->each(function(Order $order) {
+                $order->update(['status' => Order::STATUS_ORDERED]);
+            });
+            
             $quote->update(['status' => Quote::STATUS_ORDERED]);
         });
 
