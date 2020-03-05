@@ -3,46 +3,18 @@ services:
     web:
         build:
             context: ./docker
-        container_name: richwholesale.local
+        container_name: richwholesale
         ports:
-            - 80:80
-        links:
-            - mysql
+            - 8080:80
         volumes:
-            - .:/var/www
-            - ~/.ssh/:/root/.ssh/
+            - ./:/var/www:cached
+            - ~/.ssh:/root/.ssh:cached
             - ./docker/php.ini:/usr/local/etc/php/conf.d/php.ini
         environment:
             DB_HOST: mysql
         networks:
-            - app-network
-
-    mysql:
-        image: mysql:5.7
-        environment:
-            MYSQL_DATABASE: richwholesale
-            MYSQL_USER: root
-            MYSQL_PASSWORD: secret
-            MYSQL_ROOT_PASSWORD: secret
-        ports:
-            - 3306:3306
-        volumes:
-            - mysqldata:/var/lib/mysql
-        networks:
-            - app-network
-
-    redis:
-        image: redis
-        ports:
-            - 6379:6379
-        volumes:
-            - redisdata:/data
-        networks:
-            - app-network
-
-volumes:
-    mysqldata:
-    redisdata:
+            - default
 networks:
-    app-network:
-        driver: "bridge"
+    default:
+        external:
+            name: melbrother_network

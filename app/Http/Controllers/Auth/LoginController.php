@@ -23,7 +23,7 @@ class LoginController extends Controller
     /**
      * Attempt to log the user into the application.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request  $request
      * @return bool
      */
     protected function attemptLogin(Request $request)
@@ -42,7 +42,7 @@ class LoginController extends Controller
     /**
      * Send the response after the user was authenticated.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Request  $request
      * @return \Illuminate\Http\Response
      */
     protected function sendLoginResponse(Request $request)
