@@ -2,14 +2,31 @@
 
 namespace App\Http\Controllers\Auth;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Http\Response;
 
 class LoginController extends Controller
 {
+    /*
+    |--------------------------------------------------------------------------
+    | Login Controller
+    |--------------------------------------------------------------------------
+    |
+    | This controller handles authenticating users for the application and
+    | redirecting them to your home screen. The controller uses a trait
+    | to conveniently provide its functionality to your applications.
+    |
+    */
+
     use AuthenticatesUsers;
+
+    /**
+     * Where to redirect users after login.
+     *
+     * @var string
+     */
+    protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
      * Create a new controller instance.
@@ -19,55 +36,5 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
-    }
-
-    /**
-     * Attempt to log the user into the application.
-     *
-     * @param Request  $request
-     * @return bool
-     */
-    protected function attemptLogin(Request $request)
-    {
-        $token = $this->guard()->attempt($this->credentials($request));
-
-        if ($token) {
-            $this->guard()->setToken($token);
-
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * Send the response after the user was authenticated.
-     *
-     * @param  Request  $request
-     * @return array
-     */
-    protected function sendLoginResponse(Request $request)
-    {
-        $this->clearLoginAttempts($request);
-
-        $token = (string) $this->guard()->getToken();
-        $expiration = $this->guard()->getPayload()->get('exp');
-
-        return [
-            'token' => $token,
-            'token_type' => 'bearer',
-            'expires_in' => $expiration - time(),
-        ];
-    }
-
-    /**
-     * Log the user out of the application.
-     *
-     * @param  Request  $request
-     * @return void
-     */
-    public function logout(Request $request)
-    {
-        $this->guard()->logout();
     }
 }

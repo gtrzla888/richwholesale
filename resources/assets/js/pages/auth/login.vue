@@ -58,6 +58,8 @@
 
 <script>
 import Form from 'vform'
+import axios from 'axios'
+
 import { validateMixin } from '~/plugins/validation';
 
 export default {
@@ -81,11 +83,13 @@ export default {
       if (await this.formHasErrors()) return
       this.busy = true
 
-      // Submit the form.
-      const { data } = await this.form.post('/api/login')
+      const { data } = await axios.get('/airlock/csrf-cookie');
       console.log(data)
+      // Submit the form.
+      await this.form.post('/login')
+
       // Save the token.
-      this.$store.dispatch('saveToken', {
+      await this.$store.dispatch('saveToken', {
         token: data.token,
         remember: this.remember
       })
@@ -96,7 +100,7 @@ export default {
       this.busy = false
 
       // Redirect home.
-      this.$router.push({ name: 'home' })
+      await this.$router.push({ name: 'home' })
     },
     created() {
       console.log('created', this)

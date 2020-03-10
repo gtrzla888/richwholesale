@@ -13,4 +13,9 @@
 
 Route::get('{path}', 'SpaController@index')->where('path', '(.*)');
 
-Route::get('password/reset/{token}', 'SpaController@index')->name('password.reset');
+Route::group(['middleware' => 'guest'], function () {
+    Route::post('login', 'Auth\LoginController@login');
+    Route::post('register', 'Auth\RegisterController@register');
+    Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
+    Route::post('password/reset', 'Auth\ResetPasswordController@reset');
+});
