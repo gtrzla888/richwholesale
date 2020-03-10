@@ -1,17 +1,27 @@
 version: '3'
 services:
-    web:
-        build:
-            context: ./docker
+    php-fpm:
         container_name: richwholesale
-        ports:
-            - 8080:80
+        build:
+            context: ./docker/php-fpm
         volumes:
             - ./:/var/www:cached
             - ~/.ssh:/root/.ssh:cached
-            - ./docker/php.ini:/usr/local/etc/php/conf.d/php.ini
-        environment:
-            DB_HOST: mysql
+        networks:
+            - default
+    nginx:
+        build:
+            context: ./docker/nginx
+        volumes:
+            - ./:/var/www:cached
+            - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
+            - ./docker/nginx/sites/:/etc/nginx/sites-available
+            - ./docker/nginx/conf.d/:/etc/nginx/conf.d
+            - ./docker/logs:/var/log
+        depends_on:
+            - php-fpm
+        ports:
+            - "8080:80"
         networks:
             - default
 networks:
