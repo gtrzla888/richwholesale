@@ -3,6 +3,8 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class Handler extends ExceptionHandler
 {
@@ -30,8 +32,10 @@ class Handler extends ExceptionHandler
      *
      * This is a great spot to send exceptions to Sentry, Bugsnag, etc.
      *
-     * @param  \Exception  $exception
+     * @param \Throwable $exception
+     *
      * @return void
+     * @throws \Exception
      */
     public function report(\Throwable $exception)
     {
@@ -41,10 +45,10 @@ class Handler extends ExceptionHandler
     /**
      * Render an exception into an HTTP response.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @param \Throwable               $exception
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      * @throws \Throwable
      */
     public function render($request, \Throwable $exception)

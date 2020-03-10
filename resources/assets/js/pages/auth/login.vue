@@ -62,6 +62,7 @@ import axios from 'axios'
 
 import { validateMixin } from '~/plugins/validation';
 
+
 export default {
   name: 'login-view',
   metaInfo () {
@@ -82,17 +83,15 @@ export default {
     async login () {
       if (await this.formHasErrors()) return
       this.busy = true
-
-      const { data } = await axios.get('/airlock/csrf-cookie');
-      console.log(data)
+      await axios.get('/airlock/csrf-cookie');
       // Submit the form.
       await this.form.post('/login')
 
       // Save the token.
-      await this.$store.dispatch('saveToken', {
-        token: data.token,
-        remember: this.remember
-      })
+      // await this.$store.dispatch('saveToken', {
+      //   token: data.token,
+      //   remember: this.remember
+      // })
 
       // Fetch the user.
       await this.$store.dispatch('fetchUser')
