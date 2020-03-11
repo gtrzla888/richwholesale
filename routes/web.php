@@ -19,3 +19,7 @@ Route::group(['middleware' => 'guest'], function () {
     Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
     Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 });
+
+
+Route::post('logout', 'Auth\LoginController@logout');
+

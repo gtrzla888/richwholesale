@@ -14,7 +14,7 @@ use Illuminate\Http\Request;
 */
 
 Route::group(['middleware' => 'auth:airlock'], function () {
-    Route::post('logout', 'Auth\LoginController@logout');
+
 
     Route::get('user', 'UserController@index');
     Route::get('user/companies', 'UserController@companies');
