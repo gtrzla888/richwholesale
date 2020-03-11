@@ -2,13 +2,13 @@
 
 namespace App;
 
-use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laravel\Airlock\HasApiTokens;
 
-class User extends Authenticatable implements JWTSubject
+class User extends Authenticatable
 {
-    use Notifiable;
+    use HasApiTokens, Notifiable;
 
     const ROLE_WHOLESALE_ADMIN = 'ROLE_WHOLESALE_ADMIN';
     const ROLE_WHOLESALE_USER = 'ROLE_WHOLESALE_ADMIN';

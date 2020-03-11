@@ -3,12 +3,13 @@ import store from '~/store'
 import router from '~/router'
 import i18n from './vue-i18n'
 
-axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
+// axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
+axios.defaults.withCredentials = true
 
 axios.interceptors.request.use(request => {
-  if (store.getters.authToken) {
-    request.headers.common['Authorization'] = `Bearer ${store.getters.authToken}`
-  }
+  // if (store.getters.authToken) {
+  //   request.headers.common['Authorization'] = `Bearer ${store.getters.authToken}`
+  // }
 
   request.headers.common['Accept'] = 'application/json'
 
@@ -34,11 +35,11 @@ axios.interceptors.response.use(response => response, error => {
       title: i18n.t('token_expired_alert_title'),
       modal: true
     })
-    .then(async () => {
-      await store.dispatch('logout')
+      .then(async () => {
+        await store.dispatch('logout')
 
-      router.push({ name: 'login' })
-    })
+        router.push({ name: 'login' })
+      })
   }
 
   return Promise.reject(error)

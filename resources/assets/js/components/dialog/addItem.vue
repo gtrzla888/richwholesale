@@ -25,7 +25,7 @@
           <v-text-field
             v-model="product.width"
             label="Width(mm)"
-            :rules="[v => !!v || 'Width is required']"
+            :rules="withRules"
             type="number"
             min="0"
             required
@@ -384,7 +384,46 @@
                  v && v.length <= 10
                ) || 'Name must be less than 10 characters',
         ]
-      }, 
+      },
+      withRules() {
+        switch (this.productType) {
+          case 'pvc_shutters':
+            return [
+              v => !!v || 'Width is required',
+              v => (
+                v && v >= 300
+              ) || 'Width must be greater than 300mm',
+            ]
+          case 'au_pvc_shutters':
+            return [
+              v => !!v || 'Width is required',
+              v => (
+                v && v <= 2440 && v >= 250
+              ) || 'Width must be greater than 250mm',
+            ]
+          case 'aluminium_shutters':
+            return [
+              v => !!v || 'Width is required',
+              v => (
+                v && v >= 250
+              ) || 'Width must be greater than 250mm',
+            ]
+          case 'basswood_shutters':
+            return [
+              v => !!v || 'Width is required',
+              v => (
+                v && v >= 300
+              ) || 'Width must be greater than 300mm',
+            ]
+          case 'roller_blinds':
+            return [
+              v => !!v || 'Width is required',
+              v => (
+                v && v <= 3010
+              ) || 'Width must be less than 3010mm',
+            ]
+        }
+      },
       dropRules () {
         switch (this.productType) {
           case 'pvc_shutters':
@@ -1050,7 +1089,7 @@
               this.product.mid_rail = 'NA',
               this.product.frame = 'No Frame'
               break
-            case 'roller_blinds': 
+            case 'roller_blinds':
               this.product.motor_type = 'NA'
               this.product.charger=  'NA',
               this.product.wifi_hub= 'NA',

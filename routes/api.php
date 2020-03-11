@@ -13,8 +13,8 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::group(['middleware' => 'auth:api'], function () {
-    Route::post('logout', 'Auth\LoginController@logout');
+Route::group(['middleware' => 'auth:airlock'], function () {
+
 
     Route::get('user', 'UserController@index');
     Route::get('user/companies', 'UserController@companies');
@@ -53,10 +53,4 @@ Route::group(['middleware' => 'auth:api'], function () {
 
 });
 
-Route::group(['middleware' => 'guest:api'], function () {
-    Route::post('login', 'Auth\LoginController@login');
-    Route::post('register', 'Auth\RegisterController@register');
-    Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
-    Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
-});

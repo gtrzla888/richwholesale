@@ -92,7 +92,7 @@ export default {
 
   methods: {
     async register () {
-      if (await this.formHasErrors()) return
+//      if (await this.formHasErrors()) return
 
       // Register the user.
       const { data } = await this.form.post('/api/register')
@@ -101,13 +101,13 @@ export default {
       const { data: { token }} = await this.form.post('/api/login')
 
       // Save the token.
-      this.$store.dispatch('saveToken', { token })
+      await this.$store.dispatch('saveToken', { token })
 
       // Update the user.
       await this.$store.dispatch('updateUser', { user: data })
 
       // Redirect home.
-      this.$router.push({ name: 'home' })
+      await this.$router.push({ name: 'home' })
     }
   }
 }
